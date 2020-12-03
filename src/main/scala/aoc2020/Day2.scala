@@ -3,7 +3,7 @@ package aoc2020
 object Day2 {
 
   def main(): Unit = {
-    val input = readFileToArray("aoc2020/day2.input")
+    val input = readFileToIterable("aoc2020/day2.input")
     val valid = input.count(l => {
       val line = l.split(" ")
       val count = line(0)

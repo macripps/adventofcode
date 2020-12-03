@@ -3,7 +3,7 @@ package aoc2020
 object Day1 {
 
   def main(): Unit = {
-    val input = readFileToArray("day1.input").map(l => Integer.parseInt(l)).toArray.sorted
+    val input = readFileToIterable("day1.input").map(l => Integer.parseInt(l)).toArray.sorted
     val pair = findPairThatSumTo(input, 2020)
     pair foreach { p =>
       println("Day1.1: The product of " + p._1 + " and " + p._2 + " is " + (p._1 * p._2))
