@@ -7,6 +7,7 @@ object AdventOfCode extends App {
     println("Advent Of Code 2020")
 //    Day1.main()
 //    Day2.main()
-    Day3.main()
+//    Day3.main()
+    Day4.main()
   }
 }
