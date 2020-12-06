@@ -8,8 +8,8 @@ object AdventOfCode extends App {
 //    Day1.main()
 //    Day2.main()
 //    Day3.main()
-    Day4.main()
+//    Day4.main()
 //    Day5.main()
-//    Day6.main()
+    Day6.main()
   }
 }
