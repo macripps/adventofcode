@@ -40,19 +40,26 @@ object Day8 {
       (false, accumulator)
     } else {
       val instruction = program(instructionCounter).split(" ")
-      var nextInstructionCounter = instructionCounter + 1
-      var nextAccumulator = accumulator
       instruction(0) match {
         case "acc" => {
-          nextAccumulator = accumulator + instruction(1).toInt
+          execute2(program,
+            instructionCounter + 1,
+            accumulator + instruction(1).toInt,
+            executedInstructions + instructionCounter)
         }
         case "jmp" => {
-          nextInstructionCounter = instructionCounter + instruction(1).toInt
+          execute2(program,
+            instructionCounter + instruction(1).toInt,
+            accumulator,
+            executedInstructions + instructionCounter)
         }
         case "nop" => {
+          execute2(program,
+            instructionCounter + 1,
+            accumulator,
+            executedInstructions + instructionCounter)
         }
       }
-      execute2(program, nextInstructionCounter, nextAccumulator, executedInstructions + instructionCounter)
     }
   }
 
