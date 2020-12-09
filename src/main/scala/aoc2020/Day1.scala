@@ -3,7 +3,7 @@ package aoc2020
 object Day1 {
 
   def main(): Unit = {
-    val input = readFileToIterable("day1.input").map(l => Integer.parseInt(l)).toArray.sorted
+    val input = readFileToIterable("day1.input").map(_.toLong).toArray.sorted
     val pair = findPairThatSumTo(input, 2020)
     pair foreach { p =>
       println("Day1.1: The product of " + p._1 + " and " + p._2 + " is " + (p._1 * p._2))
@@ -14,7 +14,7 @@ object Day1 {
     }
   }
 
-  def findPairThatSumTo(nums: Array[Int], total: Int): Option[(Int, Int)] = {
+  def findPairThatSumTo(nums: Array[Long], total: Long): Option[(Long, Long)] = {
     var lower = 0
     var upper = nums.length - 1
     while (lower < upper && nums(lower) + nums(upper) != total) {
@@ -27,7 +27,7 @@ object Day1 {
     if (nums(lower) + nums(upper) == total) Some(nums(lower), nums(upper)) else None
   }
 
-  def findTripleThatSumTo(nums: Array[Int], total: Int): Option[(Int, Int, Int)] = {
+  def findTripleThatSumTo(nums: Array[Long], total: Long): Option[(Long, Long, Long)] = {
     if (nums.length < 3) None else {
       var lower = 0
       var upper = nums.length - 1
