@@ -6,8 +6,8 @@ class Day1Test extends AnyFunSuite {
 
   val testData = initTestData()
 
-  def initTestData(): Array[Int] = {
-    Array[Int](375,
+  def initTestData(): Array[Long] = {
+    Array[Long](375,
       600,
       716,
       934,
