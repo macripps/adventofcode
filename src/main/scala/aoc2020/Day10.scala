@@ -38,7 +38,6 @@ object Day10 {
 
   def iPart2(adapters: Array[Int], start: Int): Long = {
     if (cache.contains(start)) {
-      println("From cache: " + start + ": " + cache(start))
       cache(start)
     } else {
     if (start == adapters.length - 1) {
@@ -48,11 +47,9 @@ object Day10 {
       (start + 1 until adapters.length).foreach { i =>
         if (adapters(i) - adapters(start) <= 3) {
           // This adapter is optional
-          println("Swizzling " + adapters(i))
           perms = perms + iPart2(adapters, i)
         }
       }
-      println("Perms:" + perms)
       cache(start) = perms
       perms
     }
