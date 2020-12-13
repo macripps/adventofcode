@@ -8,7 +8,7 @@ package object aoc2020 {
     Source.fromResource(filename).getLines().to(Iterable)
   }
 
-  def asGroupsSeparatedByBlankLines(lines: Iterable[String]): Iterable[Iterable[String]] = {
+  def asGroupsSeparatedByBlankLines(lines: Array[String]): Iterable[Iterable[String]] = {
     val out = mutable.ListBuffer[List[String]]()
     val currentGroup = mutable.ListBuffer[String]()
     (lines ++ single("")).foreach { line =>

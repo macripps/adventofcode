@@ -1,21 +1,19 @@
 package aoc2020
 
+import aoc.Day
+
 import scala.annotation.tailrec
 
-object Day8 {
+class Day8 extends Day {
+  override def year: Int = 2020
+  override def day: Int = 8
 
-  def main(): Unit = {
-    val program = readFileToIterable("aoc2020/day8.input").toArray
-    part1(program)
-    part2(program)
-  }
-
-  private def part1(program: Array[String]) = {
+  override def part1(program: Array[String]): String = {
     val result = executeProgram(program)
-    println("The accumulator value is " + result._2)
+    "The accumulator value is " + result._2
   }
 
-  private def part2(program: Array[String]) = {
+  override def part2(program: Array[String]): String = {
     val successfulAccumulator = program.indices.flatMap { l =>
       var command: String = program(l)
       if (command.startsWith("nop")) {
@@ -25,7 +23,7 @@ object Day8 {
       }
       Some(executeProgram(program.take(l) ++ Seq(command) ++ program.drop(l + 1)))
     }.filter { r => r._1 }.head._2
-    println("The accumulator value of the first successful execution is " + successfulAccumulator)
+    "The accumulator value of the first successful execution is " + successfulAccumulator
   }
 
   def executeProgram(program: Array[String]): (Boolean, Int) = {
@@ -33,7 +31,7 @@ object Day8 {
   }
 
   @tailrec
-  def execute2(program: Array[String], instructionCounter: Int, accumulator: Int, executedInstructions: Set[Int]): (Boolean, Int) = {
+  private[this] def execute2(program: Array[String], instructionCounter: Int, accumulator: Int, executedInstructions: Set[Int]): (Boolean, Int) = {
     if (instructionCounter >= program.length) {
       (true, accumulator)
     } else if (executedInstructions.contains(instructionCounter)) {
@@ -62,5 +60,8 @@ object Day8 {
       }
     }
   }
+}
 
+object Day8 {
+  def apply() = new Day8()
 }

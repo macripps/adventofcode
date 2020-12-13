@@ -3,6 +3,7 @@ package aoc2020
 import org.scalatest.funsuite.AnyFunSuite
 
 class Day7Test extends AnyFunSuite {
+  import Day7._
 
   test("shiny gold contained within bags") {
     assert(Day7.part1(Colour("shiny gold"), Set(

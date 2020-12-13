@@ -1,15 +1,12 @@
 package aoc2020
 
-object Day12 {
+import aoc.Day
 
-  def main(): Unit = {
-    val lines = readFileToIterable("aoc2020/day12.input")
+class Day12 extends Day {
+  override def year: Int = 2020
+  override def day: Int = 12
 
-    part1(lines)
-    part2(lines)
-  }
-
-  def part1(lines: Iterable[String]) = {
+  override def part1(lines: Array[String]): String = {
     var pos = (0, 0)
     val dirs = Seq((1, 0), (0, -1), (-1, 0), (0, 1))
     var dir = 0
@@ -41,10 +38,10 @@ object Day12 {
       pos = (pos._1 + delta._1, pos._2 + delta._2)
     }
 
-    println("Manhattan Distance: " + (math.abs(pos._1) + math.abs(pos._2)))
+    "Manhattan Distance: " + (math.abs(pos._1) + math.abs(pos._2))
   }
 
-  def part2(lines: Iterable[String]): Unit = {
+  override def part2(lines: Array[String]): String = {
     var pos = (0, 0)
     var waypoint = (10, 1)
     lines.foreach { l =>
@@ -73,6 +70,10 @@ object Day12 {
           }
       }
     }
-    println("Manhattan Distance: " + (math.abs(pos._1) + math.abs(pos._2)))
+    "Manhattan Distance: " + (math.abs(pos._1) + math.abs(pos._2))
   }
+}
+
+object Day12 {
+  def apply() = new Day12
 }

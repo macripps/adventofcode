@@ -1,33 +1,42 @@
 package aoc2020
 
-object Day11 {
+import aoc.Day
 
-  def main(): Unit = {
-    val input = readFileToIterable("aoc2020/day11.input")
-    part1(input)
-    part2(input)
-  }
+class Day11 extends Day {
+  override def year: Int = 2020
+  override def day: Int = 11
 
-  def part1(input: Iterable[String]): Unit = {
-    var grid = input.toArray.map(_.toCharArray)
+  override def part1(input: Array[String]): String = {
+    var grid = input.map(_.toCharArray)
     var it = 1
-    var nextGrid = iterate1(grid)
-    while (different(grid, nextGrid)) {
-      println("Iterations: " + it)
-      println("Occupied: " + nextGrid.map { x => x.count { p => p == '#' } }.sum)
+    var nextGrid = Day11.iterate1(grid)
+    while (Day11.different(grid, nextGrid)) {
       grid = nextGrid
-      nextGrid = iterate1(grid)
+      nextGrid = Day11.iterate1(grid)
       it = it + 1
     }
+   "Iterations: " + it + ", Occupied: " + nextGrid.map { x => x.count { p => p == '#' } }.sum
   }
 
-  def adjacency1(grid: Array[Array[Char]], i: Int, j: Int): Int = {
-    math.max(0, i - 1).to(math.min(grid.length - 1, i + 1)).flatMap { y =>
-      math.max(0, j - 1).to(math.min(grid(i).length - 1, j + 1)).map { x =>
-        if (x == j && y == i) 0 else if (grid(y)(x) == '#') 1 else 0
-      }
-    }.sum
+  def toString(grid: Array[Array[Char]]): String = {
+    grid.map(_.mkString("")).mkString("\n")
   }
+
+  override def part2(input: Array[String]): String = {
+    var grid = input.map(_.toCharArray)
+    var it = 1
+    var nextGrid = Day11.iterate2(grid)
+    while (Day11.different(grid, nextGrid)) {
+      grid = nextGrid
+      nextGrid = Day11.iterate2(grid)
+      it = it + 1
+    }
+    "Iterations: " + it + ", Occupied: " + nextGrid.map { x => x.count { p => p == '#' } }.sum
+  }
+}
+
+object Day11 {
+  def apply() = new Day11
 
   def iterate1(grid: Array[Array[Char]]): Array[Array[Char]] = {
     val nextGrid = Array.ofDim[Char](grid.length, grid(0).length)
@@ -46,6 +55,14 @@ object Day11 {
     nextGrid
   }
 
+  def adjacency1(grid: Array[Array[Char]], i: Int, j: Int): Int = {
+    math.max(0, i - 1).to(math.min(grid.length - 1, i + 1)).flatMap { y =>
+      math.max(0, j - 1).to(math.min(grid(i).length - 1, j + 1)).map { x =>
+        if (x == j && y == i) 0 else if (grid(y)(x) == '#') 1 else 0
+      }
+    }.sum
+  }
+
   def different(grid1: Array[Array[Char]], grid2: Array[Array[Char]]): Boolean = {
     var same = true
     grid1.indices.foreach { i =>
@@ -56,22 +73,6 @@ object Day11 {
     !same
   }
 
-  def toString(grid: Array[Array[Char]]): String = {
-    grid.map(_.mkString("")).mkString("\n")
-  }
-
-  def part2(input: Iterable[String]): Unit = {
-    var grid = input.toArray.map(_.toCharArray)
-    var it = 1
-    var nextGrid = iterate2(grid)
-    while (different(grid, nextGrid)) {
-      println("Iterations: " + it)
-      println("Occupied: " + nextGrid.map { x => x.count { p => p == '#' } }.sum)
-      grid = nextGrid
-      nextGrid = iterate2(grid)
-      it = it + 1
-    }
-  }
   def adjacency2(grid: Array[Array[Char]], i: Int, j: Int): Int = {
     val directions = Seq((-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1))
     directions.map { d =>

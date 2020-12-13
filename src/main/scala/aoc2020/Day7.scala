@@ -1,30 +1,43 @@
 package aoc2020
 
+import aoc.Day
+
 import scala.collection.mutable
+import Day7._
 
-case class Colour(c: String)
+class Day7 extends Day {
+  override def year: Int = 2020
+  override def day: Int = 7
 
-case class Edge(c1: Colour, c2: Colour, n: Int)
+  override def part1(input: Array[String]): String = {
+    "Shiny gold bags are contained within " + Day7.part1(Colour("shiny gold"), parse(input)) + " other bags"
+  }
+
+  override def part2(input: Array[String]): String = {
+    "Shiny gold bags contain " + Day7.part2(Colour("shiny gold"), parse(input)) + " other bags"
+  }
+}
 
 object Day7 {
+  case class Colour(c: String)
 
-  def main(): Unit = {
-    val lines = readFileToIterable("aoc2020/day7.input")
-    val colourGraph = lines.flatMap { line =>
+  case class Edge(c1: Colour, c2: Colour, n: Int)
+
+  def apply() = new Day7()
+
+  def parse(lines: Array[String]): Array[Edge] = {
+    lines.flatMap { line =>
       // shiny orange bags contain 3 dim cyan bags, 1 mirrored beige bag, 5 pale orange bags.
       // (colour) bags contain {# (color) bag(s),}+
       val lr = line.split(" bags contain ")
       if (lr(1).equals("no other bags.")) {
-        Seq()
+        Array[Edge]()
       } else {
         lr(1).dropRight(1).split(", ")
           .map(c => if (c.endsWith("s")) c.dropRight(5) else c.dropRight(4))
           .map(c => Edge(Colour(lr(0)), Colour(c.drop(2)), c.take(1).toInt))
       }
     }
-
-    println("Shiny gold bags are contained within " + part1(Colour("shiny gold"), colourGraph) + " other bags")
-    println("Shiny gold bags contain " + part2(Colour("shiny gold"), colourGraph) + " other bags")
   }
 
   def part1(search: Colour, colourGraph: Iterable[Edge]): Int = {
@@ -58,5 +71,4 @@ object Day7 {
     }.sum + 1
     n
   }
-
 }

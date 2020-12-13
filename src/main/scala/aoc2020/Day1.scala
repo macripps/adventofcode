@@ -1,17 +1,31 @@
 package aoc2020
 
-object Day1 {
+import aoc.Day
 
-  def main(): Unit = {
-    val input = readFileToIterable("day1.input").map(_.toLong).toArray.sorted
-    val pair = findPairThatSumTo(input, 2020)
-    pair foreach { p =>
-      println("Day1.1: The product of " + p._1 + " and " + p._2 + " is " + (p._1 * p._2))
+class Day1 extends Day {
+  override val year = 2020
+  override val day = 1
+
+  override def part1(input: Array[String]): String = {
+    val pair = Day1.findPairThatSumTo(input.map(_.toLong).sorted, 2020)
+    pair match {
+      case Some(p) => "The product of " + p._1 + " and " + p._2 + " is " + (p._1 * p._2)
+      case None => "No pair summed to 2020"
     }
-    val trio = findTripleThatSumTo(input, 2020)
-    trio foreach { t =>
-      println("Day1.2: The product of " + t._1 + " and " + t._2 + " and " + t._3 + " is " + (t._1 * t._2 * t._3))
+  }
+
+  override def part2(input: Array[String]): String = {
+    val trio = Day1.findTripleThatSumTo(input.map(_.toLong).sorted, 2020)
+    trio match {
+      case Some(t) => "The product of " + t._1 + " and " + t._2 + " and " + t._3 + " is " + (t._1 * t._2 * t._3)
+      case None => "No trio summed to 2020"
     }
+  }
+}
+
+object Day1 {
+  def apply(): Day1 = {
+    new Day1()
   }
 
   def findPairThatSumTo(nums: Array[Long], total: Long): Option[(Long, Long)] = {
@@ -33,7 +47,6 @@ object Day1 {
       var upper = nums.length - 1
       var floater = 1
       while (lower < upper && nums(lower) + nums(floater) + nums(upper) != total) {
-        println(lower, floater, upper)
         floater = lower + 1
         while (floater < upper && nums(lower) + nums(floater) + nums(upper) < total) {
           floater = floater + 1

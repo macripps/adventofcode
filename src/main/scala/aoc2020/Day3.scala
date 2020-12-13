@@ -1,9 +1,17 @@
 package aoc2020
 
-object Day3 {
+import aoc.Day
+import aoc2020.Day3.treesHit
 
-  def main(): Unit = {
-    val lines = readFileToIterable("aoc2020/day3.input").toArray
+class Day3 extends Day {
+  override val year = 2020
+  override val day = 3
+
+  override def part1(input: Array[String]): String = {
+    "You hit " + Day3.treesHit((3, 1), input) + " trees"
+  }
+
+  override def part2(input: Array[String]): String = {
     val slopes = Array[(Int,Int)](
       (1, 1),
       (3, 1),
@@ -11,23 +19,25 @@ object Day3 {
       (7, 1),
       (1, 2),
     )
-    var total = 1
-    slopes.foreach { slope =>
-      var x = 0
-      var y = 0
-      var trees = 0
-      while (x < lines.length) {
-        val pos = lines(x).charAt(y)
-        if (pos == '#') {
-          trees = trees + 1
-        }
-        y = (y + slope._1) % lines(x).length
-        x = x + slope._2
-      }
-      println("You hit " + trees + " trees.")
-      total *= trees
-    }
-    println("The total is " + total)
+    "You hit " + slopes.map(treesHit(_, input)).product + " trees"
   }
+}
 
+object Day3 {
+  def apply() = new Day3()
+
+  def treesHit(slope: (Int, Int), lines: Array[String]): Long = {
+    var x = 0
+    var y = 0
+    var trees = 0L
+    while (x < lines.length) {
+      val pos = lines(x).charAt(y)
+      if (pos == '#') {
+        trees = trees + 1
+      }
+      y = (y + slope._1) % lines(x).length
+      x = x + slope._2
+    }
+    trees
+  }
 }

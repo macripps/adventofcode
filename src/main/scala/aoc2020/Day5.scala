@@ -1,17 +1,24 @@
 package aoc2020
 
-object Day5 {
+import aoc.Day
+import aoc2020.Day5.{binaryToInt, sumFrom, toBinary}
 
-  def main(): Unit = {
-    val lines = readFileToIterable("aoc2020/day5.input")
-    val seatIds = lines.map(toBinary).map(binaryToInt)
+class Day5 extends Day {
+  override def year: Int = 2020
+  override def day: Int = 5
 
-    println("The highest SeatID is " + seatIds.max)
-
-    val sorted = seatIds.toArray.sorted
-    val missing = sumFrom(sorted.head, sorted.last) - sorted.sum
-    println("The missing SeatID is " + missing)
+  override def part1(input: Array[String]): String = {
+    "The highest SeatID is " + input.map(toBinary).map(binaryToInt).max
   }
+
+  override def part2(input: Array[String]): String = {
+    val sorted = input.map(toBinary).map(binaryToInt).toArray.sorted
+    "The missing SeatID is " + (sumFrom(sorted.head, sorted.last) - sorted.sum)
+  }
+}
+
+object Day5 {
+  def apply() = new Day5()
 
   def toBinary(line: String): String = {
     line.replace('F', '0')

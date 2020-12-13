@@ -1,9 +1,27 @@
 package aoc2020
 
-object Day2 {
+import aoc.Day
+import aoc2020.Day2.{isValidPart1, isValidPart2}
 
-  def main(): Unit = {
-    val input = readFileToIterable("aoc2020/day2.input")
+class Day2 extends Day {
+  override val year = 2020
+  override val day = 2
+
+  override def part1(input: Array[String]): String = {
+    val valid = input.count(l => {
+      val line = l.split(" ")
+      val count = line(0)
+      val minMax = count.split("-")
+      val min = minMax(0).toInt
+      val max = minMax(1).toInt
+      val letter = line(1).charAt(0)
+      val password = line(2)
+      isValidPart1(password, letter, min, max)
+    })
+    "There are " + valid + " valid passwords in the file."
+  }
+
+  override def part2(input: Array[String]): String = {
     val valid = input.count(l => {
       val line = l.split(" ")
       val count = line(0)
@@ -14,7 +32,13 @@ object Day2 {
       val password = line(2)
       isValidPart2(password, letter, min, max)
     })
-    println("There are " + valid + " valid passwords in the file.")
+    "There are " + valid + " valid passwords in the file."
+  }
+}
+
+object Day2 {
+  def apply(): Day2 = {
+    new Day2()
   }
 
   def isValidPart1(password: String, letter: Char, min: Int, max: Int): Boolean = {

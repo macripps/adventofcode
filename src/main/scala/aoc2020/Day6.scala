@@ -1,20 +1,31 @@
 package aoc2020
 
-object Day6 {
+import aoc.Day
 
-  def main(): Unit = {
-    val lineGroups = asGroupsSeparatedByBlankLines(readFileToIterable("aoc2020/day6.input"))
+class Day6 extends Day {
+  override def year: Int = 2020
+  override def day: Int = 6
+
+  override def part1(input: Array[String]): String = {
+    val lineGroups = asGroupsSeparatedByBlankLines(input)
     val uniqueAnswers = lineGroups.map { lineGroup =>
       lineGroup.flatMap { l => l }.toSet.size
     }.sum
-    println("There were " + uniqueAnswers + " unique answers")
+    "There were " + uniqueAnswers + " unique answers"
+  }
+
+  override def part2(input: Array[String]): String = {
+    val lineGroups = asGroupsSeparatedByBlankLines(input)
 
     val commonAnswers = lineGroups.map { groups =>
       groups.foldLeft("abcdefghijklmnopqrstuvwxyz".toSet) { (z, i) =>
         z.intersect(i.toSet)
       }.size
     }.sum
-    println("There were " + commonAnswers + " common answers")
+    "There were " + commonAnswers + " common answers"
   }
+}
 
+object Day6 {
+  def apply() = new Day6()
 }

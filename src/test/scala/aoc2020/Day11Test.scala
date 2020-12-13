@@ -3,6 +3,7 @@ package aoc2020
 import org.scalatest.funsuite.AnyFunSuite
 
 class Day11Test extends AnyFunSuite {
+  import Day11._
 
   test("iterations of example") {
     val ex1 =
@@ -17,7 +18,6 @@ class Day11Test extends AnyFunSuite {
         |L.LLLLLL.L
         |L.LLLLL.LL""".stripMargin.split("\n").map(_.toCharArray)
 
-    println(ex1.map(_.mkString("")).mkString("\n"))
     val out = Day11.iterate1(ex1)
     val expected =
       """#.##.##.##

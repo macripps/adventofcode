@@ -1,19 +1,25 @@
 package aoc2020
 
-import scala.collection.mutable
+import aoc.Day
+import aoc2020.Day4.{toPassport, validPart1, validPart2}
+
+class Day4 extends Day {
+  override val year = 2020
+  override val day = 4
+
+  override def part1(input: Array[String]): String = {
+    val lineGroups = asGroupsSeparatedByBlankLines(input)
+    "There were " + lineGroups.map(toPassport).count(validPart1) + " valid passports"
+  }
+
+  override def part2(input: Array[String]): String = {
+    val lineGroups = asGroupsSeparatedByBlankLines(input)
+    "There were " + lineGroups.map(toPassport).count(validPart2) + " valid passports"
+  }
+}
 
 object Day4 {
-
-  def main(): Unit = {
-    val lineGroups = asGroupsSeparatedByBlankLines(readFileToIterable("aoc2020/day4.input"))
-    val passports = lineGroups.map(toPassport)
-
-    val validPassports1 = passports.count(validPart1)
-    println("There were " + validPassports1 + " valid passports for part 1")
-
-    val validPassports2 = passports.count(validPart2)
-    println("There were " + validPassports2 + " valid passports for part 2")
-  }
+  def apply() = new Day4()
 
   def toPassport(lines: Iterable[String]): Map[String, String] = {
     lines.flatMap { l =>
