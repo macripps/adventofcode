@@ -23,9 +23,9 @@ class Day13Test extends AnyFunSuite {
   }
 
   test("Bezout Identity") {
-    assert(Day13.bezoutIdentity(240, 46) === (-9, 47))
-    assert(Day13.bezoutIdentity(3, 4) === (-1, 1))
-    assert(Day13.bezoutIdentity(5, 12) === (5, -2))
+    assert(Day13.bezoutIdentity(240, 46) === (-9, 47, 2))
+    assert(Day13.bezoutIdentity(3, 4) === (-1, 1, 1))
+    assert(Day13.bezoutIdentity(5, 12) === (5, -2, 1))
   }
 
 }
