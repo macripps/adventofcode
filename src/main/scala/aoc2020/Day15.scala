@@ -1,6 +1,7 @@
 package aoc2020
 
 import aoc.Day
+import io.opentelemetry.api.OpenTelemetry
 
 import scala.collection.mutable
 
@@ -26,17 +27,23 @@ class Day15 extends Day {
 object Day15 {
   def apply() = new Day15()
 
+  val tracer = OpenTelemetry.getGlobalTracer("aoc2020")
+
   def iterate(nums: Array[Int], count: Int): Int = {
-    val seen = mutable.Map[Int, Int]()
+    val initSpan = tracer.spanBuilder("init").startSpan()
+    val seen = mutable.LongMap[Int]()
     nums.zipWithIndex.foreach { n =>
       seen(n._1) = n._2 + 1
     }
     var lastNum = nums.last
+    initSpan.`end`()
+    val iSpan = tracer.spanBuilder(count.toString).startSpan()
     (nums.length until count).foreach { i =>
       val next = i - seen.getOrElse(lastNum, i)
       seen(lastNum) = i
       lastNum = next
     }
+    iSpan.`end`()
     lastNum
   }
 }
