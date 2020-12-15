@@ -18,6 +18,6 @@ class Day14Test extends AnyFunSuite {
     assert(Day14.applyValueMask("XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X", 101) === 101)
     assert(Day14.applyValueMask("XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X", 0) === 64)
 //    assert(Day14.applyMask("000010X01101X0000101010X110010100000", 6131) === 0)
-    assert(Day14.applyValueMask("11X010X01101X100X0101101101001X01X1X", 6131) === 0)
+//    assert(Day14.applyValueMask("11X010X01101X100X0101101101001X01X1X", 6131) === 0)
   }
 }
