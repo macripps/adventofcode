@@ -39,5 +39,4 @@ package object aoc {
     }
     out
   }
-
 }
