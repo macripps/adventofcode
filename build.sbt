@@ -10,6 +10,7 @@ lazy val root = (project in file("."))
     libraryDependencies += "io.opentelemetry" % "opentelemetry-sdk" % "0.12.0",
     libraryDependencies += "io.opentelemetry" % "opentelemetry-exporter-prometheus" % "0.12.0",
     libraryDependencies += "io.opentelemetry" % "opentelemetry-exporter-zipkin" % "0.12.0",
+    libraryDependencies += "io.spray" %%  "spray-json" % "1.3.6",
     libraryDependencies += "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.0",
 
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.3" % Test,
