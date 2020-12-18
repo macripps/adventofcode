@@ -11,7 +11,7 @@ class Day9 extends Day {
 
   override def part1(input: Array[String]): String = {
     val towns = mutable.Map[String, mutable.Map[String, Int]]()
-    input.map {
+    input.foreach {
       case Line(town1, town2, distance) => {
         if (towns.contains(town1)) {
           towns(town1) += (town2 -> distance)
@@ -35,7 +35,7 @@ class Day9 extends Day {
 
   override def part2(input: Array[String]): String = {
     val towns = mutable.Map[String, mutable.Map[String, Int]]()
-    input.map {
+    input.foreach {
       case Line(town1, town2, distance) => {
         if (towns.contains(town1)) {
           towns(town1) += (town2 -> distance)
