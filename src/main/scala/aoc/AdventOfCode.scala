@@ -20,8 +20,8 @@ object AdventOfCode extends App {
     println("--------------")
 
 
-//    val days = List(Day1(), Day2(), Day3(), Day4(), Day5(), Day6(), Day7(), Day8(), Day9(), Day10(), Day11(), Day12(), Day13(), Day14(), Day15(), Day16(), Day17())
-    val days = List(Day18())
+//    val days = List(Day1(), Day2(), Day3(), Day4(), Day5(), Day6(), Day7(), Day8(), Day9(), Day10(), Day11(), Day12(), Day13(), Day14(), Day15(), Day16(), Day17(), Day18(), Day19())
+    val days = List(Day19())
 
     val tracer = OpenTelemetry.getGlobalTracer("aoc")
     val compSpan = tracer.spanBuilder("adventofcode").startSpan()
