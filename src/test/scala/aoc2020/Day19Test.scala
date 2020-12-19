@@ -13,7 +13,7 @@ class Day19Test extends AnyFunSuite {
       "4: \"a\"",
       "5: \"b\"",
     )
-    val reg = Day19.buildValid(rules, 0).r
+    val reg = Day19.buildValid(rules, 0, 0).r
     println(reg)
     assert(reg.matches("aaaabb"))
     assert(reg.matches("aaabab"))

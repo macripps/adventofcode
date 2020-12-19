@@ -44,10 +44,13 @@ object Day19 {
           } else {
             ""
           }
-        }.mkString("(", "", ")")
+        }.mkString("")
       }
-    }.mkString("(", "|", ")")
-    output.append(out)
+    }
+    val res = if (out.length > 1) {
+      out.mkString("(", "|", ")")
+    } else out.mkString("")
+    output.append(res)
     output.toString()
   }
 }
