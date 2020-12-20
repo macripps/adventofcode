@@ -28,8 +28,6 @@ class Day18 extends Day {
       grid = next
     }
 
-    println(grid.map(r => r.mkString("")).mkString("\n"))
-
     grid.map { r => r.count(c => c == '#') }.sum.toString
   }
 
