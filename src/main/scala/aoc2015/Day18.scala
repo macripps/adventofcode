@@ -3,12 +3,8 @@ package aoc2015
 import aoc.Day
 import aoc2015.Day18._
 
-class Day18 extends Day {
-  override def year: Int = 2015
-
-  override def day: Int = 18
-
-  override def part1(input: Array[String]): String = {
+class Day18 extends Day(2015, 18) {
+  override def part1: String = {
     var grid = input.map(_.toCharArray)
 
     (1 to 100).foreach { it =>
@@ -31,7 +27,7 @@ class Day18 extends Day {
     grid.map { r => r.count(c => c == '#') }.sum.toString
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     var grid = input.map(_.toCharArray)
 
     (1 to 100).foreach { it =>

@@ -3,16 +3,12 @@ package aoc2015
 import aoc.Day
 import aoc2015.Day17.findSublistsThatSumsTo
 
-class Day17 extends Day {
-  override def year: Int = 2015
-
-  override def day: Int = 17
-
-  override def part1(input: Array[String]): String = {
+class Day17 extends Day(2015, 17) {
+  override def part1: String = {
     findSublistsThatSumsTo(input.toList.map(_.toInt).sortBy(-_), 150).get.length.toString
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     val results = findSublistsThatSumsTo(input.toList.map(_.toInt).sortBy(-_), 150).get
     val shortest = results.map(r => r.length).min
     results.count { r => r.length == shortest }.toString

@@ -2,11 +2,8 @@ package aoc2015
 
 import aoc.Day
 
-class Day6 extends Day {
-  override def year: Int = 2015
-  override def day: Int = 6
-
-  override def part1(input: Array[String]): String = {
+class Day6 extends Day(2015, 6) {
+  override def part1: String = {
     val grid = Array.ofDim[Boolean](1000, 1000)
     input.foreach { line =>
       println(line)
@@ -49,7 +46,7 @@ class Day6 extends Day {
     grid.map { row => row.count { p => p } }.sum.toString
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     val grid = Array.ofDim[Int](1000, 1000)
     input.foreach { line =>
       println(line)

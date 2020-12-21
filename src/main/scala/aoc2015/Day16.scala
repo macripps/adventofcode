@@ -3,12 +3,8 @@ package aoc2015
 import aoc.Day
 import Day16._
 
-class Day16 extends Day {
-  override def year: Int = 2015
-
-  override def day: Int = 16
-
-  override def part1(input: Array[String]): String = {
+class Day16 extends Day(2015, 16) {
+  override def part1: String = {
     input.map {
       case Parse(s: Sue) => s
     }.filter { s =>
@@ -34,7 +30,7 @@ class Day16 extends Day {
     }.map(_.num).mkString(",")
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     input.map {
       case Parse(s: Sue) => s
     }.filter { s =>

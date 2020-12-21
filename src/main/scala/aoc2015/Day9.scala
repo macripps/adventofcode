@@ -5,11 +5,8 @@ import Day9._
 
 import scala.collection.mutable
 
-class Day9 extends Day {
-  override def year: Int = 2015
-  override def day: Int = 9
-
-  override def part1(input: Array[String]): String = {
+class Day9 extends Day(2015, 9) {
+  override def part1: String = {
     val towns = mutable.Map[String, mutable.Map[String, Int]]()
     input.foreach {
       case Line(town1, town2, distance) => {
@@ -33,7 +30,7 @@ class Day9 extends Day {
     shortestRoute.mkString(",") + ": " + routeDistance(towns, shortestRoute)
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     val towns = mutable.Map[String, mutable.Map[String, Int]]()
     input.foreach {
       case Line(town1, town2, distance) => {

@@ -3,11 +3,8 @@ package aoc2015
 import aoc.Day
 import Day10._
 
-class Day10 extends Day {
-  override def year: Int = 2015
-  override def day: Int = 10
-
-  override def part1(input: Array[String]): String = {
+class Day10 extends Day(2015, 10) {
+  override def part1: String = {
     var line = input(0)
     (1 to 40).foreach { i =>
       line = next(line)
@@ -16,7 +13,7 @@ class Day10 extends Day {
     line.length.toString
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     var line = input(0)
     (1 to 50).foreach { i =>
       line = next(line)

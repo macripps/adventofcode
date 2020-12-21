@@ -6,11 +6,8 @@ import Day12._
 import spray.json._
 import DefaultJsonProtocol._
 
-class Day12 extends Day {
-  override def year: Int = 2015
-  override def day: Int = 12
-
-  override def part1(input: Array[String]): String = {
+class Day12 extends Day(2015, 12) {
+  override def part1: String = {
     val line = input(0)
     var sum = 0
     var i = 0
@@ -29,7 +26,7 @@ class Day12 extends Day {
     sum.toString
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     val source = input(0).parseJson
     val obj = source.asJsObject
     sum(obj).toString

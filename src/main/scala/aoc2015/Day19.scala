@@ -3,11 +3,8 @@ package aoc2015
 import aoc.Day
 import Day19._
 
-class Day19 extends Day {
-  override def year: Int = 2015
-  override def day: Int = 19
-
-  override def part1(input: Array[String]): String = {
+class Day19 extends Day(2015, 19) {
+  override def part1: String = {
     val rules = input.take(input.indexOf("")).map { r =>
       val o = r.split(" => ")
       (o(0), o(1))
@@ -16,7 +13,7 @@ class Day19 extends Day {
     generate(rules, molecule).size.toString
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     val rules = input.take(input.indexOf("")).map { r =>
       val o = r.split(" => ")
       (o(1), o(0))

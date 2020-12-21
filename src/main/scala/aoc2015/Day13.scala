@@ -6,11 +6,8 @@ import Day13._
 import scala.collection.mutable
 import scala.util.matching.Regex
 
-class Day13 extends Day {
-  override def year: Int = 2015
-  override def day: Int = 13
-
-  override def part1(input: Array[String]): String = {
+class Day13 extends Day(2015, 13) {
+  override def part1: String = {
     val happiness = toHappinessMap(input)
 
     val availablePeople = happiness.keys.toList
@@ -41,7 +38,7 @@ class Day13 extends Day {
     happiness
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     val happiness = toHappinessMap(input)
     happiness("me") = mutable.Map[String, Int]()
 

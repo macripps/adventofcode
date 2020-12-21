@@ -5,12 +5,9 @@ import Day14._
 
 import scala.collection.mutable
 
-class Day14 extends Day {
-  override def year: Int = 2015
-  override def day: Int = 14
-
-  override def part1(input: Array[String]): String = {
-    val time = 2503
+class Day14 extends Day(2015, 14) {
+  val time = 2503
+  override def part1: String = {
     input.map {
       case reindeer(name, speed, flyingTime, restingTime) => {
         (name, distance(speed.toInt, flyingTime.toInt, restingTime.toInt, time.toInt))
@@ -18,8 +15,7 @@ class Day14 extends Day {
     }.maxBy(_._2).toString()
   }
 
-  override def part2(input: Array[String]): String = {
-    val time = 2503
+  override def part2: String = {
     val reindeers = input.map {
       case reindeer(name, speed, flyingTime, restingTime) =>
         (name, speed.toInt, flyingTime.toInt, restingTime.toInt)

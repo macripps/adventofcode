@@ -3,15 +3,12 @@ package aoc2015
 import aoc.Day
 import aoc2015.Day8._
 
-class Day8 extends Day {
-  override def year: Int = 2015
-  override def day: Int = 8
-
-  override def part1(input: Array[String]): String = {
+class Day8 extends Day(2015, 8) {
+  override def part1: String = {
     (input.map(codeCharacters).sum - input.map(inMemoryCharacters).sum).toString
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     (input.map(escapeCharacters).sum - input.map(codeCharacters).sum).toString
   }
 }

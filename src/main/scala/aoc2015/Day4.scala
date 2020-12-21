@@ -5,11 +5,8 @@ import com.twitter.io.Buf
 
 import java.security.MessageDigest
 
-class Day4 extends Day {
-  override def year: Int = 2015
-  override def day: Int = 4
-
-  override def part1(input: Array[String]): String = {
+class Day4 extends Day(2015, 4) {
+  override def part1: String = {
     val code = input(0)
     val md5 = MessageDigest.getInstance("MD5")
     (1 to Int.MaxValue).find { x =>
@@ -19,7 +16,7 @@ class Day4 extends Day {
     }.map("The number is " + _).get
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     val code = input(0)
     val md5 = MessageDigest.getInstance("MD5")
     (1 to Int.MaxValue).find { x =>

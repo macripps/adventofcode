@@ -3,12 +3,8 @@ package aoc2015
 import aoc.Day
 import Day15._
 
-class Day15 extends Day {
-  override def year: Int = 2015
-
-  override def day: Int = 15
-
-  override def part1(input: Array[String]): String = {
+class Day15 extends Day(2015, 15) {
+  override def part1: String = {
     val cookies = input.map {
       case recipe(name, capacity, durability, flavor, texture, calories) => (name, capacity.toLong, durability.toLong, flavor.toLong, texture.toLong, calories.toLong)
     }
@@ -26,7 +22,7 @@ class Day15 extends Day {
     results.toString
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     val cookies = input.map {
       case recipe(name, capacity, durability, flavor, texture, calories) => (name, capacity.toLong, durability.toLong, flavor.toLong, texture.toLong, calories.toLong)
     }

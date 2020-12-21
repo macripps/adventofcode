@@ -3,16 +3,13 @@ package aoc2015
 import aoc.Day
 import Day11._
 
-class Day11 extends Day {
-  override def year: Int = 2015
-  override def day: Int = 11
-
-  override def part1(input: Array[String]): String = {
+class Day11 extends Day(2015, 11) {
+  override def part1: String = {
     next(input(0))
   }
 
-  override def part2(input: Array[String]): String = {
-    next(part1(input))
+  override def part2: String = {
+    next(part1)
   }
 }
 
