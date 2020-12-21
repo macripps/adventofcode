@@ -5,16 +5,15 @@ import aoc.Day
 import scala.collection.mutable
 import Day7._
 
-class Day7 extends Day {
-  override def year: Int = 2020
-  override def day: Int = 7
+class Day7 extends Day(2020, 7) {
+  val parsed = parse(input)
 
-  override def part1(input: Array[String]): String = {
-    "Shiny gold bags are contained within " + Day7.part1(Colour("shiny gold"), parse(input)) + " other bags"
+  override def part1: String = {
+    "Shiny gold bags are contained within " + Day7.part1(Colour("shiny gold"), parsed) + " other bags"
   }
 
-  override def part2(input: Array[String]): String = {
-    "Shiny gold bags contain " + Day7.part2(Colour("shiny gold"), parse(input)) + " other bags"
+  override def part2: String = {
+    "Shiny gold bags contain " + Day7.part2(Colour("shiny gold"), parsed) + " other bags"
   }
 }
 

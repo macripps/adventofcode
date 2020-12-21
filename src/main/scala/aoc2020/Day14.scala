@@ -4,12 +4,8 @@ import aoc.Day
 
 import scala.collection.mutable
 
-class Day14 extends Day {
-  override def year: Int = 2020
-
-  override def day: Int = 14
-
-  override def part1(input: Array[String]): String = {
+class Day14 extends Day(2020, 14) {
+  override def part1: String = {
     val memory = mutable.Map[Long, Long]()
     var mask = ""
     input.foreach { line =>
@@ -26,7 +22,7 @@ class Day14 extends Day {
     "The sum of memory is " + (memory.values.sum)
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     val memory = mutable.Map[Long, Long]()
     var mask = ""
     input.foreach { line =>

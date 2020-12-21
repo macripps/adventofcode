@@ -3,15 +3,13 @@ package aoc2020
 import aoc.Day
 import aoc2020.Day3.treesHit
 
-class Day3 extends Day {
-  override val year = 2020
-  override val day = 3
+class Day3 extends Day(2020, 3) {
 
-  override def part1(input: Array[String]): String = {
+  override def part1: String = {
     "You hit " + Day3.treesHit((3, 1), input) + " trees"
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     val slopes = Array[(Int,Int)](
       (1, 1),
       (3, 1),

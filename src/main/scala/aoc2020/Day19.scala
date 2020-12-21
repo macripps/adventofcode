@@ -5,18 +5,15 @@ import aoc2020.Day19._
 
 import scala.collection.mutable
 
-class Day19 extends Day {
-  override def year: Int = 2020
-  override def day: Int = 19
-
-  override def part1(input: Array[String]): String = {
+class Day19 extends Day(2020, 19) {
+  override def part1: String = {
     val rules = buildRules(input.take(input.indexOf("")))
     val possibilities = buildValid(rules, 0, 0)
     val strings = input.drop(input.indexOf("") + 1)
     strings.count { s => possibilities.r.matches(s) }.toString
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     val rules = buildRules(input.take(input.indexOf("")) ++ Seq("8: 42 | 42 8", "11: 42 31 | 42 11 31"))
     // 5 is empirically determined to be sufficient
     val possibilities = buildValid(rules, 0, 5)

@@ -3,16 +3,12 @@ package aoc2020
 import aoc.Day
 import aoc2020.Day9.part1Answer
 
-class Day9 extends Day {
-  override def year: Int = 2020
-
-  override def day: Int = 9
-
-  override def part1(input: Array[String]): String = {
+class Day9 extends Day(2020, 9) {
+  override def part1: String = {
     "There was no sum for " + part1Answer(input.map(_.toLong))
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     val lines = input.map(_.toLong)
     val search = part1Answer(lines)
     (0 until input.length - 2).flatMap { i =>

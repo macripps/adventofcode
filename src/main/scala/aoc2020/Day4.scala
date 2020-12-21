@@ -3,18 +3,13 @@ package aoc2020
 import aoc.Day
 import aoc2020.Day4.{toPassport, validPart1, validPart2}
 
-class Day4 extends Day {
-  override val year = 2020
-  override val day = 4
-
-  override def part1(input: Array[String]): String = {
-    val lineGroups = asGroupsSeparatedByBlankLines(input)
-    "There were " + lineGroups.map(toPassport).count(validPart1) + " valid passports"
+class Day4 extends Day(2020, 4) {
+  override def part1: String = {
+    "There were " + inputGroups.map(toPassport).count(validPart1) + " valid passports"
   }
 
-  override def part2(input: Array[String]): String = {
-    val lineGroups = asGroupsSeparatedByBlankLines(input)
-    "There were " + lineGroups.map(toPassport).count(validPart2) + " valid passports"
+  override def part2: String = {
+    "There were " + inputGroups.map(toPassport).count(validPart2) + " valid passports"
   }
 }
 

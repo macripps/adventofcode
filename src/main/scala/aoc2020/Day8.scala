@@ -4,24 +4,21 @@ import aoc.Day
 
 import scala.annotation.tailrec
 
-class Day8 extends Day {
-  override def year: Int = 2020
-  override def day: Int = 8
-
-  override def part1(program: Array[String]): String = {
-    val result = executeProgram(program)
+class Day8 extends Day(2020, 8) {
+  override def part1: String = {
+    val result = executeProgram(input)
     "The accumulator value is " + result._2
   }
 
-  override def part2(program: Array[String]): String = {
-    val successfulAccumulator = program.indices.flatMap { l =>
-      var command: String = program(l)
+  override def part2: String = {
+    val successfulAccumulator = input.indices.flatMap { l =>
+      var command: String = input(l)
       if (command.startsWith("nop")) {
         command = "jm" + command.drop(2)
       } else if (command.startsWith("jmp")) {
         command = "no" + command.drop(2)
       }
-      Some(executeProgram(program.take(l) ++ Seq(command) ++ program.drop(l + 1)))
+      Some(executeProgram(input.take(l) ++ Seq(command) ++ input.drop(l + 1)))
     }.filter { r => r._1 }.head._2
     "The accumulator value of the first successful execution is " + successfulAccumulator
   }

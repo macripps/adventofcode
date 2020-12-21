@@ -5,17 +5,11 @@ import Day21._
 
 import scala.collection.mutable
 
-class Day21 extends Day {
-  override def year: Int = 2020
-
-  override def day: Int = 21
-
-  override def part1(input: Array[String]): String = {
+class Day21 extends Day(2020, 21) {
+  override def part1: String = {
     val parsedInput = input.map {
-      case parse(ins, _, alls, _) =>
-        val ingredients = ins.split(" ").toSet
-        val allergens = alls.split(", ")
-        (ingredients, allergens)
+      case parse(ingredients, _, allergens, _) =>
+        (ingredients.split(" ").toSet, allergens.split(", "))
     }
 
     val allergensToIngredients = mutable.Map[String, Set[String]]()
@@ -37,14 +31,14 @@ class Day21 extends Day {
       !allergensToIngredients.values.exists(x => x.contains(i))
     }
 
-    val answer = parsedInput.map { case (i, a) =>
+    val answer = parsedInput.map { case (i, _) =>
       i.count(safeIngredients.contains)
     }.sum
 
     answer.toString
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     val parsedInput = input.map {
       case parse(ins, _, alls, _) =>
         val ingredients = ins.split(" ").toSet
@@ -78,8 +72,9 @@ class Day21 extends Day {
     val maybeKnown = mutable.Map.newBuilder[String, mutable.Set[String]].addAll(imMaybeKnown.toSet).result()
 
     while (maybeKnown.exists{ case (_, s) => s.size > 1}) {
-      val known = maybeKnown.filter { case (a, s) => s.size == 1}
-      known.foreach { case (a, s) =>
+      maybeKnown.
+        filter { case (_, s) => s.size == 1 }.
+        foreach { case (a, s) =>
         maybeKnown.keys.filter(_ != a).foreach { k =>
           maybeKnown(k).remove(s.head)
         }

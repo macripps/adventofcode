@@ -2,15 +2,12 @@ package aoc2020
 
 import aoc.Day
 
-class Day12 extends Day {
-  override def year: Int = 2020
-  override def day: Int = 12
-
-  override def part1(lines: Array[String]): String = {
+class Day12 extends Day(2020, 12) {
+  override def part1: String = {
     var pos = (0, 0)
     val dirs = Seq((1, 0), (0, -1), (-1, 0), (0, 1))
     var dir = 0
-    lines.foreach { l =>
+    input.foreach { l =>
       val direction = l.charAt(0)
       var amount = l.drop(1).toInt
       val delta = direction match {
@@ -41,10 +38,10 @@ class Day12 extends Day {
     "Manhattan Distance: " + (math.abs(pos._1) + math.abs(pos._2))
   }
 
-  override def part2(lines: Array[String]): String = {
+  override def part2: String = {
     var pos = (0, 0)
     var waypoint = (10, 1)
-    lines.foreach { l =>
+    input.foreach { l =>
       val direction = l.charAt(0)
       var amount = l.drop(1).toInt
       direction match {

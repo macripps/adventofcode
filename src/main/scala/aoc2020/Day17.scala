@@ -3,12 +3,8 @@ package aoc2020
 import aoc.Day
 import aoc2020.Day17._
 
-class Day17 extends Day {
-  override def year: Int = 2020
-
-  override def day: Int = 17
-
-  override def part1(input: Array[String]): String = {
+class Day17 extends Day(2020, 17) {
+  override def part1: String = {
     val its = 6
     val maxX = input.length + (2 * its)
     val maxY = input.length + (2 * its)
@@ -53,7 +49,7 @@ class Day17 extends Day {
     "There are " + countActive3(cube, 0 until maxZ, 0 until maxX, 0 until maxY) + " active cells."
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     val its = 6
     val maxX = input.length + (2 * its)
     val maxY = input.length + (2 * its)

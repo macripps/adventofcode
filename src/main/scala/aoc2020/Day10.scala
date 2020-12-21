@@ -4,14 +4,10 @@ import aoc.Day
 
 import scala.collection.mutable
 
-class Day10 extends Day {
-  override def year: Int = 2020
+class Day10 extends Day(2020, 10) {
+  val adapters = input.map(_.toInt).sorted
 
-  override def day: Int = 10
-
-  override def part1(input: Array[String]): String = {
-    val adapters = input.map(_.toInt).sorted
-
+  override def part1: String = {
     var current = 0
     var oneJDifferences = 0
     var threeJDifferences = 1
@@ -26,8 +22,7 @@ class Day10 extends Day {
     "Product is " + (oneJDifferences * threeJDifferences)
   }
 
-  override def part2(input: Array[String]): String = {
-    val adapters = input.map(_.toInt).sorted
+  override def part2: String = {
     val permutations = Day10.part2(0 +: adapters :+ (adapters.max + 3))
     "Permutations: " + permutations
   }

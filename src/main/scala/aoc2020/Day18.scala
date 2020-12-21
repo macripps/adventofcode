@@ -3,16 +3,12 @@ package aoc2020
 import aoc.Day
 import Day18._
 
-class Day18 extends Day {
-  override def year: Int = 2020
-
-  override def day: Int = 18
-
-  override def part1(input: Array[String]): String = {
+class Day18 extends Day(2020, 18) {
+  override def part1: String = {
     input.map(_.replace(" ", "")).map(parse).sum.toString
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     input.map(_.replace(" ", "")).map(parse2).sum.toString
   }
 }

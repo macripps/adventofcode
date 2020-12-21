@@ -3,12 +3,8 @@ package aoc2020
 import aoc.Day
 import aoc2020.Day16._
 
-class Day16 extends Day {
-  override def year: Int = 2020
-
-  override def day: Int = 16
-
-  override def part1(input: Array[String]): String = {
+class Day16 extends Day(2020, 16) {
+  override def part1: String = {
     val ranges = input.take(20).flatMap(parseRule)
     val errorRate = input.drop(25).map { ticket =>
       val entries = ticket.split(",").map(_.toInt)
@@ -22,7 +18,7 @@ class Day16 extends Day {
     "Ticket scanning error rate is " + errorRate
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     var ranges = input.take(20).map(l => l.substring(0, l.indexOf(':')) -> parseRule(l)).toMap
     val validTickets = input.drop(25).map { ticket =>
       ticket.split(",").map(_.toInt)

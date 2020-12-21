@@ -1,6 +1,6 @@
 package aoc2020
 
-import aoc.Day
+import aoc.{Day, asGroupsSeparatedByBlankLines}
 import aoc2020.Day20._
 
 import scala.util.control.Breaks.{break, breakable}
@@ -9,11 +9,7 @@ import scala.util.control.Breaks.{break, breakable}
  * Better implementation cribbed from @nielsutrecht
  * Many thanks!
  */
-class Day20 extends Day {
-  override def year: Int = 2020
-
-  override def day: Int = 20
-
+class Day20 extends Day(2020, 20) {
   def tilesList(input: Array[String]): List[Tile] = {
     asGroupsSeparatedByBlankLines(input.dropRight(1)).map { tileLines =>
       val tileHeader = tileLines.head
@@ -59,7 +55,7 @@ class Day20 extends Day {
     }
   }
 
-  override def part1(input: Array[String]): String = {
+  override def part1: String = {
     val tiles = tilesList(input)
     val sol = solution(tiles)
     val minX = sol.keys.minBy(_.x).x
@@ -71,7 +67,7 @@ class Day20 extends Day {
     }.product.toString
   }
 
-  override def part2(input: Array[String]): String = {
+  override def part2: String = {
     val tiles = tilesList(input)
     val sol = solution(tiles)
 
