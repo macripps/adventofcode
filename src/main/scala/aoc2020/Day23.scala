@@ -1,7 +1,6 @@
 package aoc2020
 
 import aoc.Day
-import aoc2020.Day23._
 
 class Day23 extends Day(2020, 23) {
   override lazy val input = "925176834".split("")
@@ -10,96 +9,79 @@ class Day23 extends Day(2020, 23) {
   val minCup = cups.min
 
   override def part1: String = {
-    var (currentNode, nodesByValue) = buildNodes(cups)
-    val maxCup = 9
-
+    val array = buildArray(cups)
+    var current = array(array.indexOf(cups.head))
     (1 to 100).foreach { it =>
-      val item1 = currentNode.next
-      val item2 = item1.next
-      val item3 = item2.next
+      val item1 = array(current)
+      val item2 = array(item1)
+      val item3 = array(item2)
+      val skip = array(item3)
+      array(current) = skip
 
-      currentNode.next = item3.next
-
-      var d = currentNode.value - 1
-      if (d < minCup) d = maxCup
-      while (item1.value == d || item2.value == d || item3.value == d) {
+      var d = current - 1
+      if (d == 0) d = array.length - 1
+      while (item1 == d || item2 == d || item3 == d) {
         d = d - 1
-        if (d < minCup) d = maxCup
+        if (d == 0) d = array.length - 1
       }
 
-      val dNode = nodesByValue(d)
-      item3.next = dNode.next
-      nodesByValue(d).next = item1
+      val n = array(d)
+      array(d) = item1
+      array(item3) = n
 
-      currentNode = currentNode.next
+      current = skip
     }
 
-    val oneNode = nodesByValue(1)
-    var nNode = oneNode.next
-    var out = ""
-    while (nNode != oneNode) {
-      out = out + nNode.value
-      nNode = nNode.next
+    val result = new StringBuilder()
+    var out = array(1)
+    while (out != 1) {
+      result.append(out)
+      out = array(out)
     }
-    out
+
+    result.toString
   }
 
   override def part2: String = {
-    var (currentNode, nodesByValue) = buildNodes(cups ++ Range.inclusive(10, 1_000_000))
-    val maxCup = 1_000_000
-
+    val array = buildArray(cups ++ Range.inclusive(10, 1_000_000))
+    var current = array(array.indexOf(cups.head))
     (1 to 10_000_000).foreach { it =>
-      val item1 = currentNode.next
-      val item2 = item1.next
-      val item3 = item2.next
+      val item1 = array(current)
+      val item2 = array(item1)
+      val item3 = array(item2)
+      val skip = array(item3)
+      array(current) = skip
 
-      currentNode.next = item3.next
-
-      var d = currentNode.value - 1
-      if (d < minCup) d = maxCup
-      while (item1.value == d || item2.value == d || item3.value == d) {
+      var d = current - 1
+      if (d == 0) d = array.length - 1
+      while (item1 == d || item2 == d || item3 == d) {
         d = d - 1
-        if (d < minCup) d = maxCup
+        if (d == 0) d = array.length - 1
       }
 
-      val dNode = nodesByValue(d)
-      item3.next = dNode.next
-      nodesByValue(d).next = item1
+      val n = array(d)
+      array(d) = item1
+      array(item3) = n
 
-      currentNode = currentNode.next
+      current = skip
     }
 
-    val node1 = nodesByValue(1)
-    (node1.next.value.toLong * node1.next.next.value.toLong).toString
+    val node1 = array(1)
+    (node1.toLong * array(node1).toLong).toString
   }
 
-  def buildNodes(cups: Seq[Int]): (Node, Map[Int, Node]) = {
-    val cupsI = cups.reverse
-    val topNode = new Node(cupsI.head)
-    val nodesByValue = Map.newBuilder[Int, Node]
-    nodesByValue.addOne(cupsI.head -> topNode)
-
-    var currentNode = topNode
-    cupsI.tail.foreach { n =>
-      val node = new Node(n)
-      node.next = currentNode
-      currentNode = node
-      nodesByValue.addOne(n -> node)
+  def buildArray(value: Seq[Int]): Array[Int] = {
+    val o = Array.ofDim[Int](value.length + 1)
+    var current = value.head
+    (value.tail :+ current).foreach { x =>
+      o(current) = x
+      current = x
     }
-    topNode.next = currentNode
 
-    (currentNode, nodesByValue.result())
+    o
   }
 }
 
 object Day23 {
   def apply() = new Day23()
-
-  class Node(val value: Int) {
-    var next: Node = _
-
-    override def toString: String = {
-      "Node(" + value + ")"
-    }
-  }
 }
