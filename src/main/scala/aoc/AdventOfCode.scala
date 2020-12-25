@@ -1,6 +1,6 @@
 package aoc
 
-import aoc2015._
+import aoc2020._
 import com.twitter.app.App
 import io.opentelemetry.api.OpenTelemetry
 import io.opentelemetry.context.Context
