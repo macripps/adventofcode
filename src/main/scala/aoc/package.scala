@@ -1,3 +1,5 @@
+
+import aoc.Direction.Direction
 import io.opentelemetry.api.OpenTelemetry
 
 import scala.collection.Iterable.single
@@ -38,5 +40,37 @@ package object aoc {
       }
     }
     out
+  }
+
+  case class Point(x: Int, y: Int) {
+    def neighbours: List[Point] = {
+      List(
+        Point(x - 1, y),
+        Point(x + 1, y),
+        Point(x, y - 1),
+        Point(x, y + 1),
+      )
+    }
+
+    def directionTo(other: Point): Direction = {
+      if (other.x == this.x && other.y < this.y) {
+        Direction.North
+      } else if (other.x == this.x && other.y > this.y) {
+        Direction.South
+      } else if (other.x < this.x && other.y == this.y) {
+        Direction.West
+      } else if (other.x > this.x && other.y == this.y) {
+        Direction.East
+      } else {
+        throw new IllegalArgumentException()
+      }
+    }
+
+    val manhattanDistance: Int = math.abs(x) + math.abs(y)
+  }
+
+  object Direction extends Enumeration {
+    type Direction = Value
+    val North, South, East, West = Value
   }
 }

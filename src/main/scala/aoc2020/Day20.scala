@@ -1,6 +1,7 @@
 package aoc2020
 
-import aoc.{Day, asGroupsSeparatedByBlankLines}
+import aoc.Direction._
+import aoc.{Day, Point, asGroupsSeparatedByBlankLines}
 import aoc2020.Day20._
 
 import scala.util.control.Breaks.{break, breakable}
@@ -153,9 +154,6 @@ class Day20 extends Day(2020, 20) {
 }
 
 object Day20 {
-
-  import Direction._
-
   def apply() = new Day20()
 
   case class Tile(id: Long, grids: List[Grid])
@@ -215,34 +213,4 @@ object Day20 {
     val grid: Grid = tile.grids(orientation)
   }
 
-  case class Point(x: Int, y: Int) {
-    def neighbours: List[Point] = {
-      List(
-        Point(x - 1, y),
-        Point(x + 1, y),
-        Point(x, y - 1),
-        Point(x, y + 1),
-      )
-    }
-
-    def directionTo(other: Point): Direction = {
-      if (other.x == this.x && other.y < this.y) {
-        Direction.North
-      } else if (other.x == this.x && other.y > this.y) {
-        Direction.South
-      } else if (other.x < this.x && other.y == this.y) {
-        Direction.West
-      } else if (other.x > this.x && other.y == this.y) {
-        Direction.East
-      } else {
-        throw new IllegalArgumentException()
-      }
-    }
-  }
-
-}
-
-object Direction extends Enumeration {
-  type Direction = Value
-  val North, South, East, West = Value
 }
