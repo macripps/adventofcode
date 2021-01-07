@@ -2,9 +2,8 @@
 import aoc.Direction.Direction
 import io.opentelemetry.api.OpenTelemetry
 
-import scala.annotation.tailrec
 import scala.collection.Iterable.single
-import scala.collection.{immutable, mutable}
+import scala.collection.mutable
 import scala.io.Source
 
 package object aoc {
@@ -93,5 +92,45 @@ package object aoc {
       }
     }
     root
+  }
+
+  def chineseRemainerTheorem(remainderModuliPairs: Array[(Int, Int)]): (Long, Long) = {
+    var remainder: BigInt = remainderModuliPairs(0)._1
+    var modulus: Long = remainderModuliPairs(0)._2
+    remainderModuliPairs.drop(1).foreach { e =>
+      val bz = bezoutIdentity(modulus, e._2)
+      remainder = (remainder * e._2 * bz._2) + (modulus * e._1 * bz._1)
+      modulus = modulus * e._2 / bz._3
+      remainder = remainder % modulus
+    }
+    if (remainder < 0) {
+      remainder = modulus + remainder
+    }
+    (remainder.longValue, modulus)
+  }
+
+  /**
+   * Returns three numbers such that a * _1 + b * _2 = _3 (gcd(a,b))
+   */
+  def bezoutIdentity(a: Long, b: Long): (Long, Long, Long) = {
+    var s0 = 1: Long
+    var s1 = 0: Long
+    var t0 = 0: Long
+    var t1 = 1: Long
+    var r0 = a
+    var r1 = b
+    while (r1 != 0) {
+      val q = r0 / r1
+      val r = r0 % r1
+      val s = s0 - q * s1
+      val t = t0 - q * t1
+      s0 = s1
+      s1 = s
+      t0 = t1
+      t1 = t
+      r0 = r1
+      r1 = r
+    }
+    (s0, t0, r0)
   }
 }
