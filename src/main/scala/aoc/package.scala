@@ -2,8 +2,9 @@
 import aoc.Direction.Direction
 import io.opentelemetry.api.OpenTelemetry
 
+import scala.annotation.tailrec
 import scala.collection.Iterable.single
-import scala.collection.mutable
+import scala.collection.{immutable, mutable}
 import scala.io.Source
 
 package object aoc {
@@ -72,5 +73,25 @@ package object aoc {
   object Direction extends Enumeration {
     type Direction = Value
     val North, South, East, West = Value
+  }
+
+  def breadthFirstSearch[A](root: A, transitionFunc: A => Set[A], isGoal: A => Boolean): A = {
+    val seen = mutable.Set[A](root)
+    val q = mutable.Queue(root)
+
+    while (q.nonEmpty) {
+      val v = q.dequeue()
+      if (isGoal(v)) {
+        return v
+      }
+      val ws = transitionFunc(v)
+      ws.foreach { w =>
+        if (!seen.contains(w)) {
+          seen.addOne(w)
+          q.addOne(w)
+        }
+      }
+    }
+    root
   }
 }
