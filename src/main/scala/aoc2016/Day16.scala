@@ -13,7 +13,6 @@ class Day16 extends Day(2016, 16) {
     val z = new StringBuilder(length)
     z.append(x)
     while (z.length() <= length) {
-      println(z.length)
       val y = z.toString().reverse
       z.append('0')
       y.foreach {
@@ -27,7 +26,6 @@ class Day16 extends Day(2016, 16) {
   def checksum(str: String): String = {
     var x = new StringBuilder(str)
     while (x.length % 2 == 0) {
-      println(x.length)
       Range.inclusive(0, x.length-2, 2).foreach { i =>
         if (x(i) == x(i+1)) {
           x(i/2) = '1'
