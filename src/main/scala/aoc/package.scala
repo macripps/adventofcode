@@ -74,26 +74,6 @@ package object aoc {
     val North, South, East, West = Value
   }
 
-  def breadthFirstSearch[A](root: A, transitionFunc: A => Set[A], isGoal: A => Boolean): A = {
-    val seen = mutable.Set[A](root)
-    val q = mutable.Queue(root)
-
-    while (q.nonEmpty) {
-      val v = q.dequeue()
-      if (isGoal(v)) {
-        return v
-      }
-      val ws = transitionFunc(v)
-      ws.foreach { w =>
-        if (!seen.contains(w)) {
-          seen.addOne(w)
-          q.addOne(w)
-        }
-      }
-    }
-    root
-  }
-
   def chineseRemainerTheorem(remainderModuliPairs: Array[(Int, Int)]): (Long, Long) = {
     var remainder: BigInt = remainderModuliPairs(0)._1
     var modulus: Long = remainderModuliPairs(0)._2

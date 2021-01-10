@@ -1,6 +1,6 @@
 package aoc2016
 
-import aoc.{Day, breadthFirstSearch}
+import aoc.{Day, Search}
 
 class Day11 extends Day(2016, 11) {
 
@@ -8,7 +8,7 @@ class Day11 extends Day(2016, 11) {
 
   override def part1: String = {
     val state = toState(input)
-    var result = breadthFirstSearch[State](state, transition, isGoal)
+    var result = Search.breadthFirst[State](state, transition, isGoal)
     var length = 0
     while (result.parent.isDefined) {
       length = length + 1
@@ -196,7 +196,7 @@ class Day11 extends Day(2016, 11) {
 
   override def part2: String = {
     val state = toState2(input)
-    var result = breadthFirstSearch[State](state, transition, isGoal)
+    var result = Search.breadthFirst[State](state, transition, isGoal)
     var length = 0
     while (result.parent.isDefined) {
       length = length + 1
@@ -219,20 +219,20 @@ object Day11 {
     override def toString: String = {
       Seq(
         "F4 " + (if (elevator == 4) "E" else ".") + " " + fourthFloor.map {
-          case Microchip(m) => "M"+m
-          case Generator(m) => "G"+m
+          case Microchip(m) => "M" + m
+          case Generator(m) => "G" + m
         }.mkString(" "),
         "F3 " + (if (elevator == 3) "E" else ".") + " " + thirdFloor.map {
-          case Microchip(m) => "M"+m
-          case Generator(m) => "G"+m
+          case Microchip(m) => "M" + m
+          case Generator(m) => "G" + m
         }.mkString(" "),
         "F2 " + (if (elevator == 2) "E" else ".") + " " + secondFloor.map {
-          case Microchip(m) => "M"+m
-          case Generator(m) => "G"+m
+          case Microchip(m) => "M" + m
+          case Generator(m) => "G" + m
         }.mkString(" "),
         "F1 " + (if (elevator == 1) "E" else ".") + " " + firstFloor.map {
-          case Microchip(m) => "M"+m
-          case Generator(m) => "G"+m
+          case Microchip(m) => "M" + m
+          case Generator(m) => "G" + m
         }.mkString(" "),
       ).mkString("\n")
     }

@@ -1,6 +1,6 @@
 package aoc2016
 
-import aoc.Day
+import aoc.{Day, Search}
 
 import java.security.MessageDigest
 import scala.collection.mutable
@@ -9,7 +9,7 @@ class Day17 extends Day(2016, 17) {
   import Day17._
   override def part1: String = {
     val in = input(0)
-    aoc.breadthFirstSearch[Square](Square(0, 0, in)(None), neighbours, s => s.x == 3 && s.y == 3).path.drop(in.length)
+    Search.breadthFirst[Square](Square(0, 0, in)(None), neighbours, s => s.x == 3 && s.y == 3).path.drop(in.length)
   }
 
   def neighbours(s: Square): Set[Square] = s.neighbours

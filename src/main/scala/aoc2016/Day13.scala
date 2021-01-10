@@ -1,12 +1,12 @@
 package aoc2016
 
-import aoc.Day
+import aoc.{Day, Search}
 
 class Day13 extends Day(2016, 13) {
   import Day13._
   override def part1: String = {
     val faveNum = input(0).toInt
-    var result = aoc.breadthFirstSearch(Point(1,1)(None), nextNodes(faveNum), (p: Point) => p.x == 31 && p.y == 39)
+    var result = Search.breadthFirst(Point(1,1)(None), nextNodes(faveNum), (p: Point) => p.x == 31 && p.y == 39)
     var length = 0
     while (result.from.isDefined) {
       length = length + 1
