@@ -66,7 +66,7 @@ package object aoc {
       }
     }
 
-    val manhattanDistance: Int = math.abs(x) + math.abs(y)
+    def manhattanDistanceTo(p: Point): Int = math.abs(x - p.x) + math.abs(y - p.y)
   }
 
   object Direction extends Enumeration {

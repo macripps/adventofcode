@@ -34,7 +34,7 @@ class Day1 extends Day(2016, 1) {
       }
       (newDirection, newPosition)
     }
-    result._2.manhattanDistance.toString
+    result._2.manhattanDistanceTo(Point(0, 0)).toString
   }
 
   override def part2: String = {
@@ -85,7 +85,7 @@ class Day1 extends Day(2016, 1) {
       direction = newDirection
       cs = cs.tail
     }
-    firstVisitedPosition.map(_.manhattanDistance).getOrElse(0).toString
+    firstVisitedPosition.map(_.manhattanDistanceTo(Point(0, 0))).getOrElse(0).toString
   }
 }
 

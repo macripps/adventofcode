@@ -23,4 +23,41 @@ object Search {
     }
     root
   }
+
+  def AStar[A](start: A, goal: A, neighbours: A => Iterable[A], h: A => Int): List[A] = {
+    def reconstructPath(cameFrom: mutable.Map[A, A], a: A): List[A] = {
+      val o = mutable.Buffer[A](a)
+      var current = a
+      while (cameFrom.contains(current)) {
+        current = cameFrom(current)
+        o.prepend(current)
+      }
+      o.toList
+    }
+
+    val cameFrom = mutable.Map[A, A]()
+    val gScore = mutable.Map[A, Int](start -> 0)
+    val fScore = mutable.Map[A, Int](start -> h(start))
+
+    val openSet = mutable.Queue[A](start)
+    while (openSet.nonEmpty) {
+      val current = openSet.dequeue()
+      if (current == goal) {
+        return reconstructPath(cameFrom, current)
+      }
+
+      neighbours(current).foreach { neighbour =>
+        val tentativeGScore = gScore.getOrElse(current, Int.MaxValue) + 1
+        if (tentativeGScore < gScore.getOrElse(neighbour, Int.MaxValue)) {
+          cameFrom(neighbour) = current
+          gScore(neighbour) = tentativeGScore
+          fScore(neighbour) = tentativeGScore + h(neighbour)
+          if (!openSet.contains(neighbour)) {
+            openSet.addOne(neighbour)
+          }
+        }
+      }
+    }
+    List()
+  }
 }
