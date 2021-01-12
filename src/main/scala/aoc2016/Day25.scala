@@ -11,7 +11,6 @@ class Day25 extends Day(2016, 25){
 
   override def part1: String = {
     LazyList.from(1).find { a =>
-      println(a)
       val registers = mutable.Map("a" -> a.toLong, "b" -> 0L, "c" -> 0L, "d" -> 0L)
       execute(input.toBuffer, registers)
     }.toString
@@ -81,7 +80,6 @@ class Day25 extends Day(2016, 25){
           }
           ep = ep + 1
         case out(reg: String) =>
-          print(registers(reg))
           if (registers(reg) != expectedOutput) {
             validOutput = false
           }
@@ -90,7 +88,6 @@ class Day25 extends Day(2016, 25){
           ep = ep + 1
       }
     }
-    println()
     validOutput
   }
 }
