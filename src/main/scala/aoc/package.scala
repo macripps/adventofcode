@@ -70,6 +70,10 @@ package object aoc {
     def manhattanDistanceTo(p: Point): Int = math.abs(x - p.x) + math.abs(y - p.y)
   }
 
+  case class ThreePoint(x: Double, y: Double, z: Double) {
+    def manhattanDistanceTo(p: ThreePoint): Double = math.abs(x - p.x) + math.abs(y - p.y) + math.abs(z - p.z)
+  }
+
   object Direction extends Enumeration {
     type Direction = Value
     val North, South, East, West = Value
