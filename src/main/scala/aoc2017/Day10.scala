@@ -3,6 +3,7 @@ package aoc2017
 import aoc.Day
 
 class Day10 extends Day(2017, 10) {
+  import Day10._
   override def part1: String = {
     val r = (0 to 255).toArray
     var pos = 0
@@ -21,7 +22,15 @@ class Day10 extends Day(2017, 10) {
   }
 
   override def part2: String = {
-    val lengths = input.head.toCharArray.map(_.toInt) ++ Seq(17, 31, 73, 47, 23)
+    knotHash(input.head).map(n => "%02x" format n).mkString
+  }
+}
+
+object Day10 {
+  def apply() = new Day10()
+
+  def knotHash(input: String) = {
+    val lengths = input.toCharArray.map(_.toInt) ++ Seq(17, 31, 73, 47, 23)
     val r = (0 to 255).toArray
     var pos = 0
     var skip = 0
@@ -37,12 +46,8 @@ class Day10 extends Day(2017, 10) {
         skip = skip + 1
       }
     }
-    r.grouped(16).map{ h =>
+    r.grouped(16).map { h =>
       h.fold(0) { case k => k._1 ^ k._2 }
-    }.map(n => "%02x" format n).mkString
+    }
   }
-}
-
-object Day10 {
-  def apply() = new Day10()
 }

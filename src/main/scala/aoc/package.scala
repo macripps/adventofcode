@@ -21,6 +21,7 @@ package object aoc {
     lazy val inputGroups: Iterable[Iterable[String]] = asGroupsSeparatedByBlankLines(input)
 
     def part1: String
+
     def part2: String
   }
 
@@ -72,6 +73,22 @@ package object aoc {
   object Direction extends Enumeration {
     type Direction = Value
     val North, South, East, West = Value
+  }
+
+  case class HexPoint(x: Int, y: Int, z: Int) {
+    def s: HexPoint = copy(x = x + 1, y = y - 1)
+
+    def n: HexPoint = copy(x = x - 1, y = y + 1)
+
+    def sw: HexPoint = copy(x = x + 1, z = z - 1)
+
+    def nw: HexPoint = copy(y = y + 1, z = z - 1)
+
+    def se: HexPoint = copy(y = y - 1, z = z + 1)
+
+    def ne: HexPoint = copy(x = x - 1, z = z + 1)
+
+    def manhattanDistanceTo(p: HexPoint): Int = (math.abs(x - p.x) + math.abs(y - p.y) + math.abs(z - p.z)) / 2
   }
 
   def chineseRemainerTheorem(remainderModuliPairs: Array[(Int, Int)]): (Long, Long) = {
