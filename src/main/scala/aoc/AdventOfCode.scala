@@ -10,6 +10,10 @@ import io.opentelemetry.sdk.trace.`export`.SimpleSpanProcessor
 
 object AdventOfCode extends App {
 
+  override def failfastOnFlagsNotParsed: Boolean = true
+
+  val debug = flag[Boolean]("debug", false, "enable debug mode")
+
   def main(): Unit = {
     val tracerManagement = OpenTelemetrySdk.getGlobalTracerManagement
     val exporter = ZipkinSpanExporter.builder().setServiceName("aoc").build()
@@ -21,12 +25,15 @@ object AdventOfCode extends App {
 
 
     //    val days = List(Day1(), Day2(), Day3(), Day4(), Day5(), Day6(), Day7(), Day8(), Day9(), Day10(), Day11(), Day12(), Day13(), Day14(), Day15(), Day16(), Day17(), Day18(), Day19(), Day20(), Day21(), Day22())
-    val days = List(Day6())
+    val days = List(Day7())
 
     val tracer = OpenTelemetry.getGlobalTracer("aoc")
     val compSpan = tracer.spanBuilder("adventofcode").startSpan()
     val compScope = compSpan.makeCurrent()
     days.foreach { day =>
+      if (debug()) {
+        day.debug = true
+      }
       val daySpan = tracer.spanBuilder("" + day.year + ": day" + day.day).setParent(Context.current().`with`(compSpan)).startSpan()
 
       val part1Span = tracer.spanBuilder("part1").setParent(Context.current().`with`(daySpan)).startSpan()

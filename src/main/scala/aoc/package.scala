@@ -11,6 +11,8 @@ package object aoc {
   abstract class Day(val year: Int, val day: Int) {
     val tracer = OpenTelemetry.getGlobalTracer("aoc")
 
+    var debug = false
+
     lazy val input: Array[String] = {
       val inputSpan = tracer.spanBuilder("read_input").startSpan()
       val input = readFileToIterable("aoc" + year + "/day" + day + ".input").toArray
