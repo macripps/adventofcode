@@ -136,4 +136,35 @@ package object aoc {
     }
     (s0, t0, r0)
   }
+
+  class ProgressBar(high: Int) {
+    private[this] var amount: Int = 0
+
+    private[this] var lastRendered: Int = 0
+
+    def update(amt: Int): Unit = {
+      amount = amt
+    }
+
+    def inc(): Unit = {
+      amount = amount + 1
+    }
+
+    def delta(dlt: Int): Unit = {
+      amount += dlt
+    }
+
+    private[this] val width = 40
+
+    def render: Unit = {
+      val pct = 100 * amount / high
+      if (pct != lastRendered) {
+        print("[")
+        print("=" * (40 * amount / high))
+        print("-" * (40 - (40 * amount / high)))
+        println("] " + pct + "% ("+amount+"/"+high+")")
+        lastRendered = pct
+      }
+    }
+  }
 }
