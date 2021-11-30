@@ -3,7 +3,7 @@ package aoc2020
 import aoc.Day
 
 class Day12 extends Day(2020, 12) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     var pos = (0, 0)
     val dirs = Seq((1, 0), (0, -1), (-1, 0), (0, 1))
     var dir = 0
@@ -16,21 +16,19 @@ class Day12 extends Day(2020, 12) {
         case 'E' => (amount, 0)
         case 'S' => (0, -amount)
         case 'W' => (-amount, 0)
-        case 'L' => {
+        case 'L' =>
           while (amount > 0) {
             dir = dir - 1
             amount = amount - 90
           }
           if (dir < 0) dir = dir + dirs.length
           (0, 0)
-        }
-        case 'R' => {
+        case 'R' =>
           while (amount > 0) {
             dir = (dir + 1) % dirs.length
             amount = amount - 90
           }
           (0, 0)
-        }
       }
       pos = (pos._1 + delta._1, pos._2 + delta._2)
     }
@@ -38,7 +36,7 @@ class Day12 extends Day(2020, 12) {
     "Manhattan Distance: " + (math.abs(pos._1) + math.abs(pos._2))
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     var pos = (0, 0)
     var waypoint = (10, 1)
     input.foreach { l =>

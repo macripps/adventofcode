@@ -5,7 +5,7 @@ import aoc.Day
 import scala.collection.mutable
 
 class Day12 extends Day(2017, 12) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val seen = mutable.Set[Int]()
     val m = input.map { l =>
       val kv = l.split(" <-> ")
@@ -22,7 +22,7 @@ class Day12 extends Day(2017, 12) {
     seen.size.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val m = mutable.Map.newBuilder[Int, Array[Int]]
     input.foreach { l =>
       val kv = l.split(" <-> ")

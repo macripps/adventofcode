@@ -3,27 +3,28 @@ package aoc2018
 import aoc.{Day, Point}
 
 import scala.collection.mutable
+import scala.util.matching.Regex
 
 class Day17 extends Day(2018, 17) {
   import Day17._
 
-  val example = """x=495, y=2..7
-                  |y=7, x=495..501
-                  |x=501, y=3..7
-                  |x=498, y=2..4
-                  |x=506, y=1..2
-                  |x=498, y=10..13
-                  |x=504, y=10..13
-                  |y=13, x=498..504""".stripMargin.split("\n")
+  val example: Array[String] =
+    """x=495, y=2..7
+      |y=7, x=495..501
+      |x=501, y=3..7
+      |x=498, y=2..4
+      |x=506, y=1..2
+      |x=498, y=10..13
+      |x=504, y=10..13
+      |y=13, x=498..504""".stripMargin.split("\n")
 
-  override def part1: String = {
-    val input = example
+  override def part1(input: Array[String]): String = {
     var minX = Int.MaxValue
     var maxX = Int.MinValue
-    var minY = 0
+    val minY = 0
     var maxY = Int.MinValue
     val grid = mutable.Map[Point, Char]((Point(500, 0), '+'))
-    input.foreach {
+    example.foreach {
       case vertical(xS: String, yMinS: String, yMaxS: String) =>
         val x = xS.toInt
         val nY = yMinS.toInt
@@ -124,7 +125,7 @@ class Day17 extends Day(2018, 17) {
     }
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     ""
   }
 }
@@ -132,6 +133,6 @@ class Day17 extends Day(2018, 17) {
 object Day17 {
   def apply() = new Day17()
 
-  val vertical = raw"x=(\d+), y=(\d+)..(\d+)".r
-  val horizontal = raw"y=(\d+), x=(\d+)..(\d+)".r
+  val vertical: Regex = raw"x=(\d+), y=(\d+)..(\d+)".r
+  val horizontal: Regex = raw"y=(\d+), x=(\d+)..(\d+)".r
 }

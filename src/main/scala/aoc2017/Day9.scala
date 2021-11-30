@@ -3,7 +3,7 @@ package aoc2017
 import aoc.Day
 
 class Day9 extends Day(2017, 9) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val line = input.head
     var score = 0
     var grp = 0
@@ -15,10 +15,9 @@ class Day9 extends Day(2017, 9) {
         case '<' if !inGarbage => inGarbage = true
         case '>' if inGarbage => inGarbage = false
         case '{' if !inGarbage => grp = grp + 1
-        case '}' if !inGarbage => {
+        case '}' if !inGarbage =>
           score = score + grp
           grp = grp - 1
-        }
         case _ =>
       }
       c = c + 1
@@ -26,7 +25,7 @@ class Day9 extends Day(2017, 9) {
     score.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val line = input.head
     var garbageChars = 0
     var c = 0

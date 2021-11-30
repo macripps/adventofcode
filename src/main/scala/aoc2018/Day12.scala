@@ -3,14 +3,16 @@ package aoc2018
 import aoc.Day
 
 import scala.collection.mutable
+import scala.util.matching.Regex
 
 class Day12 extends Day(2018, 12) {
 
   import Day12._
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     var array = mutable.Map[Int, Int]()
-    inputGroups.head.head match {
+    val igs = inputGroups(input)
+    igs.head.head match {
       case initialState(line: String) => line.zipWithIndex.foreach {
         case (c, i) =>
           if (c == '#') {
@@ -19,7 +21,7 @@ class Day12 extends Day(2018, 12) {
       }
     }
     val rulesB = Map.newBuilder[Int, Boolean]
-    inputGroups.tail.head.foreach {
+    igs.tail.head.foreach {
       case rule(l2: String, l1: String, c: String, r1: String, r2: String, out: String) =>
         if (out == "#") {
           var r = 0
@@ -35,7 +37,7 @@ class Day12 extends Day(2018, 12) {
 
     println(rules)
     println(array)
-    (1 to 20).foreach { it =>
+    (1 to 20).foreach { _ =>
       val next = mutable.Map[Int, Int]()
       val left = array.keys.min - 2
       val right = array.keys.max + 2
@@ -55,7 +57,7 @@ class Day12 extends Day(2018, 12) {
     array.keys.sum.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     "2100000000428"
     /*
     var array = mutable.Map[Int, Int]()
@@ -116,6 +118,6 @@ class Day12 extends Day(2018, 12) {
 object Day12 {
   def apply() = new Day12()
 
-  val initialState = raw"initial state: (.*)".r
-  val rule = raw"(.)(.)(.)(.)(.) => (.)".r
+  val initialState: Regex = raw"initial state: (.*)".r
+  val rule: Regex = raw"(.)(.)(.)(.)(.) => (.)".r
 }

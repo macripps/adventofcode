@@ -4,9 +4,10 @@ import aoc.Day
 import Day21._
 
 import scala.collection.mutable
+import scala.util.matching.Regex
 
 class Day21 extends Day(2020, 21) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val parsedInput = input.map {
       case parse(ingredients, _, allergens, _) =>
         (ingredients.split(" ").toSet, allergens.split(", "))
@@ -38,7 +39,7 @@ class Day21 extends Day(2020, 21) {
     answer.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val parsedInput = input.map {
       case parse(ins, _, alls, _) =>
         val ingredients = ins.split(" ").toSet
@@ -88,5 +89,5 @@ class Day21 extends Day(2020, 21) {
 object Day21 {
   def apply() = new Day21()
 
-  val parse = raw"((\w+ )+)\(contains ((\w,? ?)+)\)".r
+  val parse: Regex = raw"((\w+ )+)\(contains ((\w,? ?)+)\)".r
 }

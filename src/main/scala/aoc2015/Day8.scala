@@ -4,11 +4,11 @@ import aoc.Day
 import aoc2015.Day8._
 
 class Day8 extends Day(2015, 8) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     (input.map(codeCharacters).sum - input.map(inMemoryCharacters).sum).toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     (input.map(escapeCharacters).sum - input.map(codeCharacters).sum).toString
   }
 }
@@ -16,7 +16,7 @@ class Day8 extends Day(2015, 8) {
 object Day8 {
   def apply() = new Day8()
 
-  def codeCharacters(s: String) = s.length
+  def codeCharacters(s: String): Int = s.length
 
   def inMemoryCharacters(s: String): Int = {
     val u = s.drop(1).dropRight(1)

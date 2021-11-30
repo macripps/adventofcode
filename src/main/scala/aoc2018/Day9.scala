@@ -4,6 +4,7 @@ import aoc.{Day, ProgressBar}
 
 import scala.collection.mutable
 import scala.util.control.Breaks.{break, breakable}
+import scala.util.matching.Regex
 
 class Day9 extends Day(2018, 9) {
   import Day9._
@@ -16,7 +17,7 @@ class Day9 extends Day(2018, 9) {
     "30 players; last marble is worth 5807 points",
   )
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val marbles = 70904
     val players = 473
 
@@ -24,7 +25,7 @@ class Day9 extends Day(2018, 9) {
     "high score is " + score
   }
 
-  def highScore(marbles: Int, players: Int) = {
+  def highScore(marbles: Int, players: Int): Long = {
     var circle = new Marble(0)
     circle.prev = circle
     circle.next = circle
@@ -74,7 +75,7 @@ class Day9 extends Day(2018, 9) {
     out.result()
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val marbles = 7090400
     val players = 473
 
@@ -91,5 +92,5 @@ object Day9 {
     var prev: Marble = _
   }
 
-  val config = raw"(\d+) players; last marble is worth (\d+) points".r
+  val config: Regex = raw"(\d+) players; last marble is worth (\d+) points".r
 }

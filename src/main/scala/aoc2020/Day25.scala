@@ -3,7 +3,7 @@ package aoc2020
 import aoc.Day
 
 class Day25 extends Day(2020, 25) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     var card = 1L
     val cardTarget = input(0).toLong
     var cardSize = 1
@@ -16,7 +16,7 @@ class Day25 extends Day(2020, 25) {
     doorKey.toString
   }
 
-  override def part2: String = ""
+  override def part2(input: Array[String]): String = ""
 }
 
 object Day25 {

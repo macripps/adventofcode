@@ -3,7 +3,7 @@ package aoc2017
 import aoc.Day
 
 class Day5 extends Day(2017, 5) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val prog = input.map(_.toInt)
     var steps = 0
     var ep = 0
@@ -16,7 +16,7 @@ class Day5 extends Day(2017, 5) {
     steps.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val prog = input.map(_.toInt)
     var steps = 0
     var ep = 0

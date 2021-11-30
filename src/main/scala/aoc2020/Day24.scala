@@ -6,7 +6,7 @@ import Day24._
 import scala.collection.mutable
 
 class Day24 extends Day(2020, 24) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val tiles = mutable.Set[Point]()
     input.foreach { l =>
       val p = toPoint(l)
@@ -19,7 +19,7 @@ class Day24 extends Day(2020, 24) {
     tiles.size.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val blackTiles = mutable.Set[Point]()
     input.foreach { l =>
       val p = toPoint(l)
@@ -30,8 +30,8 @@ class Day24 extends Day(2020, 24) {
       }
     }
 
-    (1 to 100).foreach { it =>
-      var positionsToCheck = blackTiles ++ blackTiles.flatMap(_.neighbours)
+    (1 to 100).foreach { _ =>
+      val positionsToCheck = blackTiles ++ blackTiles.flatMap(_.neighbours)
       val toFlipToWhite = mutable.Set[Point]()
       val toFlipToBlack = mutable.Set[Point]()
       positionsToCheck.foreach { p =>

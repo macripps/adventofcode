@@ -7,13 +7,13 @@ import io.opentelemetry.api.trace.Tracer
 import scala.collection.mutable
 
 class Day15 extends Day(2020, 15) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val numbers = input.head.split(",").map(_.toInt)
     val out = Day15.iterate(numbers, 2020)
     "The 2020th number is " + out
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val numbers = input.head.split(",").map(_.toInt)
     val out = Day15.iterate(numbers, 30000000)
     "The 30000000th number is " + out

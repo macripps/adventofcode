@@ -3,7 +3,7 @@ package aoc2016
 import aoc.Day
 
 class Day18 extends Day(2016, 18) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     var row = input(0)
     var spaces = row.count(_ == '.')
     (2 to 40).foreach { _ =>
@@ -32,7 +32,7 @@ class Day18 extends Day(2016, 18) {
     }
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     var row = input(0)
     var spaces = row.count(_ == '.')
     (2 to 400000).foreach { _ =>

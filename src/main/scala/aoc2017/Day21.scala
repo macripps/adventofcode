@@ -12,13 +12,13 @@ class Day21 extends Day(2017, 21) {
     ".#./..#/### => #..#/..../..../#..#",
   )
 
-  val start = Grid(Array(Array('.', '#', '.'), Array('.', '.', '#'), Array('#', '#', '#')))
+  val start: Grid = Grid(Array(Array('.', '#', '.'), Array('.', '.', '#'), Array('#', '#', '#')))
 
-  override def part1: String = result(5)
+  override def part1(input: Array[String]): String = result(input, 5)
 
-  override def part2: String = result(18)
+  override def part2(input: Array[String]): String = result(input, 18)
 
-  def result(its: Int): String = {
+  def result(input: Array[String], its: Int): String = {
     val rules = mutable.Map[String, Grid]()
     var grid = start
 
@@ -42,11 +42,11 @@ class Day21 extends Day(2017, 21) {
       var newSize = 0
       var dlt = 0
       val split: Array[Array[Grid]] = if (grid.contents.length % 2 == 0) {
-        newSize = (grid.contents.length * 3 / 2 )
+        newSize = grid.contents.length * 3 / 2
         dlt = 3
         grid.splitAt(2)
       } else {
-        newSize = (grid.contents.length * 4/ 3)
+        newSize = grid.contents.length * 4/ 3
         dlt = 4
         grid.splitAt(3)
       }
@@ -99,11 +99,11 @@ object Day21 {
       Grid(contents.reverse)
     }
 
-    def asBytes = contents.map(_.map(_.toInt).mkString("(", ",", ")")).mkString("\n")
+    def asBytes: String = contents.map(_.map(_.toInt).mkString("(", ",", ")")).mkString("\n")
     def singleLine: String = contents.map(_.mkString).mkString
-    override def toString = contents.map(_.mkString).mkString("\n")
+    override def toString: String = contents.map(_.mkString).mkString("\n")
 
-    def count = contents.map(_.count(x => x == '#')).sum
+    def count: Int = contents.map(_.count(x => x == '#')).sum
 
     def splitAt(size: Int): Array[Array[Grid]] = {
       Range(0, contents.length, size).map { y =>

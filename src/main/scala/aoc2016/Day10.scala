@@ -2,9 +2,11 @@ package aoc2016
 
 import aoc.Day
 
+import scala.util.matching.Regex
+
 class Day10 extends Day(2016, 10) {
   import aoc2016.Day10._
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val output = Array.ofDim[Int](21)
     val botsB = Map.newBuilder[Int, Bot]
     input.foreach {
@@ -16,13 +18,13 @@ class Day10 extends Day(2016, 10) {
     }
     val bots = botsB.result()
     input.foreach {
-      case i@valueToBot(value: String, bot: String) => bots(bot.toInt).receive(value.toInt, bots, output)
+      case valueToBot(value: String, bot: String) => bots(bot.toInt).receive(value.toInt, bots, output)
       case _ =>
     }
-    bots.find { case (id, x) => math.min(x.v1.get, x.v2.get) == 17 && math.max(x.v1.get, x.v2.get) == 61 }.head._1.toString
+    bots.find { case (_, x) => math.min(x.v1.get, x.v2.get) == 17 && math.max(x.v1.get, x.v2.get) == 61 }.head._1.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val output = Array.ofDim[Int](21)
     val botsB = Map.newBuilder[Int, Bot]
     input.foreach {
@@ -34,7 +36,7 @@ class Day10 extends Day(2016, 10) {
     }
     val bots = botsB.result()
     input.foreach {
-      case i@valueToBot(value: String, bot: String) => bots(bot.toInt).receive(value.toInt, bots, output)
+      case valueToBot(value: String, bot: String) => bots(bot.toInt).receive(value.toInt, bots, output)
       case _ =>
     }
     output.take(3).product.toString
@@ -56,32 +58,28 @@ object Day10 {
 
       if (v1.isDefined && v2.isDefined) {
         inst match {
-          case neitherToOutput(_: String, low: String, high: String) => {
+          case neitherToOutput(_: String, low: String, high: String) =>
             bots(low.toInt).receive(math.min(v1.get, v2.get), bots, output)
             bots(high.toInt).receive(math.max(v1.get, v2.get), bots, output)
-          }
-          case lowToOutput(_: String, low: String, high: String) => {
+          case lowToOutput(_: String, low: String, high: String) =>
             output(low.toInt) = math.min(v1.get, v2.get)
             bots(high.toInt).receive(math.max(v1.get, v2.get), bots, output)
-          }
-          case highToOutput(_: String, low: String, high: String) => {
+          case highToOutput(_: String, low: String, high: String) =>
             bots(low.toInt).receive(math.min(v1.get, v2.get), bots, output)
             output(high.toInt) = math.max(v1.get, v2.get)
-          }
-          case bothToOutput(_: String, low: String, high: String) => {
+          case bothToOutput(_: String, low: String, high: String) =>
             output(low.toInt) = math.min(v1.get, v2.get)
             output(high.toInt) = math.max(v1.get, v2.get)
-          }
         }
       }
     }
   }
 
 
-  val valueToBot = raw"value (\d+) goes to bot (\d+)".r
-  val neitherToOutput = raw"bot (\d+) gives low to bot (\d+) and high to bot (\d+)".r
-  val lowToOutput = raw"bot (\d+) gives low to output (\d+) and high to bot (\d+)".r
-  val highToOutput = raw"bot (\d+) gives low to bot (\d+) and high to output (\d+)".r
-  val bothToOutput = raw"bot (\d+) gives low to output (\d+) and high to output (\d+)".r
+  val valueToBot: Regex = raw"value (\d+) goes to bot (\d+)".r
+  val neitherToOutput: Regex = raw"bot (\d+) gives low to bot (\d+) and high to bot (\d+)".r
+  val lowToOutput: Regex = raw"bot (\d+) gives low to output (\d+) and high to bot (\d+)".r
+  val highToOutput: Regex = raw"bot (\d+) gives low to bot (\d+) and high to output (\d+)".r
+  val bothToOutput: Regex = raw"bot (\d+) gives low to output (\d+) and high to output (\d+)".r
 
 }

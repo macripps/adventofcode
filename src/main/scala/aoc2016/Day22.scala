@@ -1,6 +1,6 @@
 package aoc2016
 
-import aoc.{Day, Search}
+import aoc.Day
 
 import scala.util.matching.Regex
 
@@ -8,18 +8,19 @@ class Day22 extends Day(2016, 22) {
 
   import Day22._
 
-  lazy val nodes: Array[Node] = input.drop(2).map {
+  def nodes(input: Array[String]): Array[Node] = input.drop(2).map {
     case line(x: String, y: String, size: String, used: String) => Node("node-x" + x + "-y" + y, x.toInt, y.toInt, size.toInt, used.toInt)
   }
 
-  override def part1: String = {
-    nodes.filter(_.used != 0).flatMap { n =>
-      nodes.filter { n2 => n.name != n2.name && n2.avail >= n.used }
+  override def part1(input: Array[String]): String = {
+    val nods = nodes(input)
+    nods.filter(_.used != 0).flatMap { n =>
+      nods.filter { n2 => n.name != n2.name && n2.avail >= n.used }
     }.length.toString
   }
 
-  override def part2: String = {
-    val m = nodes.map { n => Point(n.x, n.y) -> n }.toMap
+  override def part2(input: Array[String]): String = {
+    val m = nodes(input).map { n => Point(n.x, n.y) -> n }.toMap
     val maxX = m.keys.maxBy(_.x).x
     val maxY = m.keys.maxBy(_.y).y
     val g = Point(maxX, 0)

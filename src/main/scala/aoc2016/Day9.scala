@@ -5,11 +5,11 @@ import aoc.Day
 class Day9 extends Day(2016, 9) {
   import Day9._
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     input.map(decompressLength).mkString("\n")
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     input.map(decompressV2Length).mkString("\n")
   }
 }

@@ -5,7 +5,7 @@ import aoc.Day
 import scala.collection.mutable
 
 class Day25 extends Day(2017, 25) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val tape = mutable.Map[Int, Boolean]()
     var state = 1
     var c = 0
@@ -55,12 +55,14 @@ class Day25 extends Day(2017, 25) {
           tape(c) = false
           c = c + 1
           state = 5
+        case _ =>
+
       }
     }
     tape.count(x => x._2).toString
   }
 
-  override def part2: String = ""
+  override def part2(input: Array[String]): String = ""
 }
 
 object Day25 {

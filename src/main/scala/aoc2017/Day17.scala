@@ -6,7 +6,7 @@ class Day17 extends Day(2017, 17) {
 
   import Day17._
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val buffer = new Node(0)
     buffer.next = buffer
     val steps = input.head.toInt
@@ -25,7 +25,7 @@ class Day17 extends Day(2017, 17) {
     o.v.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val steps = input.head.toInt
     var res = 0
     var pos = 0

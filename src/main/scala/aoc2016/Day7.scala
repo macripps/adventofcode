@@ -3,7 +3,7 @@ package aoc2016
 import aoc.Day
 
 class Day7 extends Day(2016, 7) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     input.count(supportsTLS).toString
   }
 
@@ -28,7 +28,7 @@ class Day7 extends Day(2016, 7) {
     validInBrackets && validOutOfBrackets
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     input.count(supportsSSL).toString
   }
 

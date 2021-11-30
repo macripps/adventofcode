@@ -4,7 +4,7 @@ import aoc.Day
 import aoc2020.Day17._
 
 class Day17 extends Day(2020, 17) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val its = 6
     val maxX = input.length + (2 * its)
     val maxY = input.length + (2 * its)
@@ -28,7 +28,7 @@ class Day17 extends Day(2020, 17) {
       x = x + 1
     }
 
-    (1 to its).foreach { cycle =>
+    (1 to its).foreach { _ =>
       val newCube = Array.ofDim[Boolean](maxZ, maxX, maxY)
       (0 until maxZ).foreach { z =>
         (0 until maxX).foreach { x =>
@@ -49,7 +49,7 @@ class Day17 extends Day(2020, 17) {
     "There are " + countActive3(cube, 0 until maxZ, 0 until maxX, 0 until maxY) + " active cells."
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val its = 6
     val maxX = input.length + (2 * its)
     val maxY = input.length + (2 * its)
@@ -75,7 +75,7 @@ class Day17 extends Day(2020, 17) {
       x = x + 1
     }
 
-    (1 to its).foreach { cycle =>
+    (1 to its).foreach { _ =>
       val newCube = Array.ofDim[Boolean](maxW, maxZ, maxX, maxY)
       (0 until maxW).foreach { w =>
         (0 until maxZ).foreach { z =>

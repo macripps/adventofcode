@@ -3,12 +3,13 @@ package aoc2018
 import aoc.Day
 
 import scala.collection.mutable
+import scala.util.matching.Regex
 
 class Day7 extends Day(2018, 7) {
 
   import Day7._
 
-  val example =
+  val example: Array[String] =
     """Step C must be finished before step A can begin.
       |Step C must be finished before step F can begin.
       |Step A must be finished before step B can begin.
@@ -17,7 +18,7 @@ class Day7 extends Day(2018, 7) {
       |Step D must be finished before step E can begin.
       |Step F must be finished before step E can begin.""".stripMargin.split("\n")
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     var ordering = input.map {
       case line(before: String, after: String) => (before, after)
     }.groupMapReduce(kv => kv._1)(kv => Set(kv._2))(_ ++ _)
@@ -34,7 +35,7 @@ class Day7 extends Day(2018, 7) {
     out
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val maxWorkers = 5
     var ordering = input.map {
       case line(before: String, after: String) => (before, after)
@@ -66,7 +67,7 @@ class Day7 extends Day(2018, 7) {
         }
       }
       if (debug) {
-        println(("% 4d      %s        %s        %s        %s        %s       %s").format(t,
+        println("% 4d      %s        %s        %s        %s        %s       %s".format(t,
           workers(0).map(_._1).getOrElse("."),
           workers(1).map(_._1).getOrElse("."),
           workers(2).map(_._1).getOrElse("."),
@@ -84,5 +85,5 @@ class Day7 extends Day(2018, 7) {
 object Day7 {
   def apply() = new Day7()
 
-  val line = raw"Step (\w) must be finished before step (\w) can begin.".r
+  val line: Regex = raw"Step (\w) must be finished before step (\w) can begin.".r
 }

@@ -1,12 +1,11 @@
 package aoc2015
 
 import aoc.Day
-import com.twitter.io.Buf
 
 import java.security.MessageDigest
 
 class Day4 extends Day(2015, 4) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val code = input(0)
     val md5 = MessageDigest.getInstance("MD5")
     (1 to Int.MaxValue).find { x =>
@@ -16,7 +15,7 @@ class Day4 extends Day(2015, 4) {
     }.map("The number is " + _).get
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val code = input(0)
     val md5 = MessageDigest.getInstance("MD5")
     (1 to Int.MaxValue).find { x =>

@@ -4,9 +4,10 @@ import aoc.Day
 import aoc2016.Day12._
 
 import scala.collection.mutable
+import scala.util.matching.Regex
 
 class Day12 extends Day(2016, 12) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     var ep = 0
     val registers = mutable.Map("a" -> 0, "b" -> 0, "c" -> 0, "d" -> 0)
     while (ep < input.length) {
@@ -41,8 +42,7 @@ class Day12 extends Day(2016, 12) {
     registers("a").toString
   }
 
-  override def part2: String = {
-
+  override def part2(input: Array[String]): String = {
     var ep = 0
     val registers = mutable.Map("a" -> 0, "b" -> 0, "c" -> 1, "d" -> 0)
     while (ep < input.length) {
@@ -81,8 +81,8 @@ class Day12 extends Day(2016, 12) {
 object Day12 {
   def apply() = new Day12()
 
-  val cpy = raw"cpy (.+?) (.)".r
-  val inc = raw"inc (.)".r
-  val dec = raw"dec (.)".r
-  val jnz = raw"jnz (.) (.+)".r
+  val cpy: Regex = raw"cpy (.+?) (.)".r
+  val inc: Regex = raw"inc (.)".r
+  val dec: Regex = raw"dec (.)".r
+  val jnz: Regex = raw"jnz (.) (.+)".r
 }

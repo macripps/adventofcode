@@ -1,15 +1,15 @@
 package aoc2017
 
-import aoc.{Day, Direction, Point}
+import aoc.{Day, Point}
 
 import scala.collection.mutable
 
 class Day3 extends Day(2017, 3) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     points(input(0).toInt).last.manhattanDistanceTo(Point(0,0)).toString
   }
 
-  def points(target: Int) = {
+  def points(target: Int): Seq[Point] = {
     var x = 0
     var y = 0
     var delta = (0, -1)
@@ -30,7 +30,7 @@ class Day3 extends Day(2017, 3) {
     out.result()
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val target = input(0).toInt
     var result = points(target)
     val grid = mutable.Map[Point, Int]()

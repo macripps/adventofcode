@@ -2,6 +2,8 @@ package aoc2016
 
 import aoc.Day
 
+import scala.util.matching.Regex
+
 class Day21 extends Day(2016, 21) {
 
   import Day21._
@@ -17,7 +19,7 @@ class Day21 extends Day(2016, 21) {
     "rotate based on position of letter d",
   )
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val x = "abcdefgh".toCharArray
     input.foreach {
       case swapPosition(pos1: String, pos2: String) =>
@@ -94,7 +96,7 @@ class Day21 extends Day(2016, 21) {
     rotateRight(x, r)
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val x = "fbgdceah".toCharArray
     val unRotateLetter = Map(
       0 -> 7,
@@ -130,11 +132,11 @@ class Day21 extends Day(2016, 21) {
 object Day21 {
   def apply() = new Day21()
 
-  val swapPosition = raw"swap position (\d) with position (\d)".r
-  val swapLetter = raw"swap letter (\w) with letter (\w)".r
-  val rotateLeft = raw"rotate left (\d+) steps?".r
-  val rotateRight = raw"rotate right (\d+) steps?".r
-  val rotateLetter = raw"rotate based on position of letter (\w)".r
-  val reversePositions = raw"reverse positions (\d) through (\d)".r
-  val movePosition = raw"move position (\d) to position (\d)".r
+  val swapPosition: Regex = raw"swap position (\d) with position (\d)".r
+  val swapLetter: Regex = raw"swap letter (\w) with letter (\w)".r
+  val rotateLeft: Regex = raw"rotate left (\d+) steps?".r
+  val rotateRight: Regex = raw"rotate right (\d+) steps?".r
+  val rotateLetter: Regex = raw"rotate based on position of letter (\w)".r
+  val reversePositions: Regex = raw"reverse positions (\d) through (\d)".r
+  val movePosition: Regex = raw"move position (\d) to position (\d)".r
 }

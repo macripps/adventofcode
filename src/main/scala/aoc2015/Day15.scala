@@ -3,8 +3,10 @@ package aoc2015
 import aoc.Day
 import Day15._
 
+import scala.util.matching.Regex
+
 class Day15 extends Day(2015, 15) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val cookies = input.map {
       case recipe(name, capacity, durability, flavor, texture, calories) => (name, capacity.toLong, durability.toLong, flavor.toLong, texture.toLong, calories.toLong)
     }
@@ -22,7 +24,7 @@ class Day15 extends Day(2015, 15) {
     results.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val cookies = input.map {
       case recipe(name, capacity, durability, flavor, texture, calories) => (name, capacity.toLong, durability.toLong, flavor.toLong, texture.toLong, calories.toLong)
     }
@@ -46,7 +48,7 @@ class Day15 extends Day(2015, 15) {
 object Day15 {
   def apply() = new Day15()
 
-  val recipe = raw"(\w+): capacity (-?\d+), durability (-?\d+), flavor (-?\d+), texture (-?\d+), calories (-?\d+)".r
+  val recipe: Regex = raw"(\w+): capacity (-?\d+), durability (-?\d+), flavor (-?\d+), texture (-?\d+), calories (-?\d+)".r
 
   def nextDown(props: Array[Int]): Array[Int] = {
     val rest = nextUp(props.dropRight(1))

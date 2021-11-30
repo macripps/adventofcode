@@ -73,7 +73,7 @@ class Day13 extends Day(2018, 13) {
     Cart(c.idx, nP, nD, nextTurn)
   }
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     var (grid, carts) = parseInput(input)
     while (!carts.exists(c => carts.exists(c2 => c2.p == c.p && c.idx != c2.idx))) {
       carts = carts.sortBy(f => (f.p.y, f.p.x)).map { c => moveCart(c, grid) }
@@ -81,15 +81,16 @@ class Day13 extends Day(2018, 13) {
     carts.find(c => carts.exists(c2 => c2.p == c.p && c.idx != c2.idx)).get.p.toString
   }
 
-  val example = """/>-<\
-                  ||   |
-                  || /<+-\
-                  || | | v
-                  |\>+</ |
-                  |  |   ^
-                  |  \<->/""".stripMargin.split("\n")
+  val example: Array[String] =
+    """/>-<\
+      ||   |
+      || /<+-\
+      || | | v
+      |\>+</ |
+      |  |   ^
+      |  \<->/""".stripMargin.split("\n")
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     var (grid, carts) = parseInput(input)
     while (carts.size > 1) {
       val crashes = Set.newBuilder[Int]

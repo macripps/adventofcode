@@ -4,14 +4,14 @@ import aoc.Day
 
 class Day19 extends Day(2016, 19) {
   import Day19._
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val elves = input(0).toInt
     val l = elves - Integer.highestOneBit(elves)
     val safe = 2 * l + 1
     safe.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val elves = input(0).toInt
     var e = new Elf(1)
     val first = e

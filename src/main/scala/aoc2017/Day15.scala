@@ -3,7 +3,7 @@ package aoc2017
 import aoc.Day
 
 class Day15 extends Day(2017, 15) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     var a = 618L
     var b = 814L
     (1 to 40_000_000).map { _ =>
@@ -13,7 +13,7 @@ class Day15 extends Day(2017, 15) {
     }.sum.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     var a = 618L
     var b = 814L
     (1 to 5_000_000).map { _ =>

@@ -5,7 +5,7 @@ import aoc.{Day, Direction, Point}
 import scala.collection.mutable
 
 class Day22 extends Day(2017, 22) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val turn = Map[(Direction.Direction, Boolean), Direction.Direction](
       (Direction.North, true) -> Direction.East,
       (Direction.North, false) -> Direction.West,
@@ -26,7 +26,7 @@ class Day22 extends Day(2017, 22) {
       }
     }
     var infections = 0
-    (1 to 10000).foreach { i =>
+    (1 to 10000).foreach { _ =>
       val current = grid.getOrElse(c, false)
       d = turn((d, current))
       if (!current) {
@@ -45,7 +45,7 @@ class Day22 extends Day(2017, 22) {
     infections.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val turn = Map[(Direction.Direction, Int), Direction.Direction](
       (Direction.North, 0) -> Direction.West,
       (Direction.East, 0) -> Direction.North,
@@ -74,7 +74,7 @@ class Day22 extends Day(2017, 22) {
       }
     }
     var infections = 0
-    (1 to 10_000_000).foreach { i =>
+    (1 to 10_000_000).foreach { _ =>
       val current = grid.getOrElse(c, 0)
       d = turn((d, current))
       if (current == 1) {

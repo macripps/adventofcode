@@ -6,7 +6,7 @@ import Day7._
 import scala.collection.mutable
 
 class Day7 extends Day(2015, 7) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     cache.clear()
     val wires = input.map(l => {
       val io = l.split(" -> ")
@@ -15,8 +15,8 @@ class Day7 extends Day(2015, 7) {
     calc(wires, "a").toString
   }
 
-  override def part2: String = {
-    val bVal = part1
+  override def part2(input: Array[String]): String = {
+    val bVal = part1(input)
     cache.clear()
     val wires = input.map(l => {
       val io = l.split(" -> ")

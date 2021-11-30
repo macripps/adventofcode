@@ -3,7 +3,7 @@ package aoc2017
 import aoc.{Day, Direction, Point}
 
 class Day19 extends Day(2017, 19) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val grid = input.map(_.toCharArray)
     val start = Point(grid(0).indexOf('|'), 0)
 
@@ -40,7 +40,7 @@ class Day19 extends Day(2017, 19) {
     out
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val grid = input.map(_.toCharArray)
     val start = Point(grid(0).indexOf('|'), 0)
 

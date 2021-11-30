@@ -7,7 +7,7 @@ import scala.collection.mutable
 import scala.util.matching.Regex
 
 class Day13 extends Day(2015, 13) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val happiness = toHappinessMap(input)
 
     val availablePeople = happiness.keys.toList
@@ -20,25 +20,23 @@ class Day13 extends Day(2015, 13) {
   private def toHappinessMap(input: Array[String]) = {
     val happiness = mutable.Map[String, mutable.Map[String, Int]]()
     input.foreach {
-      case gain(name1, change, name2) => {
+      case gain(name1, change, name2) =>
         if (happiness.contains(name1)) {
           happiness(name1) += (name2 -> change.toInt)
         } else {
           happiness(name1) = mutable.Map((name2, change.toInt))
         }
-      }
-      case loss(name1, change, name2) => {
+      case loss(name1, change, name2) =>
         if (happiness.contains(name1)) {
-          happiness(name1) += (name2 -> -(change.toInt))
+          happiness(name1) += (name2 -> -change.toInt)
         } else {
-          happiness(name1) = mutable.Map((name2, -(change.toInt)))
+          happiness(name1) = mutable.Map((name2, -change.toInt))
         }
-      }
     }
     happiness
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val happiness = toHappinessMap(input)
     happiness("me") = mutable.Map[String, Int]()
 

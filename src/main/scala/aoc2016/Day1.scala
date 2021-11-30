@@ -5,9 +5,9 @@ import aoc.{Day, Direction, Point}
 import scala.collection.mutable
 
 class Day1 extends Day(2016, 1) {
-  lazy val commands = input.head.split(", ")
-  override def part1: String = {
-    val result = commands.foldLeft((Direction.North, Point(0, 0))){ case (state, command) =>
+  def commands(input: Array[String]): Array[String] = input.head.split(", ")
+  override def part1(input: Array[String]): String = {
+    val result = commands(input).foldLeft((Direction.North, Point(0, 0))){ case (state, command) =>
       val newDirection: Direction.Direction = command.charAt(0) match {
         case 'L' =>
           state._1 match {
@@ -16,14 +16,13 @@ class Day1 extends Day(2016, 1) {
             case Direction.South => Direction.East
             case Direction.East => Direction.North
           }
-        case 'R' => {
+        case 'R' =>
           state._1 match {
             case Direction.North => Direction.East
             case Direction.West => Direction.North
             case Direction.South => Direction.West
             case Direction.East => Direction.South
           }
-        }
       }
       val distance = command.substring(1).toInt
       val newPosition = newDirection match {
@@ -37,13 +36,13 @@ class Day1 extends Day(2016, 1) {
     result._2.manhattanDistanceTo(Point(0, 0)).toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val visited = mutable.Set[Point]()
     var firstVisitedPosition: Option[Point] = None
     var position = Point(0, 0)
     var direction = Direction.North
 
-    var cs = commands
+    var cs = commands(input)
     while (!cs.isEmpty) {
       val command = cs.head
       val newDirection = command.charAt(0) match {
@@ -54,14 +53,13 @@ class Day1 extends Day(2016, 1) {
             case Direction.South => Direction.East
             case Direction.East => Direction.North
           }
-        case 'R' => {
+        case 'R' =>
           direction match {
             case Direction.North => Direction.East
             case Direction.West => Direction.North
             case Direction.South => Direction.West
             case Direction.East => Direction.South
           }
-        }
       }
       val distance = command.substring(1).toInt
       val newPosition = newDirection match {
@@ -74,7 +72,7 @@ class Day1 extends Day(2016, 1) {
       (math.min(position.x, newPosition.x) to math.max(position.x, newPosition.x)).foreach { x =>
         (math.min(position.y, newPosition.y) to math.max(position.y, newPosition.y)).foreach { y =>
           val p = Point(x, y)
-          if (p != position && visited.contains(p) && !firstVisitedPosition.isDefined) {
+          if (p != position && visited.contains(p) && firstVisitedPosition.isEmpty) {
             firstVisitedPosition = Some(p)
           }
           visited.add(p)

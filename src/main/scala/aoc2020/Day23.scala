@@ -3,15 +3,15 @@ package aoc2020
 import aoc.Day
 
 class Day23 extends Day(2020, 23) {
-  override lazy val input = "925176834".split("")
+  val fixedInput: Array[String] = "925176834".split("")
 
-  val cups = input.map(_.toInt).toSeq
-  val minCup = cups.min
+  val cups: Seq[Int] = fixedInput.map(_.toInt).toSeq
+  val minCup: Int = cups.min
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val array = buildArray(cups)
     var current = array(array.indexOf(cups.head))
-    (1 to 100).foreach { it =>
+    (1 to 100).foreach { _ =>
       val item1 = array(current)
       val item2 = array(item1)
       val item3 = array(item2)
@@ -42,10 +42,10 @@ class Day23 extends Day(2020, 23) {
     result.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val array = buildArray(cups ++ Range.inclusive(10, 1_000_000))
     var current = array(array.indexOf(cups.head))
-    (1 to 10_000_000).foreach { it =>
+    (1 to 10_000_000).foreach { _ =>
       val item1 = array(current)
       val item2 = array(item1)
       val item3 = array(item2)

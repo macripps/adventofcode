@@ -5,7 +5,7 @@ import aoc2020.Day2.{isValidPart1, isValidPart2}
 
 class Day2 extends Day(2020, 2) {
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val valid = input.count(l => {
       val line = l.split(" ")
       val count = line(0)
@@ -19,7 +19,7 @@ class Day2 extends Day(2020, 2) {
     "There are " + valid + " valid passwords in the file."
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val valid = input.count(l => {
       val line = l.split(" ")
       val count = line(0)

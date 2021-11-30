@@ -79,9 +79,9 @@ class Day15 extends Day(2018, 15) {
                    |#.....G.#
                    |#########""".stripMargin.split("\n")
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val grid: Array[Array[Char]] = input.map(_.toCharArray)
-    val unitsB = Seq.newBuilder[Unit]
+    val unitsB = Seq.newBuilder[GameUnit]
     var idx = 0
     grid.indices.foreach { y =>
       grid(y).indices.foreach { x =>
@@ -110,7 +110,7 @@ class Day15 extends Day(2018, 15) {
               units.filter(_.isInstanceOf[Goblin])
             }
             if (targets.isEmpty) {
-              break
+              break()
             } else {
               if (!targets.exists(t => t.p.manhattanDistanceTo(u.p) == 1)) {
                 val targetSpaces = targets.flatMap(u => u.p.neighbours).filter(pt => grid(pt.y)(pt.x) == '.')
@@ -146,11 +146,11 @@ class Day15 extends Day(2018, 15) {
     (rounds * units.map(_.hp).sum).toString
   }
 
-  def printGrid(array: Array[Array[Char]]) {
+  def printGrid(array: Array[Array[Char]]): Unit = {
     println(array.map(_.mkString).mkString("\n"))
   }
 
-  def printInRange(array: Array[Array[Char]], value: Seq[aoc.Point]) {
+  def printInRange(array: Array[Array[Char]], value: Seq[aoc.Point]): Unit = {
     array.indices.foreach { y =>
       array(y).indices.foreach { x =>
         if (value.exists(p => p.x == x && p.y == y)) {
@@ -163,7 +163,7 @@ class Day15 extends Day(2018, 15) {
     }
   }
 
-  def printReachable(array: Array[Array[Char]], value: Seq[aoc.Point]) {
+  def printReachable(array: Array[Array[Char]], value: Seq[aoc.Point]): Unit = {
     array.indices.foreach { y =>
       array(y).indices.foreach { x =>
         if (value.exists(p => p.x == x && p.y == y)) {
@@ -176,7 +176,7 @@ class Day15 extends Day(2018, 15) {
     }
   }
 
-  def printNearest(array: Array[Array[Char]], value: Seq[aoc.Point]) {
+  def printNearest(array: Array[Array[Char]], value: Seq[aoc.Point]): Unit = {
     array.indices.foreach { y =>
       array(y).indices.foreach { x =>
         if (value.exists(p => p.x == x && p.y == y)) {
@@ -189,7 +189,7 @@ class Day15 extends Day(2018, 15) {
     }
   }
 
-  def printChosen(array: Array[Array[Char]], value: aoc.Point) {
+  def printChosen(array: Array[Array[Char]], value: aoc.Point): Unit = {
     array.indices.foreach { y =>
       array(y).indices.foreach { x =>
         if (value.x == x && value.y == y) {
@@ -202,9 +202,9 @@ class Day15 extends Day(2018, 15) {
     }
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val grid: Array[Array[Char]] = input.map(_.toCharArray)
-    val unitsB = Seq.newBuilder[Unit]
+    val unitsB = Seq.newBuilder[GameUnit]
     var idx = 0
     grid.indices.foreach { y =>
       grid(y).indices.foreach { x =>
@@ -233,7 +233,7 @@ class Day15 extends Day(2018, 15) {
               units.filter(_.isInstanceOf[Goblin])
             }
             if (targets.isEmpty) {
-              break
+              break()
             } else {
               if (!targets.exists(t => t.p.manhattanDistanceTo(u.p) == 1)) {
                 val targetSpaces = targets.flatMap(u => u.p.neighbours).filter(pt => grid(pt.y)(pt.x) == '.')
@@ -273,19 +273,19 @@ class Day15 extends Day(2018, 15) {
 object Day15 {
   def apply() = new Day15()
 
-  abstract class Unit(val idx: Int, val ap: Int) {
+  abstract class GameUnit(val idx: Int, val ap: Int) {
     var p: Point = _
     var hp: Int = _
 
     override def toString: String = this.getClass.getName + "(" + idx + ", " + p + ", " + ap + ", " + hp + ")"
   }
 
-  class Goblin(id: Int, pt: Point) extends Unit(id, 3) {
+  class Goblin(id: Int, pt: Point) extends GameUnit(id, 3) {
     hp = 200
     p = pt
   }
 
-  class Elf(id: Int, pt: Point, ap: Int = 3) extends Unit(id, ap) {
+  class Elf(id: Int, pt: Point, ap: Int = 3) extends GameUnit(id, ap) {
     hp = 200
     p = pt
   }

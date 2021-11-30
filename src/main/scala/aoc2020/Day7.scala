@@ -6,13 +6,14 @@ import scala.collection.mutable
 import Day7._
 
 class Day7 extends Day(2020, 7) {
-  val parsed = parse(input)
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
+    val parsed = parse(input)
     "Shiny gold bags are contained within " + Day7.part1(Colour("shiny gold"), parsed) + " other bags"
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
+    val parsed = parse(input)
     "Shiny gold bags contain " + Day7.part2(Colour("shiny gold"), parsed) + " other bags"
   }
 }

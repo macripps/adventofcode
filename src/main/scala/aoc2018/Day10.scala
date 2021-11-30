@@ -2,9 +2,11 @@ package aoc2018
 
 import aoc.{Day, Point}
 
+import scala.util.matching.Regex
+
 class Day10 extends Day(2018, 10) {
   import Day10._
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val ptsDlts = input.map {
       case line(px: String, py: String, vx: String, vy:String) =>
         (Point(px.toInt, py.toInt), (vx.toInt, vy.toInt))
@@ -21,7 +23,7 @@ class Day10 extends Day(2018, 10) {
     "\n" + grid.map(_.map(c => if (c) '#' else '.').mkString).mkString("\n")
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     "10007"
   }
 }
@@ -29,5 +31,5 @@ class Day10 extends Day(2018, 10) {
 object Day10 {
   def apply() = new Day10()
 
-  val line = raw"position=< *(-?\d+), *(-?\d+)> velocity=< *(-?\d+), *(-?\d+)>".r
+  val line: Regex = raw"position=< *(-?\d+), *(-?\d+)> velocity=< *(-?\d+), *(-?\d+)>".r
 }

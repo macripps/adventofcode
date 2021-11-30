@@ -4,10 +4,10 @@ import aoc.Day
 import aoc2015.Day18._
 
 class Day18 extends Day(2015, 18) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     var grid = input.map(_.toCharArray)
 
-    (1 to 100).foreach { it =>
+    (1 to 100).foreach { _ =>
       val next = Array.ofDim[Char](grid.length, grid(0).length)
 
       grid.indices.foreach { y =>
@@ -27,10 +27,10 @@ class Day18 extends Day(2015, 18) {
     grid.map { r => r.count(c => c == '#') }.sum.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     var grid = input.map(_.toCharArray)
 
-    (1 to 100).foreach { it =>
+    (1 to 100).foreach { _ =>
       val next = Array.ofDim[Char](grid.length, grid(0).length)
 
       grid.indices.foreach { y =>

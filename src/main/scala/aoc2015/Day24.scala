@@ -19,14 +19,14 @@ class Day24 extends Day(2015, 24) {
 //      |11
 //      |""".stripMargin.split("\n")
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val weights = input.map(_.toInt).toSeq
     val totalWeight = weights.sum
     val options = findThreeOptionsThatSumTo(weights, totalWeight/3)
     options.product.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val weights = input.map(_.toInt).toSeq
     val totalWeight = weights.sum
     val options = findThreeOptionsThatSumTo(weights, totalWeight/4)

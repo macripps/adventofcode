@@ -5,11 +5,11 @@ import aoc2020.Day3.treesHit
 
 class Day3 extends Day(2020, 3) {
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     "You hit " + Day3.treesHit((3, 1), input) + " trees"
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val slopes = Array[(Int,Int)](
       (1, 1),
       (3, 1),

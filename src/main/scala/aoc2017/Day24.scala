@@ -8,7 +8,7 @@ class Day24 extends Day(2017, 24) {
 
   import Day24._
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val components = input.map { l =>
       val ports = l.split("/")
       (ports(0).toInt, ports(1).toInt)
@@ -35,7 +35,7 @@ class Day24 extends Day(2017, 24) {
     score.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val components = input.map { l =>
       val ports = l.split("/")
       (ports(0).toInt, ports(1).toInt)

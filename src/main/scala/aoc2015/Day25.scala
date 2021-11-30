@@ -3,8 +3,10 @@ package aoc2015
 import aoc.Day
 import Day25._
 
+import scala.util.matching.Regex
+
 class Day25 extends Day(2015, 25) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val (r, c) = input(0) match {
       case Code(row, column) =>
         (row.toInt, column.toInt)
@@ -26,11 +28,11 @@ class Day25 extends Day(2015, 25) {
     currentCode.toString
   }
 
-  override def part2: String = ""
+  override def part2(input: Array[String]): String = ""
 }
 
 object Day25 {
   def apply() = new Day25()
 
-  val Code = raw"To continue, please consult the code grid in the manual.  Enter the code at row (\d+), column (\d+).".r
+  val Code: Regex = raw"To continue, please consult the code grid in the manual.  Enter the code at row (\d+), column (\d+).".r
 }

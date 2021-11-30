@@ -3,7 +3,7 @@ package aoc2017
 import aoc.{Day, HexPoint}
 
 class Day11 extends Day(2017, 11) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     var p = HexPoint(0, 0, 0)
     val dirs = input.head.split(",")
     dirs.foreach {
@@ -17,7 +17,7 @@ class Day11 extends Day(2017, 11) {
     p.manhattanDistanceTo(HexPoint(0, 0, 0)).toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     var max = 0
     var p = HexPoint(0, 0, 0)
     val dirs = input.head.split(",")

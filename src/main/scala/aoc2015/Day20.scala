@@ -3,7 +3,7 @@ package aoc2015
 import aoc.Day
 
 class Day20 extends Day(2015, 20) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val target = input.head.toInt
 
     val houses = Array.ofDim[Int](1_000_000)
@@ -15,7 +15,7 @@ class Day20 extends Day(2015, 20) {
     houses.indexWhere(k => k >= target).toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val target = input.head.toInt
 
     val houses = Array.ofDim[Int](1_000_000)

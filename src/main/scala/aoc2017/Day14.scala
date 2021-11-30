@@ -5,11 +5,11 @@ import aoc.{Day, Point}
 import scala.collection.mutable
 
 class Day14 extends Day(2017, 14) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     knotHash(input.head).map { x => x.map(Integer.bitCount).sum }.sum.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val result = knotHash(input.head)
     val grid = Array.ofDim[Boolean](128, 128)
     var y = 0

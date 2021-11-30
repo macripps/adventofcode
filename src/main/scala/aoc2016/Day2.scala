@@ -3,7 +3,7 @@ package aoc2016
 import aoc.{Day, Point}
 
 class Day2 extends Day(2016, 2) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     var position = Point(1,1)
     val maxYs = Seq(0, 0, 0)
     val minXs = Seq(0, 0, 0)
@@ -20,7 +20,7 @@ class Day2 extends Day(2016, 2) {
     }.mkString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     var position = Point(0, 2)
     val maxYs = Seq(2, 1, 0, 1, 2)
     val minXs = Seq(2, 1, 0, 1, 2)
@@ -47,6 +47,7 @@ class Day2 extends Day(2016, 2) {
         case Point(2, 3) => 'B'
         case Point(3, 3) => 'C'
         case Point(2, 4) => 'D'
+        case _ => '?'
       }
     }.mkString
   }

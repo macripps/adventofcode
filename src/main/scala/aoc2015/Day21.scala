@@ -37,7 +37,7 @@ class Day21 extends Day(2015, 21) {
     weapons.flatMap { w =>
       armors.flatMap { a =>
         rings.flatMap { ring1 =>
-          val rings2 = if (ring1.isEmpty) rings else (rings - ring1)
+          val rings2 = if (ring1.isEmpty) rings else rings - ring1
           rings2.map { ring2 =>
             Loadout(w, a, ring1, ring2)
           }
@@ -46,19 +46,19 @@ class Day21 extends Day(2015, 21) {
     }
   }
 
-  val boss: Boss = Boss(input(0).drop(12).toInt, input(1).drop(8).toInt, input(2).drop(7).toInt)
+  def boss(input: Array[String]): Boss = Boss(input(0).drop(12).toInt, input(1).drop(8).toInt, input(2).drop(7).toInt)
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val cheapestLoadout = allLoadouts.filter { l =>
-      combat(Player(100, l.damage, l.armor), boss, playerTurn = true) == Win
+      combat(Player(100, l.damage, l.armor), boss(input), playerTurn = true) == Win
     }.minBy { _.cost }
     println(cheapestLoadout)
     cheapestLoadout.cost.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val mostExpensiveLoadout = allLoadouts.filter { l =>
-      combat(Player(100, l.damage, l.armor), boss, playerTurn = true) == Loss
+      combat(Player(100, l.damage, l.armor), boss(input), playerTurn = true) == Loss
     }.maxBy { _.cost }
     println(mostExpensiveLoadout)
     mostExpensiveLoadout.cost.toString

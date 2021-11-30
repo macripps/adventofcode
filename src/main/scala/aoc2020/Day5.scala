@@ -4,11 +4,11 @@ import aoc.Day
 import aoc2020.Day5.{binaryToInt, sumFrom, toBinary}
 
 class Day5 extends Day(2020, 5) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     "The highest SeatID is " + input.map(toBinary).map(binaryToInt).max
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val sorted = input.map(toBinary).map(binaryToInt).sorted
     "The missing SeatID is " + (sumFrom(sorted.head, sorted.last) - sorted.sum)
   }

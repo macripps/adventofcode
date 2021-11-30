@@ -5,9 +5,9 @@ import aoc.Day
 import scala.collection.mutable
 
 class Day1 extends Day(2018, 1) {
-  override def part1: String = input.map(_.toInt).sum.toString
+  override def part1(input: Array[String]): String = input.map(_.toInt).sum.toString
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val i = input.map(_.toInt)
     val seen = mutable.Set[Int]()
     var x = 0

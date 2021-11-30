@@ -6,13 +6,14 @@ import aoc2020.Day22._
 import scala.collection.mutable
 
 class Day22 extends Day(2020, 22) {
-  val decks: Seq[Seq[Int]] = inputGroups.map { g =>
+  def decks(input: Array[String]): Seq[Seq[Int]] = inputGroups(input).map { g =>
     g.drop(1).map(_.toInt).toSeq
   }.toSeq
 
-  override def part1: String = {
-    var p1Deck = decks.head
-    var p2Deck = decks(1)
+  override def part1(input: Array[String]): String = {
+    val dcks = decks(input)
+    var p1Deck = dcks.head
+    var p2Deck = dcks(1)
 
     while (p1Deck.nonEmpty && p2Deck.nonEmpty) {
       val p1Draw = p1Deck.head
@@ -34,8 +35,9 @@ class Day22 extends Day(2020, 22) {
     deck.reverse.zipWithIndex.map { case (v, idx) => v * (idx + 1) }.sum
   }
 
-  override def part2: String = {
-    val (_, p1Deck, p2Deck) = new RecursiveGame(decks.head, decks(1)).play()
+  override def part2(input: Array[String]): String = {
+    val dcks = decks(input)
+    val (_, p1Deck, p2Deck) = new RecursiveGame(dcks.head, dcks(1)).play()
     (score(p1Deck) + score(p2Deck)).toString
   }
 }
@@ -44,7 +46,7 @@ object Day22 {
   def apply() = new Day22()
 
   class RecursiveGame(p1Deck: Seq[Int], p2Deck: Seq[Int]) {
-    val cache = mutable.Set[(Seq[Int], Seq[Int])]()
+    val cache: mutable.Set[(Seq[Int], Seq[Int])] = mutable.Set[(Seq[Int], Seq[Int])]()
 
     def play(): (Winner, Seq[Int], Seq[Int]) = {
       var player1Deck = p1Deck

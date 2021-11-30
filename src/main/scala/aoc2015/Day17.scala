@@ -4,11 +4,11 @@ import aoc.Day
 import aoc2015.Day17.findSublistsThatSumsTo
 
 class Day17 extends Day(2015, 17) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     findSublistsThatSumsTo(input.toList.map(_.toInt).sortBy(-_), 150).get.length.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val results = findSublistsThatSumsTo(input.toList.map(_.toInt).sortBy(-_), 150).get
     val shortest = results.map(r => r.length).min
     results.count { r => r.length == shortest }.toString

@@ -12,26 +12,27 @@ class Day6 extends Day(2018, 6) {
     Point(8, 9),
   )
 
-  lazy val points: Set[Point] = input.map(l => {
+  def points(input: Array[String]): Set[Point] = input.map(l => {
     val kv = l.split(", ")
     Point(kv(0).toInt, kv(1).toInt)
   }).toSet
 
-  override def part1: String = {
-    val xMin = points.minBy(_.x).x
-    val xMax = points.maxBy(_.x).x
-    val yMin = points.minBy(_.y).y
-    val yMax = points.maxBy(_.y).y
+  override def part1(input: Array[String]): String = {
+    val pts = points(input)
+    val xMin = pts.minBy(_.x).x
+    val xMax = pts.maxBy(_.x).x
+    val yMin = pts.minBy(_.y).y
+    val yMax = pts.maxBy(_.y).y
 
-    val border = ((yMin to yMax).flatMap { y => Seq(Point(xMin, y), Point(xMax, y)) } ++
-      (xMin to xMax).flatMap { x => Seq(Point(x, yMin), Point(x, yMax)) })
+    val border = (yMin to yMax).flatMap { y => Seq(Point(xMin, y), Point(xMax, y)) } ++
+      (xMin to xMax).flatMap { x => Seq(Point(x, yMin), Point(x, yMax)) }
 
-    val finitePoints = points.filter { p =>
-      isFinite(p, border, points)
+    val finitePoints = pts.filter { p =>
+      isFinite(p, border, pts)
     }
 
     val as = finitePoints.map(p => {
-      p -> area(p, xMin, xMax, yMin, yMax, points)
+      p -> area(p, xMin, xMax, yMin, yMax, pts)
     }).toMap
     as.maxBy(_._2)._2.toString
   }
@@ -63,18 +64,19 @@ class Day6 extends Day(2018, 6) {
     }
   }
 
-  override def part2: String = {
-    val xMin = points.minBy(_.x).x
-    val xMax = points.maxBy(_.x).x
-    val yMin = points.minBy(_.y).y
-    val yMax = points.maxBy(_.y).y
+  override def part2(input: Array[String]): String = {
+    val pts = points(input)
+    val xMin = pts.minBy(_.x).x
+    val xMax = pts.maxBy(_.x).x
+    val yMin = pts.minBy(_.y).y
+    val yMax = pts.maxBy(_.y).y
 
     val distance = 10000
 
     var area = 0
     (xMin to xMax).foreach { x =>
       (yMin to yMax).foreach { y =>
-        val d = points.toList.map { p => p.manhattanDistanceTo(Point(x,y)) }.sum
+        val d = pts.toList.map { p => p.manhattanDistanceTo(Point(x,y)) }.sum
         if (d < distance) {
           area = area + 1
         }

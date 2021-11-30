@@ -6,8 +6,8 @@ class Day11 extends Day(2016, 11) {
 
   import Day11._
 
-  override def part1: String = {
-    val state = toState(input)
+  override def part1(input: Array[String]): String = {
+    val state = toState
     var result = Search.breadthFirst[State](state, transition, isGoal)
     var length = 0
     while (result.parent.isDefined) {
@@ -133,7 +133,7 @@ class Day11 extends Day(2016, 11) {
   def isValid(state: State): Boolean = {
     Seq(state.firstFloor, state.secondFloor, state.thirdFloor, state.fourthFloor).forall { floor =>
       var chipZapped = false
-      var generators = floor.filter(_.isInstanceOf[Generator])
+      val generators = floor.filter(_.isInstanceOf[Generator])
       floor.foreach {
         case Microchip(m) => if (!generators.contains(Generator(m)) && generators.nonEmpty) {
           chipZapped = true
@@ -148,7 +148,7 @@ class Day11 extends Day(2016, 11) {
     state.elevator == 4 && state.firstFloor.isEmpty && state.secondFloor.isEmpty && state.thirdFloor.isEmpty
   }
 
-  def toState(input: Array[String]): State = {
+  def toState: State = {
     State(elevator = 1,
       firstFloor = Set(
         Generator("polonium"),
@@ -169,7 +169,7 @@ class Day11 extends Day(2016, 11) {
     )(None)
   }
 
-  def toState2(input: Array[String]): State = {
+  def toState2: State = {
     State(elevator = 1,
       firstFloor = Set(
         Generator("polonium"),
@@ -194,8 +194,8 @@ class Day11 extends Day(2016, 11) {
     )(None)
   }
 
-  override def part2: String = {
-    val state = toState2(input)
+  override def part2(input: Array[String]): String = {
+    val state = toState2
     var result = Search.breadthFirst[State](state, transition, isGoal)
     var length = 0
     while (result.parent.isDefined) {

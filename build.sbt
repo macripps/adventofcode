@@ -5,15 +5,15 @@ ThisBuild / scalaVersion := "2.13.4"
 lazy val root = (project in file("."))
   .settings(
     name := "Advent Of Code",
-    libraryDependencies += "com.twitter" %% "util-app" % "20.10.0",
-    libraryDependencies += "io.opentelemetry" % "opentelemetry-api" % "0.12.0",
-    libraryDependencies += "io.opentelemetry" % "opentelemetry-sdk" % "0.12.0",
-    libraryDependencies += "io.opentelemetry" % "opentelemetry-exporter-prometheus" % "0.12.0",
-    libraryDependencies += "io.opentelemetry" % "opentelemetry-exporter-zipkin" % "0.12.0",
+    libraryDependencies += "com.twitter" %% "util-app" % "21.10.0",
+    libraryDependencies += "io.opentelemetry" % "opentelemetry-api" % "1.9.0",
+    libraryDependencies += "io.opentelemetry" % "opentelemetry-sdk" % "1.9.0",
+    libraryDependencies += "io.opentelemetry" % "opentelemetry-exporter-prometheus" % "0.13.1",
+    libraryDependencies += "io.opentelemetry" % "opentelemetry-exporter-zipkin" % "1.9.0",
     libraryDependencies += "io.spray" %%  "spray-json" % "1.3.6",
-    libraryDependencies += "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.0",
+    libraryDependencies += "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4",
 
-    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.3" % Test,
+    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.9" % Test,
   )
 
 scalacOptions ++= Seq("-deprecation", "-feature")

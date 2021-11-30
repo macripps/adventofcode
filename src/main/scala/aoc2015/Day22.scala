@@ -6,9 +6,7 @@ import Day22._
 import scala.collection.mutable
 
 class Day22 extends Day(2015, 22) {
-  val boss: Boss = Boss(input(0).drop(12).toInt, input(1).drop(8).toInt)
-
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val p1 = Player(mana = 500, armor = 0, hitPoints = 50)
     val boss = Boss(71, 10)
 
@@ -109,7 +107,7 @@ class Day22 extends Day(2015, 22) {
     minCost.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val p1 = Player(mana = 500, armor = 0, hitPoints = 50)
     val boss = Boss(71, 10)
 

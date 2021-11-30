@@ -5,7 +5,7 @@ import aoc.Day
 class Day5 extends Day(2018, 5) {
   val example = Seq("dabAcCaCBAcCcaDA")
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     collapse(input.head).length.toString
   }
 
@@ -30,7 +30,7 @@ class Day5 extends Day(2018, 5) {
     }
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val polymer = input.head
     // var polymer = "dabAcCaCBAcCcaDA"
     ('A' to 'Z').map { c =>

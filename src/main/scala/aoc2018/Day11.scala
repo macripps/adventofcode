@@ -3,7 +3,7 @@ package aoc2018
 import aoc.Day
 
 class Day11 extends Day(2018, 11) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val input = 3999
     val grid = Array.ofDim[Int](300, 300)
 
@@ -40,7 +40,7 @@ class Day11 extends Day(2018, 11) {
     hD
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val input = 3999
     val grid = Array.ofDim[Int](300, 300)
 

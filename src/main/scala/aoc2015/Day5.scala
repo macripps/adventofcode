@@ -4,11 +4,11 @@ import aoc.Day
 import Day5._
 
 class Day5 extends Day(2015, 5) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     input.count(l => nicePart1(l)).toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     input.count(l => nicePart2(l)).toString
   }
 }

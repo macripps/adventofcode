@@ -1,6 +1,5 @@
 
 import aoc.Direction.Direction
-import io.opentelemetry.api.OpenTelemetry
 
 import scala.collection.Iterable.single
 import scala.collection.mutable
@@ -9,22 +8,13 @@ import scala.io.Source
 package object aoc {
 
   abstract class Day(val year: Int, val day: Int) {
-    val tracer = OpenTelemetry.getGlobalTracer("aoc")
-
     var debug = false
 
-    lazy val input: Array[String] = {
-      val inputSpan = tracer.spanBuilder("read_input").startSpan()
-      val input = readFileToIterable("aoc" + year + "/day" + day + ".input").toArray
-      inputSpan.`end`()
-      input
-    }
+    def inputGroups(input: Array[String]): Iterable[Iterable[String]] = asGroupsSeparatedByBlankLines(input)
 
-    lazy val inputGroups: Iterable[Iterable[String]] = asGroupsSeparatedByBlankLines(input)
+    def part1(input: Array[String]): String
 
-    def part1: String
-
-    def part2: String
+    def part2(input: Array[String]): String
   }
 
   def readFileToIterable(filename: String): Iterable[String] = {
@@ -156,13 +146,13 @@ package object aoc {
 
     private[this] val width = 40
 
-    def render: Unit = {
+    def render(): Unit = {
       val pct = 100 * amount / high
       if (pct != lastRendered) {
         print("[")
         print("=" * (40 * amount / high))
         print("-" * (40 - (40 * amount / high)))
-        println("] " + pct + "% ("+amount+"/"+high+")")
+        println("] " + pct + "% (" + amount + "/" + high + ")")
         lastRendered = pct
       }
     }

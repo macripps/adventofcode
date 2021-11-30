@@ -6,7 +6,7 @@ import java.security.MessageDigest
 import scala.collection.mutable
 
 class Day14 extends Day(2016, 14) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val md = MessageDigest.getInstance("MD5")
     val stream = mutable.LinkedHashMap[Int, String]()
 
@@ -44,7 +44,7 @@ class Day14 extends Day(2016, 14) {
     }
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val md = MessageDigest.getInstance("MD5")
     val stream = mutable.LinkedHashMap[Int, String]()
 

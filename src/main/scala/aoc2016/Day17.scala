@@ -7,14 +7,14 @@ import scala.collection.mutable
 
 class Day17 extends Day(2016, 17) {
   import Day17._
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val in = input(0)
     Search.breadthFirst[Square](Square(0, 0, in)(None), neighbours, s => s.x == 3 && s.y == 3).path.drop(in.length)
   }
 
   def neighbours(s: Square): Set[Square] = s.neighbours
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val hash = input(0)
     val result = findAllPaths[Square](Square(0, 0, hash)(None), neighbours, s => s.x == 3 && s.y == 3)
     val out = result.maxBy(s => s.path.length)
@@ -48,7 +48,7 @@ object Day17 {
   def apply() = new Day17()
 
   case class Square(x: Int, y: Int, path: String)(val from: Option[Square]) {
-    val md = MessageDigest.getInstance("MD5")
+    val md: MessageDigest = MessageDigest.getInstance("MD5")
     def neighbours: Set[Square] = {
       val d = md.digest(path.getBytes).take(2).map("%02x" format _).mkString("")
       val n = Set.newBuilder[Square]

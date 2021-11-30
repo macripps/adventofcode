@@ -2,10 +2,12 @@ package aoc2016
 
 import aoc.Day
 
+import scala.util.matching.Regex
+
 class Day8 extends Day(2016, 8) {
   import Day8._
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     var grid = Array.ofDim[Boolean](6, 50)
     input.foreach {
       case rect(x: String, y: String) => {
@@ -27,13 +29,13 @@ class Day8 extends Day(2016, 8) {
     grid.map { r => r.count(x => x)}.sum.toString
   }
 
-  override def part2: String = "EOARGPHYAO"
+  override def part2(input: Array[String]): String = "EOARGPHYAO"
 }
 
 object Day8 {
   def apply() = new Day8()
 
-  val rect = raw"rect (\d+)x(\d+)".r
-  val rotY = raw"rotate row y=(\d+) by (\d+)".r
-  val rotX = raw"rotate column x=(\d+) by (\d+)".r
+  val rect: Regex = raw"rect (\d+)x(\d+)".r
+  val rotY: Regex = raw"rotate row y=(\d+) by (\d+)".r
+  val rotX: Regex = raw"rotate column x=(\d+) by (\d+)".r
 }

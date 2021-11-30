@@ -7,7 +7,7 @@ class Day8 extends Day(2018, 8) {
 
   val example = Seq("2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2")
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val (node, _) = readNode(input.head.split(" "), 0)
     node.sumOfMetadata.toString
   }
@@ -25,7 +25,7 @@ class Day8 extends Day(2018, 8) {
     (Node(children, metadata), fromN + numMetadata)
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val (node, _) = readNode(input.head.split(" "), 0)
     node.value.toString
   }

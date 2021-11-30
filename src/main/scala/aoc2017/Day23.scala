@@ -3,13 +3,13 @@ package aoc2017
 import aoc.Day
 
 import scala.collection.mutable
-import scala.util.control.Breaks.{break, breakable}
+import scala.util.matching.Regex
 
 class Day23 extends Day(2017, 23) {
 
   import Day23._
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val registers = mutable.Map[String, Long]()
     var ep = 0
     var muls = 0
@@ -44,7 +44,7 @@ class Day23 extends Day(2017, 23) {
     } else str.toLong
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     // Setup
     var b = 0
     var c = 0
@@ -59,7 +59,7 @@ class Day23 extends Day(2017, 23) {
   }
 
   def isPrime(x: Long): Boolean = {
-    (2 to math.sqrt(x).toInt).foreach { i =>
+    (2 to math.sqrt(x.toDouble).toInt).foreach { i =>
       if (x % i == 0) {
         return false
       }
@@ -71,8 +71,8 @@ class Day23 extends Day(2017, 23) {
 object Day23 {
   def apply() = new Day23()
 
-  val set = raw"set (\w) (-?\w+)".r
-  val sub = raw"sub (\w) (-?\w+)".r
-  val mul = raw"mul (\w) (-?\w+)".r
-  val jnz = raw"jnz (-?\w+) (-?\w+)".r
+  val set: Regex = raw"set (\w) (-?\w+)".r
+  val sub: Regex = raw"sub (\w) (-?\w+)".r
+  val mul: Regex = raw"mul (\w) (-?\w+)".r
+  val jnz: Regex = raw"jnz (-?\w+) (-?\w+)".r
 }

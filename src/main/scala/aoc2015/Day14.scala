@@ -4,18 +4,18 @@ import aoc.Day
 import Day14._
 
 import scala.collection.mutable
+import scala.util.matching.Regex
 
 class Day14 extends Day(2015, 14) {
   val time = 2503
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     input.map {
-      case reindeer(name, speed, flyingTime, restingTime) => {
-        (name, distance(speed.toInt, flyingTime.toInt, restingTime.toInt, time.toInt))
-      }
+      case reindeer(name, speed, flyingTime, restingTime) =>
+        (name, distance(speed.toInt, flyingTime.toInt, restingTime.toInt, time))
     }.maxBy(_._2).toString()
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val reindeers = input.map {
       case reindeer(name, speed, flyingTime, restingTime) =>
         (name, speed.toInt, flyingTime.toInt, restingTime.toInt)
@@ -41,11 +41,11 @@ class Day14 extends Day(2015, 14) {
 object Day14 {
   def apply() = new Day14()
 
-  val reindeer = raw"(\w+) can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.".r
+  val reindeer: Regex = raw"(\w+) can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.".r
 
   def distance(speed: Int, flyingTime: Int, restingTime: Int, atTime: Int): Int = {
     val numberOfFlights = atTime / (flyingTime + restingTime)
     val flyingTimeLeft = math.min(flyingTime, atTime % (flyingTime + restingTime))
-    (numberOfFlights * flyingTime * speed.toInt) + (flyingTimeLeft * speed.toInt)
+    (numberOfFlights * flyingTime * speed) + (flyingTimeLeft * speed)
   }
 }

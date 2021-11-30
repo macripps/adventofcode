@@ -5,12 +5,12 @@ import aoc.Day
 import scala.annotation.tailrec
 
 class Day8 extends Day(2020, 8) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val result = executeProgram(input)
     "The accumulator value is " + result._2
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val successfulAccumulator = input.indices.flatMap { l =>
       var command: String = input(l)
       if (command.startsWith("nop")) {
@@ -36,24 +36,21 @@ class Day8 extends Day(2020, 8) {
     } else {
       val instruction = program(instructionCounter).split(" ")
       instruction(0) match {
-        case "acc" => {
+        case "acc" =>
           execute2(program,
             instructionCounter + 1,
             accumulator + instruction(1).toInt,
             executedInstructions + instructionCounter)
-        }
-        case "jmp" => {
+        case "jmp" =>
           execute2(program,
             instructionCounter + instruction(1).toInt,
             accumulator,
             executedInstructions + instructionCounter)
-        }
-        case "nop" => {
+        case "nop" =>
           execute2(program,
             instructionCounter + 1,
             accumulator,
             executedInstructions + instructionCounter)
-        }
       }
     }
   }

@@ -44,7 +44,7 @@ class Day20 extends Day(2020, 20) {
                 val result = solve(map + (p -> TilePosition(tile, orientation, p)), available.take(tileIdx) ++ available.drop(tileIdx + 1))
                 if (result.nonEmpty) {
                   grandResult = result
-                  break
+                  break()
                 }
               }
             }
@@ -56,7 +56,7 @@ class Day20 extends Day(2020, 20) {
     }
   }
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val tiles = tilesList(input)
     val sol = solution(tiles)
     val minX = sol.keys.minBy(_.x).x
@@ -68,7 +68,7 @@ class Day20 extends Day(2020, 20) {
     }.product.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val tiles = tilesList(input)
     val sol = solution(tiles)
 

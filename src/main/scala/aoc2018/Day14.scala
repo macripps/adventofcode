@@ -5,10 +5,10 @@ import aoc.Day
 import scala.collection.mutable
 
 class Day14 extends Day(2018, 14) {
-  override lazy val input: Array[String] = Array("327901")
+  val fixedInput: Array[String] = Array("327901")
 
-  override def part1: String = {
-    val i = input.head.toInt
+  override def part1(input: Array[String]): String = {
+    val i = fixedInput.head.toInt
     val array = mutable.Buffer[Byte](3, 7)
     var i0 = 0
     var i1 = 1
@@ -24,8 +24,8 @@ class Day14 extends Day(2018, 14) {
     array.slice(i, i + 10).mkString("")
   }
 
-  override def part2: String = {
-    val i = input.head.split("").map(_.toInt)
+  override def part2(input: Array[String]): String = {
+    val i = fixedInput.head.split("").map(_.toInt)
     val array = mutable.Buffer[Byte](3, 7)
     var i0 = 0
     var i1 = 1

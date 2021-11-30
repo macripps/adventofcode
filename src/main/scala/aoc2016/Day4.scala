@@ -4,11 +4,11 @@ import aoc.Day
 import Day4._
 
 class Day4 extends Day(2016, 4) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     input.map(Room).filter(_.isReal).map(_.sectorId).sum.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     input.map(Room).filter(x => x.isReal && x.decodedName == "northpoleobjectstorage").head.sectorId.toString
   }
 }

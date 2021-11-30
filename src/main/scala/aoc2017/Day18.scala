@@ -3,12 +3,13 @@ package aoc2017
 import aoc.Day
 
 import scala.collection.mutable
+import scala.util.matching.Regex
 
 class Day18 extends Day(2017, 18) {
 
   import Day18._
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val p = new Program(0, input, mutable.Map[String, Long]())
     val o = new Program(0, input, mutable.Map[String, Long]())
     p.target = o
@@ -18,7 +19,7 @@ class Day18 extends Day(2017, 18) {
     o.inQ.last.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val p0 = new Program(0, input, mutable.Map[String, Long](("p", 0)))
     val p1 = new Program(1, input, mutable.Map[String, Long](("p", 1)))
     p0.target = p1
@@ -37,16 +38,16 @@ class Day18 extends Day(2017, 18) {
 object Day18 {
   def apply() = new Day18()
 
-  val snd = raw"snd (\w)".r
-  val set = raw"set (\w) (\w+)".r
-  val add = raw"add (\w) (-?\w+)".r
-  val mul = raw"mul (\w) (-?\w+)".r
-  val mod = raw"mod (\w) (\w+)".r
-  val rcv = raw"rcv (\w)".r
-  val jgz = raw"jgz (\w) (-?\w+)".r
+  val snd: Regex = raw"snd (\w)".r
+  val set: Regex = raw"set (\w) (\w+)".r
+  val add: Regex = raw"add (\w) (-?\w+)".r
+  val mul: Regex = raw"mul (\w) (-?\w+)".r
+  val mod: Regex = raw"mod (\w) (\w+)".r
+  val rcv: Regex = raw"rcv (\w)".r
+  val jgz: Regex = raw"jgz (\w) (-?\w+)".r
 
   class Program(id: Int, input: Array[String], val regs: mutable.Map[String, Long]) {
-    val inQ = mutable.Queue[Long]()
+    val inQ: mutable.Queue[Long] = mutable.Queue[Long]()
     var target: Program = _
     var ep = 0
     var sentValues = 0
@@ -59,7 +60,7 @@ object Day18 {
       ep >= 0 && ep < input.length
     }
 
-    def paused = waitingForInput && inQ.isEmpty
+    def paused: Boolean = waitingForInput && inQ.isEmpty
 
     var waitingForInput = false
 

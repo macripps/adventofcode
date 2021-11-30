@@ -4,7 +4,7 @@ import aoc.Day
 import Day19._
 
 class Day19 extends Day(2015, 19) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val rules = input.take(input.indexOf("")).map { r =>
       val o = r.split(" => ")
       (o(0), o(1))
@@ -13,7 +13,7 @@ class Day19 extends Day(2015, 19) {
     generate(rules, molecule).size.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val rules = input.take(input.indexOf("")).map { r =>
       val o = r.split(" => ")
       (o(1), o(0))

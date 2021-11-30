@@ -6,10 +6,10 @@ import Day9._
 import scala.collection.mutable
 
 class Day9 extends Day(2015, 9) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val towns = mutable.Map[String, mutable.Map[String, Int]]()
     input.foreach {
-      case Line(town1, town2, distance) => {
+      case Line(town1, town2, distance) =>
         if (towns.contains(town1)) {
           towns(town1) += (town2 -> distance)
         } else {
@@ -20,7 +20,6 @@ class Day9 extends Day(2015, 9) {
         } else {
           towns(town2) = mutable.Map((town1, distance))
         }
-      }
     }
     val availableTowns = towns.keys.toList
     val shortestRoute = availableTowns.permutations.minBy { p: List[String] =>
@@ -30,10 +29,10 @@ class Day9 extends Day(2015, 9) {
     shortestRoute.mkString(",") + ": " + routeDistance(towns, shortestRoute)
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val towns = mutable.Map[String, mutable.Map[String, Int]]()
     input.foreach {
-      case Line(town1, town2, distance) => {
+      case Line(town1, town2, distance) =>
         if (towns.contains(town1)) {
           towns(town1) += (town2 -> distance)
         } else {
@@ -44,7 +43,6 @@ class Day9 extends Day(2015, 9) {
         } else {
           towns(town2) = mutable.Map((town1, distance))
         }
-      }
     }
     val availableTowns = towns.keys.toList
     val longestRoute = availableTowns.permutations.maxBy { p: List[String] =>

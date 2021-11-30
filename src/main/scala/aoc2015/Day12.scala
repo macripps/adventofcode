@@ -7,7 +7,7 @@ import spray.json._
 import DefaultJsonProtocol._
 
 class Day12 extends Day(2015, 12) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val line = input(0)
     var sum = 0
     var i = 0
@@ -26,7 +26,7 @@ class Day12 extends Day(2015, 12) {
     sum.toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val source = input(0).parseJson
     val obj = source.asJsObject
     sum(obj).toString
@@ -39,11 +39,10 @@ object Day12 {
   def sum(jsValue: JsValue): Int = {
     jsValue match {
       case JsArray(elems) => elems.map(sum).sum
-      case JsObject(fields) => {
+      case JsObject(fields) =>
         if (fields.exists { fv => fv._2.isInstanceOf[JsString] && fv._2.convertTo[String] == "red"}) 0 else {
           fields.map { fv => sum(fv._2) }.sum
         }
-      }
       case JsNumber(x) => x.toInt
       case _ => 0
     }

@@ -3,7 +3,7 @@ package aoc2020
 import aoc.Day
 
 class Day1 extends Day(2020, 1) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val pair = Day1.findPairThatSumTo(input.map(_.toLong).sorted, 2020)
     pair match {
       case Some(p) => "The product of " + p._1 + " and " + p._2 + " is " + (p._1 * p._2)
@@ -11,7 +11,7 @@ class Day1 extends Day(2020, 1) {
     }
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val trio = Day1.findTripleThatSumTo(input.map(_.toLong).sorted, 2020)
     trio match {
       case Some(t) => "The product of " + t._1 + " and " + t._2 + " and " + t._3 + " is " + (t._1 * t._2 * t._3)

@@ -3,7 +3,7 @@ package aoc2017
 import aoc.Day
 
 class Day13 extends Day(2017, 13) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     input.map { line =>
       val kv = line.split(": ")
       val col = kv(0).toInt
@@ -19,7 +19,7 @@ class Day13 extends Day(2017, 13) {
     r(col % r.length)
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     LazyList.from(1).find { x =>
       val sc = input.map { line =>
         val kv = line.split(": ")

@@ -3,7 +3,7 @@ package aoc2020
 import aoc.Day
 
 class Day11 extends Day(2020, 11) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     var grid = input.map(_.toCharArray)
     var it = 1
     var nextGrid = Day11.iterate1(grid)
@@ -19,7 +19,7 @@ class Day11 extends Day(2020, 11) {
     grid.map(_.mkString("")).mkString("\n")
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     var grid = input.map(_.toCharArray)
     var it = 1
     var nextGrid = Day11.iterate2(grid)

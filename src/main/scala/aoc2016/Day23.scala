@@ -3,28 +3,29 @@ package aoc2016
 import aoc.Day
 
 import scala.collection.mutable
+import scala.util.matching.Regex
 
 class Day23 extends Day(2016, 23) {
   import Day12._
   import Day23._
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val registers = mutable.Map("a" -> 7L, "b" -> 0L, "c" -> 0L, "d" -> 0L)
-    execute(input.toBuffer, registers)
+    execute(input.length, input.toBuffer, registers)
     registers("a").toString
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val registers = mutable.Map("a" -> 12L, "b" -> 0L, "c" -> 0L, "d" -> 0L)
-    execute(input.toBuffer, registers)
+    execute(input.length, input.toBuffer, registers)
     registers("a").toString
   }
 
-  def execute(program: mutable.Buffer[String], registers: mutable.Map[String, Long]): Unit = {
+  def execute(inputLength: Int, program: mutable.Buffer[String], registers: mutable.Map[String, Long]): Unit = {
     var ep = 0
     while (ep < program.length) {
       if (ep == 10 || ep == 16) {
-        println(ep + ": " + program(ep) + ": " + registers)
+        println(ep.toString + ": " + program(ep) + ": " + registers)
       }
       program(ep) match {
         case cpy(amount: String, reg: String) =>
@@ -66,7 +67,7 @@ class Day23 extends Day(2016, 23) {
         case tgl(reg: String) =>
           val offset = registers(reg)
           val dest = ep + offset.toInt
-          if (dest < 0 || dest >= input.length) {
+          if (dest < 0 || dest >= inputLength) {
             // Do nothing
           } else {
             val inst = program(dest)
@@ -89,7 +90,7 @@ class Day23 extends Day(2016, 23) {
 object Day23 {
   def apply() = new Day23()
 
-  val tgl = raw"tgl (\w)".r
+  val tgl: Regex = raw"tgl (\w)".r
 }
 
 /*

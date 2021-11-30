@@ -3,22 +3,23 @@ package aoc2016
 import aoc.Day
 
 import scala.collection.mutable
+import scala.util.matching.Regex
 
 class Day25 extends Day(2016, 25){
   import Day12._
   import Day23._
   import Day25._
 
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     LazyList.from(1).find { a =>
       val registers = mutable.Map("a" -> a.toLong, "b" -> 0L, "c" -> 0L, "d" -> 0L)
-      execute(input.toBuffer, registers)
+      execute(input.length, input.toBuffer, registers)
     }.toString
   }
 
-  override def part2: String = ""
+  override def part2(input: Array[String]): String = ""
 
-  def execute(program: mutable.Buffer[String], registers: mutable.Map[String, Long]): Boolean = {
+  def execute(inputLength: Int, program: mutable.Buffer[String], registers: mutable.Map[String, Long]): Boolean = {
     var ep = 0
     var validOutput = true
     var expectedOutput = 0L
@@ -64,7 +65,7 @@ class Day25 extends Day(2016, 25){
         case tgl(reg: String) =>
           val offset = registers(reg)
           val dest = ep + offset.toInt
-          if (dest < 0 || dest >= input.length) {
+          if (dest < 0 || dest >= inputLength) {
             // Do nothing
           } else {
             val inst = program(dest)
@@ -95,5 +96,5 @@ class Day25 extends Day(2016, 25){
 object Day25 {
   def apply() = new Day25()
 
-  val out = raw"out (\w)".r
+  val out: Regex = raw"out (\w)".r
 }

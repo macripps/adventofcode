@@ -5,7 +5,7 @@ import aoc.Day
 import scala.collection.mutable
 
 class Day6 extends Day(2017, 6) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val banks = input.head.split(raw"\s+").map(_.toInt)
     val seen = mutable.Set[(Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int)]()
     var steps = 0
@@ -26,7 +26,7 @@ class Day6 extends Day(2017, 6) {
     (banks(0), banks(1), banks(2), banks(3), banks(4), banks(5), banks(6), banks(7), banks(8), banks(9), banks(10), banks(11), banks(12), banks(13), banks(14), banks(15))
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val banks = input.head.split(raw"\s+").map(_.toInt)
     val seen = mutable.Map[(Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int, Int), Int]()
     var steps = 0

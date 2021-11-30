@@ -3,7 +3,7 @@ package aoc2016
 import aoc.Day
 
 class Day16 extends Day(2016, 16) {
-  override def part1: String = {
+  override def part1(input: Array[String]): String = {
     val length = 272
     val x = input(0)
     checksum(f(x, length).take(length))
@@ -38,7 +38,7 @@ class Day16 extends Day(2016, 16) {
     x.result()
   }
 
-  override def part2: String = {
+  override def part2(input: Array[String]): String = {
     val length = 35651584
     val x = input(0)
     checksum(f(x, length).take(length))
