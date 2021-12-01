@@ -10,7 +10,7 @@ package object aoc {
   abstract class Day(val year: Int, val day: Int) {
     var debug = false
 
-    def inputGroups(input: Array[String]): Iterable[Iterable[String]] = asGroupsSeparatedByBlankLines(input)
+    protected def inputGroups(input: Array[String]): Iterable[Iterable[String]] = asGroupsSeparatedByBlankLines(input)
 
     def part1(input: Array[String]): String
 
