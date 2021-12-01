@@ -1,6 +1,6 @@
 ThisBuild / organization := "com.github/macripps"
 ThisBuild / version := "0.1-SNAPSHOT"
-ThisBuild / scalaVersion := "2.13.4"
+ThisBuild / scalaVersion := "2.13.7"
 
 lazy val root = (project in file("."))
   .settings(
