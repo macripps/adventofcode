@@ -4,41 +4,18 @@ import aoc.Day
 
 class Day3 extends Day(2021, 3) {
   override def part1(input: Array[String]): String = {
-    val z = input.map(_.toCharArray).transpose
-    val y = z.map(new String(_))
-    var episilon = ""
-    var gamma = ""
-    y.foreach { x =>
-      val zs = x.count(_ == '0')
-      val ones = x.count(_ == '1')
-      if (zs > ones) {
-        gamma += "0"
-        episilon += "1"
+    val (gamma, epsilon) = input.map(_.toCharArray)
+      .transpose
+      .map(new String(_))
+      .map { x =>
+      if (x.count(_ == '0') > x.count(_ == '1')) {
+        (0, 1)
       } else {
-        gamma += "1"
-        episilon += "0"
+        (1, 0)
       }
-    }
-    val g = Integer.parseInt(gamma, 2)
-    val e = Integer.parseInt(episilon, 2)
-    println(gamma)
-    println(episilon)
-    (g * e).toString
+    }.reduceLeft[(Int,Int)]((x,y) => (x._1 + x._1 + y._1, x._2 + x._2 + y._2))
+    (gamma * epsilon).toString
   }
-
-  val example =
-    """00100
-      |11110
-      |10110
-      |10111
-      |10101
-      |01111
-      |00111
-      |11100
-      |10000
-      |11001
-      |00010
-      |01010""".stripMargin.split("\n")
 
   override def part2(input: Array[String]): String = {
     var zs = input
@@ -81,4 +58,18 @@ class Day3 extends Day(2021, 3) {
 
 object Day3 {
   def apply() = new Day3()
+
+  val example =
+    """00100
+      |11110
+      |10110
+      |10111
+      |10101
+      |01111
+      |00111
+      |11100
+      |10000
+      |11001
+      |00010
+      |01010""".stripMargin.split("\n")
 }
