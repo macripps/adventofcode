@@ -6,7 +6,6 @@ class Day3 extends Day(2021, 3) {
   override def part1(input: Array[String]): String = {
     val (gamma, epsilon) = input.map(_.toCharArray)
       .transpose
-      .map(new String(_))
       .map { x =>
       if (x.count(_ == '0') > x.count(_ == '1')) {
         (0, 1)
@@ -21,13 +20,11 @@ class Day3 extends Day(2021, 3) {
     var zs = input
     var x: Int = 0
     while (zs.length > 1) {
-      val o = zs.map(_.toCharArray).transpose.map(new String(_))
-      val os = o(x).count(x => x == '0')
-      val is = o(x).count(x => x == '1')
-      if (os > is) {
-        zs = zs.filter(_.charAt(x) == '0')
+      val (os, is) = zs.partition(z => z.charAt(x) == '0')
+      if (os.length > is.length) {
+        zs = os
       } else {
-        zs = zs.filter(_.charAt(x) == '1')
+        zs = is
       }
       x = x + 1
     }
@@ -36,19 +33,15 @@ class Day3 extends Day(2021, 3) {
     zs = input
     x = 0
     while (zs.length > 1) {
-      val o = zs.map(_.toCharArray).transpose.map(new String(_))
-      val os = o(x).count(x => x == '0')
-      val is = o(x).count(x => x == '1')
-      if (is < os) {
-        zs = zs.filter(_.charAt(x) == '1')
+      val (os, is) = zs.partition(z => z.charAt(x) == '0')
+      if (is.length < os.length) {
+        zs = is
       } else {
-        zs = zs.filter(_.charAt(x) == '0')
+        zs = os
       }
       x = x + 1
     }
     val co = zs.head
-    println(ox)
-    println(co)
 
     val n1 = Integer.parseInt(ox, 2)
     val n2 = Integer.parseInt(co, 2)
@@ -59,7 +52,7 @@ class Day3 extends Day(2021, 3) {
 object Day3 {
   def apply() = new Day3()
 
-  val example =
+  val example: Array[String] =
     """00100
       |11110
       |10110
