@@ -4,10 +4,12 @@ import scala.collection.mutable
 
 class IntCode(program: Array[Int]) {
 
-  def execute(in: mutable.Queue[Int] = mutable.Queue[Int]()): Unit = {
+  def execute(in: mutable.Queue[Int] = mutable.Queue[Int]()) = {
     var ip = 0
     while (program(ip) != 99) {
-      program(ip) match {
+      val opcode = program(ip) % 100
+      val modes = program(ip) / 100
+      opcode match {
         case 1 => // ADD
           program(program(ip + 3)) = program(program(ip + 1)) + program(program(ip + 2))
           ip = ip + 4
