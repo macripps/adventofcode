@@ -9,5 +9,5 @@ class Day1 extends aoc.Day(2022, 1) {
 }
 
 object Day1 {
-  def apply() = new Day1()
+  def apply() = new Day1
 }
