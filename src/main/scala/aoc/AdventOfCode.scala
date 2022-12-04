@@ -35,7 +35,7 @@ object AdventOfCode extends App {
     println("--------------")
 
     //    val days = Array(Day1(), Day2(), Day3(), Day4(), Day5(), Day6(), Day7(), Day8(), Day9(), Day10(), Day11(), Day12(), Day13(), Day14(), Day15(), Day16(), Day17(), Day18(), Day19(), Day20(), Day21(), Day22())
-    val days = Array(Day4())
+    val days: Array[aoc.Day] = Array(Day4())
 
     val tracer = telemetry.getTracer("aoc")
     val compSpan = tracer.spanBuilder("adventofcode").startSpan()
@@ -61,7 +61,7 @@ object AdventOfCode extends App {
         part1Span.`end`()
         out
       }
-      printf("%d.%d.1: %s\n", day.year, day.day, result1)
+      printf("%d.%d.1: %s\n", day.year, day.day, result1.toString)
 
       val result2 = {
         val part2Span = tracer.spanBuilder("part2").setParent(Context.current().`with`(daySpan)).startSpan()
@@ -71,7 +71,7 @@ object AdventOfCode extends App {
         part2Span.`end`()
         out
       }
-      printf("%d.%d.2: %s\n", day.year, day.day, result2)
+      printf("%d.%d.2: %s\n", day.year, day.day, result2.toString)
 
       daySpan.`end`()
     }

@@ -96,7 +96,7 @@ class Day14 extends Day(2021, 14) {
         m
       } else {
         val nC = rules(input)
-        val lS = input(0) + nC
+        val lS = s"${input(0)}${nC}"
         val cL = count(lS, depth - 1, rules)
         val cR = count(nC + input(1), depth - 1, rules)
         var merged = Map[Char, Long]((nC.charAt(0), -1)).withDefaultValue(0L)

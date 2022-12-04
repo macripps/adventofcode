@@ -12,9 +12,9 @@ package object aoc {
 
     protected def inputGroups(input: Array[String]): Iterable[Iterable[String]] = asGroupsSeparatedByBlankLines(input)
 
-    def part1(input: Array[String]): String
+    def part1(input: Array[String]): Any
 
-    def part2(input: Array[String]): String
+    def part2(input: Array[String]): Any
   }
 
   def readFileToIterable(filename: String): Iterable[String] = {
