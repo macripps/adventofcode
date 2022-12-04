@@ -23,7 +23,7 @@ class Day4 extends aoc.Day(2022, 4) {
 
   override def part2(input: Array[String]): Int = input.map(toRanges).count {
     case (leftMin, leftMax, rightMin, rightMax) =>
-      (leftMin <= rightMax && leftMax >= rightMin) || (rightMin <= leftMax && rightMax >= leftMin)
+      leftMin <= rightMax && leftMax >= rightMin
   }
 }
 
