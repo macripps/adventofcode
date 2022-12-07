@@ -6,45 +6,12 @@ import scala.collection.mutable
 
 class Day7 extends aoc.Day(2022, 7) {
   override def part1(input: Array[String]): Any = {
-    val dirs = mutable.Set[Directory]()
-    val fs = Directory("")
-    fs.parent = fs
-    var current: Directory = fs
-    var listing = false
-    input.foreach { line =>
-      if (line.startsWith("$ cd ")) {
-        listing = false
-        val dirName = line.drop(5)
-        if (dirName == "..") {
-          current = current.parent
-        } else if (dirName == "/") {
-          current = fs
-        } else {
-          current = current.entries.find { e =>
-            e match {
-              case Directory(d) if d == current.name() + "/" + dirName => true
-              case _ => false
-            }
-          }.get.asInstanceOf[Directory]
-        }
-      } else if (line.startsWith("$ ls")) {
-        listing = true
-      } else if (listing && line.startsWith("dir ")) {
-        val dirName = line.drop(4)
-        val d = Directory(current.name() + "/" + dirName)
-        d.parent = current
-        current.entries.add(d)
-        dirs.add(d)
-      } else if (listing) {
-        val file = line.split(" ")
-        current.entries.add(File(file(1), file(0).toLong))
-      }
-    }
+    val (dirs, _) = parseAllDirectories(input)
     val smallDirs = dirs.filter(e => e.size() <= 100000).toSeq
     smallDirs.map(_.size()).sum
   }
 
-  override def part2(input: Array[String]): Any = {
+  private[this] def parseAllDirectories(input: Array[String]) = {
     val dirs = mutable.Set[Directory]()
     val fs = Directory("")
     fs.parent = fs
@@ -79,6 +46,11 @@ class Day7 extends aoc.Day(2022, 7) {
         current.entries.add(File(file(1), file(0).toLong))
       }
     }
+    (dirs, fs)
+  }
+
+  override def part2(input: Array[String]): Any = {
+    val (dirs, fs) = parseAllDirectories(input)
     val totalSpace = 70000000L
     val minFreeSpace = 30000000L
 
