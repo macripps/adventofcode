@@ -46,7 +46,8 @@ object Search {
         return reconstructPath(cameFrom, current)
       }
 
-      neighbours(current).foreach { neighbour =>
+      val ns = neighbours(current)
+      ns.foreach { neighbour =>
         val tentativeGScore = gScore.getOrElse(current, Int.MaxValue) + 1
         if (tentativeGScore < gScore.getOrElse(neighbour, Int.MaxValue)) {
           cameFrom(neighbour) = current
