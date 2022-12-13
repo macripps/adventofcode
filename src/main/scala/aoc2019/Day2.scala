@@ -1,6 +1,8 @@
 package aoc2019
 
 import aoc.Day
+import com.twitter.concurrent.Broker
+import com.twitter.util.Await
 
 import scala.util.control.Breaks.breakable
 
@@ -10,7 +12,9 @@ class Day2 extends Day(2019, 2) {
     program(1) = 12
     program(2) = 2
     val ic = new IntCode(program)
-    ic.execute()
+    val in = new Broker[Int]
+    val out = new Broker[Int]
+    Await.result(ic.execute(in, out))
     program(0).toString
   }
 
@@ -21,7 +25,9 @@ class Day2 extends Day(2019, 2) {
         program(1) = noun
         program(2) = verb
         val ic = new IntCode(program)
-        ic.execute()
+        val in = new Broker[Int]
+        val out = new Broker[Int]
+        Await.result(ic.execute(in, out))
         if (program(0) == 19690720) {
           println(noun, verb)
         }
