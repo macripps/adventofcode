@@ -62,6 +62,33 @@ package object aoc {
     def manhattanDistanceTo(p: Point): Int = math.abs(x - p.x) + math.abs(y - p.y)
   }
 
+  case class LongPoint(x: Long, y: Long) {
+    def neighbours: List[LongPoint] = {
+      List(
+        LongPoint(x, y - 1),
+        LongPoint(x - 1, y),
+        LongPoint(x + 1, y),
+        LongPoint(x, y + 1),
+      )
+    }
+
+    def directionTo(other: Point): Direction = {
+      if (other.x == this.x && other.y < this.y) {
+        Direction.North
+      } else if (other.x == this.x && other.y > this.y) {
+        Direction.South
+      } else if (other.x < this.x && other.y == this.y) {
+        Direction.West
+      } else if (other.x > this.x && other.y == this.y) {
+        Direction.East
+      } else {
+        throw new IllegalArgumentException()
+      }
+    }
+
+    def manhattanDistanceTo(p: Point): Long = math.abs(x - p.x) + math.abs(y - p.y)
+  }
+
   case class ThreePoint(x: Double, y: Double, z: Double) {
     def manhattanDistanceTo(p: ThreePoint): Double = math.abs(x - p.x) + math.abs(y - p.y) + math.abs(z - p.z)
   }
