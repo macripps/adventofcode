@@ -93,6 +93,21 @@ package object aoc {
     def manhattanDistanceTo(p: ThreePoint): Double = math.abs(x - p.x) + math.abs(y - p.y) + math.abs(z - p.z)
   }
 
+  case class Point3(x: Int, y: Int, z: Int) {
+    def neighbours: Set[Point3] = {
+      Set(
+        Point3(x, y - 1, z),
+        Point3(x - 1, y, z),
+        Point3(x + 1, y, z),
+        Point3(x, y + 1, z),
+        Point3(x, y, z - 1),
+        Point3(x, y, z + 1),
+      )
+    }
+
+    def manhattanDistanceTo(p: Point3): Int = math.abs(x - p.x) + math.abs(y - p.y) + math.abs(z - p.z)
+  }
+
   object Direction extends Enumeration {
     type Direction = Value
     val North, South, East, West = Value
