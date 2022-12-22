@@ -60,6 +60,8 @@ package object aoc {
     }
 
     def manhattanDistanceTo(p: Point): Int = math.abs(x - p.x) + math.abs(y - p.y)
+
+    override def toString: String = "(" + x + ", " + y + ")"
   }
 
   case class LongPoint(x: Long, y: Long) {
