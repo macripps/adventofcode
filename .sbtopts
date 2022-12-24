@@ -1,0 +1,3 @@
+-J-Xms4096M
+-J-Xmx8192M
+-J-Xss1M

@@ -20,4 +20,8 @@ object Maths {
       } else Seq()
     }
   }
+
+  def gcd(a: Int, b: Int): Int = {
+    aoc.bezoutIdentity(a.toLong, b.toLong)._3.toInt
+  }
 }
