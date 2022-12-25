@@ -45,9 +45,8 @@ class Day25 extends aoc.Day(2022, 25) {
       n /= 5
       val place = numLeft / n
       numLeft = numLeft - (place * n)
-      output.append(place.toInt)
+      output.prepend(place.toInt)
     }
-    output = output.reverse
     var result = ""
     var n2 = 0
     while (n2 < output.size) {
