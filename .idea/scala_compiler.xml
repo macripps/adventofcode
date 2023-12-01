@@ -2,5 +2,9 @@
 <project version="4">
   <component name="ScalaCompilerConfiguration">
     <profile name="sbt 1" modules="adventofcode_4502" />
+    <profile name="sbt 2" modules="Advent Of Code">
+      <option name="deprecationWarnings" value="true" />
+      <option name="featureWarnings" value="true" />
+    </profile>
   </component>
 </project>

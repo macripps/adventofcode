@@ -52,25 +52,48 @@ object AdventOfCode extends App {
         input
       }
 
-      val result1 = {
-        val part1Span = tracer.spanBuilder("part1").setParent(Context.current().`with`(daySpan)).startSpan()
-        val part1Scope = part1Span.makeCurrent()
-        val out = day.part1(input)
-        part1Scope.close()
-        part1Span.`end`()
+      val part1TestsPass = {
+        val part1TestSpan = tracer.spanBuilder("part1Tests").setParent(Context.current().`with`(daySpan)).startSpan()
+        val part1TestScope = part1TestSpan.makeCurrent()
+        val out = day.runPart1Tests
+        part1TestScope.close()
+        part1TestSpan.`end`()
         out
       }
-      printf("%d.%d.1: %s\n", day.year, day.day, result1.toString)
 
-      val result2 = {
-        val part2Span = tracer.spanBuilder("part2").setParent(Context.current().`with`(daySpan)).startSpan()
-        val part2Scope = part2Span.makeCurrent()
-        val out = day.part2(input)
-        part2Scope.close()
-        part2Span.`end`()
-        out
+      if (part1TestsPass) {
+        val result1 = {
+          val part1Span = tracer.spanBuilder("part1").setParent(Context.current().`with`(daySpan)).startSpan()
+          val part1Scope = part1Span.makeCurrent()
+          val out = day.part1(input)
+          part1Scope.close()
+          part1Span.`end`()
+          out
+        }
+        printf("%d.%d.1: %s\n", day.year, day.day, result1.toString)
+
+
+        val part2TestsPass = {
+          val part2TestSpan = tracer.spanBuilder("part2Tests").setParent(Context.current().`with`(daySpan)).startSpan()
+          val part2TestScope = part2TestSpan.makeCurrent()
+          val out = day.runPart2Tests
+          part2TestScope.close()
+          part2TestSpan.`end`()
+          out
+        }
+
+        if (part2TestsPass) {
+          val result2 = {
+            val part2Span = tracer.spanBuilder("part2").setParent(Context.current().`with`(daySpan)).startSpan()
+            val part2Scope = part2Span.makeCurrent()
+            val out = day.part2(input)
+            part2Scope.close()
+            part2Span.`end`()
+            out
+          }
+          printf("%d.%d.2: %s\n", day.year, day.day, result2.toString)
+        }
       }
-      printf("%d.%d.2: %s\n", day.year, day.day, result2.toString)
 
       daySpan.`end`()
     }

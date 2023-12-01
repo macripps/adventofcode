@@ -10,11 +10,34 @@ package object aoc {
   abstract class Day(val year: Int, val day: Int) {
     var debug = false
 
+    private[this] val part1Tests: mutable.Buffer[(String, Any)] = mutable.Buffer()
+    private[this] val part2Tests: mutable.Buffer[(String, Any)] = mutable.Buffer()
+
+    def runPart1Tests: Boolean = runTests(1, part1Tests, part1)
+    def runPart2Tests: Boolean = runTests(2, part2Tests, part2)
+
+    private[this] def runTests(part: Int, testInput: Iterable[(String, Any)], testMethod: Array[String] => Any): Boolean = {
+      testInput.zipWithIndex.forall { e =>
+        val result = testMethod(e._1._1.split('\n'))
+        val testPass = result == e._1._2
+        printf("%d.%d.%d.T%d: %s/%s: %s\n", year, day, part, e._2, result, e._1._2, if (testPass) {
+          "✅"
+        } else {
+          "❌"
+        })
+        testPass
+      }
+    }
+
     protected def inputGroups(input: Array[String]): Iterable[Iterable[String]] = asGroupsSeparatedByBlankLines(input)
 
     def part1(input: Array[String]): Any
 
     def part2(input: Array[String]): Any
+
+    protected def withPart1Test(input: String, expectedValue: Any) = part1Tests.append((input, expectedValue))
+
+    protected def withPart2Test(input: String, expectedValue: Any) = part2Tests.append((input, expectedValue))
   }
 
   def readFileToIterable(filename: String): Iterable[String] = {
