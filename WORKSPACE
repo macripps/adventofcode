@@ -1,5 +1,23 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+RULES_JVM_EXTERNAL_TAG = "5.3"
+RULES_JVM_EXTERNAL_SHA ="d31e369b854322ca5098ea12c69d7175ded971435e55c18dd9dd5f29cc5249ac"
+
+http_archive(
+    name = "rules_jvm_external",
+    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
+    sha256 = RULES_JVM_EXTERNAL_SHA,
+    url = "https://github.com/bazelbuild/rules_jvm_external/releases/download/%s/rules_jvm_external-%s.tar.gz" % (RULES_JVM_EXTERNAL_TAG, RULES_JVM_EXTERNAL_TAG)
+)
+
+load("@rules_jvm_external//:repositories.bzl", "rules_jvm_external_deps")
+
+rules_jvm_external_deps()
+
+load("@rules_jvm_external//:setup.bzl", "rules_jvm_external_setup")
+
+rules_jvm_external_setup()
+
 http_archive(
     name = "bazel_skylib",
     sha256 = "b8a1527901774180afc798aeb28c4634bdccf19c4d98e7bdd1ce79d1fe9aaad7",
@@ -48,3 +66,32 @@ scala_register_toolchains()
 load("@io_bazel_rules_scala//testing:scalatest.bzl", "scalatest_repositories", "scalatest_toolchain")
 scalatest_repositories()
 scalatest_toolchain()
+
+load("@rules_jvm_external//:defs.bzl", "maven_install")
+
+maven_install(
+    artifacts = [
+        "ch.qos.logback:logback-classic:1.4.13",
+        "com.google.inject:guice:5.1.0",
+        "com.twitter:inject-app_2.13:23.11.0",
+        "com.twitter:inject-core_2.13:23.11.0",
+        "com.twitter:util-app_2.13:23.11.0",
+        "com.twitter:util-app-lifecycle_2.13:23.11.0",
+        "com.twitter:util-core_2.13:23.11.0",
+        "com.twitter:util-slf4j-api_2.13:23.11.0",
+        "com.twitter:util-slf4j-jul-bridge_2.13:23.11.0",
+        "io.opentelemetry:opentelemetry-api:1.24.0",
+        "io.opentelemetry:opentelemetry-context:1.24.0",
+        "io.opentelemetry:opentelemetry-sdk:1.24.0",
+        "io.opentelemetry:opentelemetry-sdk-common:1.24.0",
+        "io.opentelemetry:opentelemetry-sdk-trace:1.24.0",
+        "io.opentelemetry:opentelemetry-exporter-prometheus:0.13.1",
+        "io.opentelemetry:opentelemetry-exporter-zipkin:1.24.0",
+        "io.opentelemetry:opentelemetry-semconv:1.24.0-alpha",
+        "org.slf4j:slf4j-api:2.0.9",
+    ],
+    repositories = [
+        "https://maven.google.com",
+        "https://repo1.maven.org/maven2",
+    ],
+)
