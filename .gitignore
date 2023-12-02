@@ -1,6 +1,7 @@
 .bsp/
 target/
 
+bazel-*
+
 *.class
 *.log
-
