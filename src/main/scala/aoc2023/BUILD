@@ -8,6 +8,7 @@ scala_library(
         "//visibility:public",
     ],
     resources = [
-        "//src/main/resources/aoc2023:day1.input"
+        "//src/main/resources/aoc2023:day1.input",
+        "//src/main/resources/aoc2023:day2.input",
     ]
 )

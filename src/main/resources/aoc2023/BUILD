@@ -1,1 +1,4 @@
-exports_files(["day1.input"])
+exports_files([
+    "day1.input",
+    "day2.input",
+])

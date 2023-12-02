@@ -35,7 +35,7 @@ object AdventOfCode extends App {
     println("Advent Of Code")
     println("--------------")
 
-    val days: Array[aoc.Day] = Array(Day1())
+    val days: Array[aoc.Day] = Array(Day2())
 
     val tracer = telemetry.getTracer("aoc")
     val compSpan = tracer.spanBuilder("adventofcode").startSpan()
