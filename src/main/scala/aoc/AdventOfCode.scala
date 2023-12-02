@@ -1,7 +1,8 @@
 package aoc
 
 import aoc2023._
-import com.twitter.app.{App, Flag}
+import com.twitter.app.Flag
+import com.twitter.inject.app.App
 import io.opentelemetry.api.OpenTelemetry
 import io.opentelemetry.api.common.Attributes
 import io.opentelemetry.context.Context
@@ -20,7 +21,7 @@ object AdventOfCode extends App {
 
   val debug: Flag[Boolean] = flag("debug", false, "enable debug mode")
 
-  def main(): Unit = {
+  override def run(): Unit = {
     val serviceNameResource: Resource = Resource.create(Attributes.of(ResourceAttributes.SERVICE_NAME, "adventofcode"))
     val tracerProvider: SdkTracerProvider = SdkTracerProvider.builder()
       .addSpanProcessor(BatchSpanProcessor.builder(ZipkinSpanExporter.builder().build()).build())
