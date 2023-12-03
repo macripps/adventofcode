@@ -10,5 +10,6 @@ scala_library(
     resources = [
         "//src/main/resources/aoc2023:day1.input",
         "//src/main/resources/aoc2023:day2.input",
+        "//src/main/resources/aoc2023:day3.input",
     ]
 )
