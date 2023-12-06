@@ -22,6 +22,7 @@ scala_binary(
     main_class = "aoc.AdventOfCode",
     deps = [
         ":aoc",
+        "//src/main/scala/aoc2022",
         "//src/main/scala/aoc2023",
         "@maven//:com_google_inject_guice",
         "@maven//:com_twitter_inject_app_2_13",

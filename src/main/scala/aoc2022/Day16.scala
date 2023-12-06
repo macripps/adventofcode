@@ -6,17 +6,6 @@ import Day16._
 import scala.util.control.Breaks.{break, breakable}
 
 class Day16 extends aoc.Day(2022, 16) {
-  override def part1(input: Array[String]): Any = {
-    val valves = mutable.Map[String, Valve]()
-    test.foreach {
-      case line(id: String, rate: String, neighbours: String) =>
-        val valve = new Valve(id, rate.toInt, neighbours.split(", ").toSet)
-        valves(id) = valve
-    }
-    val start = "AA"
-    val open = Set[String]()
-    search(valves.toMap, start, Set(), open, 30, 0)
-  }
 
   val test =
     """Valve AA has flow rate=0; tunnels lead to valves DD, II, BB
@@ -28,7 +17,21 @@ class Day16 extends aoc.Day(2022, 16) {
       |Valve GG has flow rate=0; tunnels lead to valves FF, HH
       |Valve HH has flow rate=22; tunnel leads to valve GG
       |Valve II has flow rate=0; tunnels lead to valves AA, JJ
-      |Valve JJ has flow rate=21; tunnel leads to valve II""".stripMargin.split("\n")
+      |Valve JJ has flow rate=21; tunnel leads to valve II""".stripMargin
+
+  withPart1Test(test, 1651)
+
+  override def part1(input: Array[String]): Any = {
+    val valves = mutable.Map[String, Valve]()
+    input.foreach {
+      case line(id: String, rate: String, neighbours: String) =>
+        val valve = new Valve(id, rate.toInt, neighbours.split(", ").toSet)
+        valves(id) = valve
+    }
+    val start = "AA"
+    val open = Set[String]()
+    search(valves.toMap, start, Set(), open, 30, 0)
+  }
 
   var bestSoFar = Int.MinValue
 
@@ -72,6 +75,8 @@ class Day16 extends aoc.Day(2022, 16) {
       }
     }
   }
+
+  withPart2Test(test, 1707)
 
   override def part2(input: Array[String]): Any = {
     val valves = mutable.Map[String, Valve]()
