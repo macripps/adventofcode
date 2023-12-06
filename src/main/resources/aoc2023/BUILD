@@ -5,4 +5,5 @@ exports_files([
     "day4.input",
     "day5.input",
     "day6.input",
+    "day7.input",
 ])
