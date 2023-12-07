@@ -17,8 +17,6 @@ import java.util.concurrent.TimeUnit
 
 object AdventOfCode extends App {
 
-  override def failfastOnFlagsNotParsed: Boolean = true
-
   val debug: Flag[Boolean] = flag("debug", false, "enable debug mode")
 
   override def run(): Unit = {

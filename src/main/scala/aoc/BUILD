@@ -1,13 +1,24 @@
 scala_library(
     name = "aoc",
     srcs = [
+        "AdventDSL.scala",
         "package.scala",
         "Data.scala",
         "Maths.scala",
+        "NewDay.scala",
         "Search.scala",
         "Strings.scala",
     ],
     deps = [
+        "@maven//:com_google_inject_guice",
+        "@maven//:com_twitter_inject_app_2_13",
+        "@maven//:com_twitter_inject_core_2_13",
+        "@maven//:com_twitter_util_app_2_13",
+        "@maven//:com_twitter_util_app_lifecycle_2_13",
+        "@maven//:com_twitter_util_core_2_13",
+        "@maven//:com_twitter_util_slf4j_api_2_13",
+        "@maven//:com_twitter_util_slf4j_jul_bridge_2_13",
+        "@maven//:org_slf4j_slf4j_api",
     ],
     visibility = [
         "//visibility:public",
