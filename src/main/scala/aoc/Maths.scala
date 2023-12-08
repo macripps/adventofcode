@@ -24,4 +24,12 @@ object Maths {
   def gcd(a: Int, b: Int): Int = {
     aoc.bezoutIdentity(a.toLong, b.toLong)._3.toInt
   }
+
+  def gcd(a: Long, b: Long): Long = {
+    aoc.bezoutIdentity(a, b)._3
+  }
+
+  def lcm(values: Iterable[Long]): Long = {
+    values.reduce { (l: Long, r: Long) => (l * r) / gcd(l, r) }
+  }
 }

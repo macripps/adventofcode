@@ -14,6 +14,7 @@ scala_library(
         "//src/main/resources/aoc2023:day4.input",
         "//src/main/resources/aoc2023:day5.input",
         "//src/main/resources/aoc2023:day7.input",
+        "//src/main/resources/aoc2023:day8.input",
     ]
 )
 
