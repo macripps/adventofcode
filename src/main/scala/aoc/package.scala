@@ -17,7 +17,9 @@ package object aoc {
     def runPart2Tests: Boolean = runTests(2, part2Tests, part2)
 
     private[this] def runTests(part: Int, testInput: Iterable[(String, Any)], testMethod: Array[String] => Any): Boolean = {
-      testInput.zipWithIndex.forall { e =>
+      val oldDebug = debug
+      debug = true
+      val result = testInput.zipWithIndex.forall { e =>
         val result = testMethod(e._1._1.split('\n'))
         val testPass = result == e._1._2
         printf("%d.%d.%d.T%d: %s/%s: %s\n", year, day, part, e._2, result, e._1._2, if (testPass) {
@@ -27,6 +29,8 @@ package object aoc {
         })
         testPass
       }
+      debug = oldDebug
+      result
     }
 
     protected def inputGroups(input: Array[String]): Iterable[Iterable[String]] = asGroupsSeparatedByBlankLines(input)
