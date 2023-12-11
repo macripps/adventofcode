@@ -31,9 +31,14 @@ advent_of_code_binary(
     input_file = "//src/main/resources/aoc2023:day9.input",
 )
 
-
 advent_of_code_binary(
     name = 'Day10',
     main_class = "aoc2023.Day10Main",
     input_file = "//src/main/resources/aoc2023:day10.input",
+)
+
+advent_of_code_binary(
+    name = 'Day11',
+    main_class = "aoc2023.Day11Main",
+    input_file = "//src/main/resources/aoc2023:day11.input",
 )

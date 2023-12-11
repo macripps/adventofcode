@@ -39,28 +39,32 @@ abstract class NewDay(year: Int, day: Int) extends App with AdventDSL {
       }
 
       trace("part_1") {
-        val part1TestsPass = trace("tests") {
-          runTests(1)
-        }
-
-        if (part1TestsPass) {
-          val result1 = trace("execute") {
-            executes(1)(input)
+        if (executes.contains(1)) {
+          val part1TestsPass = trace("tests") {
+            runTests(1)
           }
-          printf("%d.%d.1: %s\n", year, day, result1.toString)
+
+          if (part1TestsPass) {
+            val result1 = trace("execute") {
+              executes(1)(input)
+            }
+            printf("%d.%d.1: %s\n", year, day, result1.toString)
+          }
         }
       }
 
       trace("part_2") {
-        val part2TestsPass = trace("tests") {
-          runTests(2)
-        }
-
-        if (part2TestsPass) {
-          val result2 = trace("execute") {
-            executes(2)(input)
+        if (executes.contains(2)) {
+          val part2TestsPass = trace("tests") {
+            runTests(2)
           }
-          printf("%d.%d.2: %s\n", year, day, result2.toString)
+
+          if (part2TestsPass) {
+            val result2 = trace("execute") {
+              executes(2)(input)
+            }
+            printf("%d.%d.2: %s\n", year, day, result2.toString)
+          }
         }
       }
     }
