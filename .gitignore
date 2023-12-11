@@ -1,6 +1,10 @@
 .bsp/
 target/
 
+bazel-*
+
 *.class
 *.log
 
+# Please don't include the input in the repo
+*.input
