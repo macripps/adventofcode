@@ -1,14 +1,11 @@
 load("@io_bazel_rules_scala//scala:scala.bzl", "scala_library", "scala_binary", "scala_test")
 
-def advent_of_code_binary(
-    name,
-    main_class,
-    input_file):
+def advent_of_code_binary(year, day):
     scala_binary(
-        name = name,
-        main_class = main_class,
+        name = "Day%s" % day,
+        main_class = "aoc%s.Day%sMain" % (year, day),
         srcs = [
-            name + ".scala",
+            "Day%s.scala" % day,
         ],
         deps = [
             "//src/main/scala/aoc",
@@ -26,6 +23,6 @@ def advent_of_code_binary(
             "@maven//:ch_qos_logback_logback_classic",
         ],
         resources = [
-            input_file,
+            "//src/main/resources/aoc%s:day%s.input" % (year, day),
         ]
     )
