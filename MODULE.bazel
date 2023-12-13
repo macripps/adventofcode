@@ -4,3 +4,44 @@
 #
 # For more details, please check https://github.com/bazelbuild/bazel/issues/18958
 ###############################################################################
+
+bazel_dep(name = "bazel_skylib", version = "1.4.1")
+bazel_dep(name = "rules_jvm_external", version = "5.3")
+bazel_dep(name = "rules_proto", version = "5.3.0-21.7")
+
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+maven.install(
+    name = "maven",
+    artifacts = [
+        "ch.qos.logback:logback-classic:1.4.13",
+        "com.google.inject:guice:5.1.0",
+        "com.twitter:finagle-core_2.13:23.11.0",
+        "com.twitter:finagle-zipkin-core_2.13:23.11.0",
+        "com.twitter:inject-app_2.13:23.11.0",
+        "com.twitter:inject-core_2.13:23.11.0",
+        "com.twitter:util-app_2.13:23.11.0",
+        "com.twitter:util-app-lifecycle_2.13:23.11.0",
+        "com.twitter:util-core_2.13:23.11.0",
+        "com.twitter:util-slf4j-api_2.13:23.11.0",
+        "com.twitter:util-slf4j-jul-bridge_2.13:23.11.0",
+        "io.opentelemetry:opentelemetry-api:1.24.0",
+        "io.opentelemetry:opentelemetry-context:1.24.0",
+        "io.opentelemetry:opentelemetry-sdk:1.24.0",
+        "io.opentelemetry:opentelemetry-sdk-common:1.24.0",
+        "io.opentelemetry:opentelemetry-sdk-trace:1.24.0",
+        "io.opentelemetry:opentelemetry-exporter-prometheus:0.13.1",
+        "io.opentelemetry:opentelemetry-exporter-zipkin:1.24.0",
+        "io.opentelemetry:opentelemetry-semconv:1.24.0-alpha",
+        "io.zipkin.finagle2:zipkin-finagle_2.13:22.4.0",
+        "io.zipkin.finagle2:zipkin-finagle-http_2.13:22.4.0",
+        "org.slf4j:slf4j-api:2.0.9",
+    ],
+    repositories = [
+        "https://maven.google.com",
+        "https://repo1.maven.org/maven2",
+    ],
+    fetch_sources = True,
+    lock_file = "//:maven_install.json",
+)
+
+use_repo(maven, "maven", "unpinned_maven")
