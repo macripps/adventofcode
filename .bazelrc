@@ -1,36 +1,23 @@
-build --experimental_allow_tags_propagation
-build --experimental_remote_build_event_upload=minimal
-build --experimental_reuse_sandbox_directories
-build --incompatible_default_to_explicit_init_py
-build --incompatible_remote_results_ignore_disk
-build --incompatible_strict_action_env
-build --keep_going
 build --modify_execution_info=PackageTar=+no-remote
-build --noexperimental_check_output_files --noexperimental_check_external_repository_files
-build --nolegacy_external_runfiles
-build --noremote_upload_local_results
+build --remote_build_event_upload=minimal
 build --remote_local_fallback
-build --sandbox_default_allow_network=false
 build --strategy=Scalac=worker
-build --show_result=20
 build --worker_sandboxing
 
-common --enable_platform_specific_config
 common --incompatible_allow_tags_propagation
 
-fetch --experimental_allow_tags_propagation
-fetch --noexperimental_check_output_files
+# Import Aspect bazelrc presets
+import %workspace%/.aspect/bazelrc/bazel6.bazelrc
+import %workspace%/.aspect/bazelrc/convenience.bazelrc
+import %workspace%/.aspect/bazelrc/correctness.bazelrc
+import %workspace%/.aspect/bazelrc/debug.bazelrc
+import %workspace%/.aspect/bazelrc/javascript.bazelrc
+import %workspace%/.aspect/bazelrc/performance.bazelrc
 
-query --experimental_allow_tags_propagation
-query --noexperimental_check_output_files
+### YOUR PROJECT SPECIFIC OPTIONS GO HERE ###
 
-startup --host_jvm_args=-DBAZEL_TRACK_SOURCE_DIRECTORIES=1
-
-test --incompatible_exclusive_test_sandboxed
-test --test_output=errors
-test --test_verbose_timeout_warnings
-
-test:debug --test_output=streamed
-test:debug --test_strategy=exclusive
-test:debug --test_timeout=9999
-test:debug --nocache_test_results
+# Load any settings & overrides specific to the current user from `.aspect/bazelrc/user.bazelrc`.
+# This file should appear in `.gitignore` so that settings are not shared with team members. This
+# should be last statement in this config so the user configuration is able to overwrite flags from
+# this file. See https://bazel.build/configure/best-practices#bazelrc-file.
+try-import %workspace%/.aspect/bazelrc/user.bazelrc

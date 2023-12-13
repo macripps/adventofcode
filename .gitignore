@@ -1,3 +1,4 @@
+.aspect/bazelrc/user.bazelrc
 .bsp/
 target/
 
