@@ -14,6 +14,7 @@ package object aoc {
     private[this] val part2Tests: mutable.Buffer[(String, Any)] = mutable.Buffer()
 
     def runPart1Tests: Boolean = runTests(1, part1Tests, part1)
+
     def runPart2Tests: Boolean = runTests(2, part2Tests, part2)
 
     private[this] def runTests(part: Int, testInput: Iterable[(String, Any)], testMethod: Array[String] => Any): Boolean = {
@@ -70,6 +71,15 @@ package object aoc {
         Point(x + 1, y),
         Point(x, y + 1),
       )
+    }
+
+    def go(direction: Direction): Point = {
+      direction match {
+        case Direction.North => Point(x, y - 1)
+        case Direction.East => Point(x + 1, y)
+        case Direction.South => Point(x, y + 1)
+        case Direction.West => Point(x - 1, y)
+      }
     }
 
     def directionTo(other: Point): Direction = {
