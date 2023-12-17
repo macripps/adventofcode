@@ -20,5 +20,5 @@ scala_library(
 )
 
 [
-    advent_of_code_binary(2023, day) for day in [6,9,10,11,12,13,14,15,16]
+    advent_of_code_binary(2023, day) for day in [6,9,10,11,12,13,14,15,16,17]
 ]

@@ -61,4 +61,49 @@ object Search {
     }
     List()
   }
+
+  def AStarWorking[A](start: A, goal: A => Boolean, neighbours: A => Iterable[A], openCost: A => Int, h: A => Int): List[A] = {
+    def reconstructPath(cameFrom: mutable.Map[A, A], a: A): List[A] = {
+      val o = mutable.Buffer[A](a)
+      var current = a
+      while (cameFrom.contains(current)) {
+        current = cameFrom(current)
+        o.prepend(current)
+      }
+      o.toList
+    }
+
+    val cameFrom = mutable.Map[A, A]()
+    val gScore = mutable.Map[A, Int](start -> 0).withDefaultValue(Int.MaxValue)
+    val fScore = mutable.Map[A, Int](start -> h(start)).withDefaultValue(Int.MaxValue)
+
+    implicit val order = new Ordering[A] {
+      override def compare(x: A, y: A): Int = fScore(y) - fScore(x)
+    }
+
+    val openQueue = mutable.PriorityQueue[A](start)
+    val openSet = mutable.Set[A](start)
+    while (openQueue.nonEmpty) {
+      val current = openQueue.dequeue()
+      openSet -= current
+      if (goal(current)) {
+        return reconstructPath(cameFrom, current)
+      }
+
+      val ns = neighbours(current)
+      ns.foreach { neighbour =>
+        val tentativeGScore = gScore(current) + openCost(neighbour)
+        if (tentativeGScore < gScore(neighbour)) {
+          cameFrom(neighbour) = current
+          gScore(neighbour) = tentativeGScore
+          fScore(neighbour) = tentativeGScore + h(neighbour)
+          if (!openSet.contains(neighbour)) {
+            openQueue.addOne(neighbour)
+            openSet.addOne(neighbour)
+          }
+        }
+      }
+    }
+    List()
+  }
 }
