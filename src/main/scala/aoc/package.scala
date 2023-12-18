@@ -73,12 +73,14 @@ package object aoc {
       )
     }
 
-    def go(direction: Direction): Point = {
+    def go(direction: Direction): Point = go(direction, 1)
+
+    def go(direction: Direction, n: Int): Point = {
       direction match {
-        case Direction.North => Point(x, y - 1)
-        case Direction.East => Point(x + 1, y)
-        case Direction.South => Point(x, y + 1)
-        case Direction.West => Point(x - 1, y)
+        case Direction.North => Point(x, y - n)
+        case Direction.East => Point(x + n, y)
+        case Direction.South => Point(x, y + n)
+        case Direction.West => Point(x - n, y)
       }
     }
 
@@ -109,6 +111,15 @@ package object aoc {
         LongPoint(x + 1, y),
         LongPoint(x, y + 1),
       )
+    }
+
+    def go(direction: Direction, n: Long): LongPoint = {
+      direction match {
+        case Direction.North => LongPoint(x, y - n)
+        case Direction.East => LongPoint(x + n, y)
+        case Direction.South => LongPoint(x, y + n)
+        case Direction.West => LongPoint(x - n, y)
+      }
     }
 
     def directionTo(other: Point): Direction = {

@@ -16,4 +16,5 @@ exports_files([
     "day15.input",
     "day16.input",
     "day17.input",
+    "day18.input",
 ])
