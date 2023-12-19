@@ -48,7 +48,7 @@ abstract class NewDay(year: Int, day: Int) extends App with AdventDSL {
             val result1 = trace("execute") {
               executes(1)(input)
             }
-            printf("%d.%d.1: %s\n", year, day, result1.toString)
+            info(String.format("%d.%d.1: %s", year, day, result1.toString))
           }
         }
       }
@@ -63,7 +63,7 @@ abstract class NewDay(year: Int, day: Int) extends App with AdventDSL {
             val result2 = trace("execute") {
               executes(2)(input)
             }
-            printf("%d.%d.2: %s\n", year, day, result2.toString)
+            info(String.format("%d.%d.2: %s", year, day, result2.toString))
           }
         }
       }
@@ -78,11 +78,11 @@ abstract class NewDay(year: Int, day: Int) extends App with AdventDSL {
             val span = GlobalOpenTelemetry.get().getTracer("aoc").spanBuilder(s"testcase_${e._2}").startSpan()
             val result = executes(part)(e._1._1)
             val testPass = result == e._1._2
-            printf("%d.%d.%d.T%d: %s/%s: %s\n", year, day, part, e._2, result, e._1._2, if (testPass) {
+            info(String.format("%d.%d.%d.T%d: %s/%s: %s", year, day, part, e._2, result, e._1._2, if (testPass) {
               "✅"
             } else {
               "❌"
-            })
+            }))
             span.end()
             testPass
           }

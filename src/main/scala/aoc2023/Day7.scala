@@ -1,46 +1,54 @@
 package aoc2023
 
+import aoc.NewDay
+
 import scala.annotation.tailrec
 import scala.collection.mutable
 
-class Day7 extends aoc.Day(2023, 7) {
+class Day7 extends NewDay(2023, 7) {
 
   import Day7._
 
-  withPart1Test(
-    """32T3K 765
-      |T55J5 684
-      |KK677 28
-      |KTJJT 220
-      |QQQJA 483""".stripMargin, 6440)
-
-  override def part1(input: Array[String]): Any = {
-    val handsWithBids = input.map { line =>
-      val Array(hand, bid) = line.split(' ')
-      HandWithBid(Hand(hand), bid.toLong)
+  part(1) {
+    test {
+      """32T3K 765
+        |T55J5 684
+        |KK677 28
+        |KTJJT 220
+        |QQQJA 483""".stripMargin -> 6440
     }
+    execute { input =>
 
-    handsWithBids.sorted.zipWithIndex.map { case (a, i) =>
-      a.bid * (i.toLong + 1L)
-    }.sum
+      val handsWithBids = input.map { line =>
+        val Array(hand, bid) = line.split(' ')
+        HandWithBid(Hand(hand), bid.toLong)
+      }
+
+      handsWithBids.sorted.zipWithIndex.map { case (a, i) =>
+        a.bid * (i.toLong + 1L)
+      }.sum
+    }
   }
 
-  withPart2Test(
-    """32T3K 765
-      |T55J5 684
-      |KK677 28
-      |KTJJT 220
-      |QQQJA 483""".stripMargin, 5905)
-
-  override def part2(input: Array[String]): Any = {
-    val handsWithBids = input.map { line =>
-      val Array(hand, bid) = line.split(' ')
-      WildHandWithBid(WildHand(hand), bid.toLong)
+  part(2) {
+    test {
+      """32T3K 765
+        |T55J5 684
+        |KK677 28
+        |KTJJT 220
+        |QQQJA 483""".stripMargin -> 5905
     }
 
-    handsWithBids.sorted.zipWithIndex.map { case (a, i) =>
-      a.bid * (i.toLong + 1L)
-    }.sum
+    execute { input =>
+      val handsWithBids = input.map { line =>
+        val Array(hand, bid) = line.split(' ')
+        WildHandWithBid(WildHand(hand), bid.toLong)
+      }
+
+      handsWithBids.sorted.zipWithIndex.map { case (a, i) =>
+        a.bid * (i.toLong + 1L)
+      }.sum
+    }
   }
 }
 
@@ -145,3 +153,5 @@ object Day7 {
 
   }
 }
+
+object Day7Main extends Day7
