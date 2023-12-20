@@ -13,12 +13,10 @@ scala_library(
         "//src/main/resources/aoc2023:day3.input",
         "//src/main/resources/aoc2023:day4.input",
         "//src/main/resources/aoc2023:day5.input",
-        "//src/main/resources/aoc2023:day7.input",
         "//src/main/resources/aoc2023:day8.input",
-        "//src/main/resources/aoc2023:day9.input",
     ]
 )
 
 [
-    advent_of_code_binary(2023, day) for day in [6,7,9,10,11,12,13,14,15,16,17,18,19]
+    advent_of_code_binary(2023, day) for day in [6,7,9,10,11,12,13,14,15,16,17,18,19,20]
 ]
