@@ -19,4 +19,9 @@ exports_files([
     "day18.input",
     "day19.input",
     "day20.input",
+    "day21.input",
+    "day22.input",
+    "day23.input",
+    "day24.input",
+    "day25.input",
 ])
