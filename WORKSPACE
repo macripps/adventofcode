@@ -35,3 +35,12 @@ scala_register_toolchains()
 load("@io_bazel_rules_scala//testing:scalatest.bzl", "scalatest_repositories", "scalatest_toolchain")
 scalatest_repositories()
 scalatest_toolchain()
+
+# Z3
+http_archive(
+  name = "z3",
+  build_file = "//third_party:z3.BUILD",
+  urls = ["https://github.com/Z3Prover/z3/archive/refs/tags/z3-4.12.4.zip"],
+  integrity = "sha256-YnL+sPr+ggQ7GCvEPHxcVtaCX/uexFufbULW6QIyIgA=",
+  strip_prefix = "z3-z3-4.12.4",
+)

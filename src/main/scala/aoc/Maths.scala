@@ -1,5 +1,7 @@
 package aoc
 
+import scala.collection.mutable
+
 object Maths {
 
   def quadraticSolve(a: Double, b: Double, c: Double): Iterable[Double] = {
@@ -31,5 +33,26 @@ object Maths {
 
   def lcm(values: Iterable[Long]): Long = {
     values.reduce { (l: Long, r: Long) => (l * r) / gcd(l, r) }
+  }
+
+  def primeFactors(l: Long): Seq[Long] = {
+    var n = l
+    val out = mutable.Buffer[Long]()
+    while (n % 2 == 0) {
+      n = n / 2
+      out += 2L
+    }
+    var test = 3L
+    while (test < Math.sqrt(n)) {
+      while (n % test == 0) {
+        n = n / test
+        out += test
+      }
+      test = test + 2L
+    }
+    if (n != 1) {
+      out += n
+    }
+    out.toSeq
   }
 }
