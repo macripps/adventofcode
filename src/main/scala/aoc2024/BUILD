@@ -8,10 +8,11 @@ scala_library(
         "//visibility:public",
     ],
     resources = [
+        "//src/main/resources/aoc2024:day1.input",
         "//src/main/resources/aoc2024:day2.input",
     ]
 )
 
 [
-    advent_of_code_binary(2024, day) for day in [2]
+    advent_of_code_binary(2024, day) for day in [1,2]
 ]
