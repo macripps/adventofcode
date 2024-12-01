@@ -9,3 +9,6 @@ bazel-*
 
 # Please don't include the input in the repo
 *.input
+
+# Extra databases
+data/grafana/grafana.db
