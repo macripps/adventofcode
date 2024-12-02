@@ -1,0 +1,16 @@
+exports_files([
+    "day1.input",
+    "day2.input",
+    "day3.input",
+    "day4.input",
+    "day5.input",
+    "day6.input",
+    "day7.input",
+    "day8.input",
+    "day9.input",
+    "day10.input",
+    "day11.input",
+    "day12.input",
+    "day13.input",
+    "day14.input",
+])
