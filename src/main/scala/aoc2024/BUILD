@@ -6,9 +6,9 @@ scala_library(
     ],
     visibility = [
         "//visibility:public",
-    ]
+    ],
 )
 
 [
-    advent_of_code_binary(2024, day) for day in [1,2,3, 4, 6,7, 8,9]
+    advent_of_code_binary(2024, day) for day in [1,2,3,4,5,6,7,8,9]
 ]
