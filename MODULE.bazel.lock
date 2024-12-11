@@ -3419,7 +3419,7 @@
       "general": {
         "bzlTransitiveDigest": "CcxLrCDUJeNZv3+jtxG9C0UPxZbW+3CaYuUQrB1AZOA=",
         "accumulatedFileDigests": {
-          "@@//:maven_install.json": "d9c7240e0757f6ed6405e080731ea5ce8982d1acf24394f96d9ae82d65ba43dd",
+          "@@//:maven_install.json": "dac8f5f2fc97ec9fc20faf4ab11670c24df5333a9b6da5b4a584df8e389ec0a2",
           "@@stardoc~0.7.0//:maven_install.json": "de0bfa778b4ed6aebb77509362dd87ab8d20fc7c7c18d2a7429cdfee03949a21",
           "@@rules_jvm_external~6.6//:rules_jvm_external_deps_install.json": "4118652b33b0f31cf94b98b3aaa6e44eed9de0cf1941d16eebea40e45e0de817"
         },
@@ -3783,19 +3783,6 @@
               "downloaded_file_path": "v1/com/twitter/finagle-http_2.13/22.4.0/finagle-http_2.13-22.4.0.jar"
             }
           },
-          "com_google_guava_guava_31_1_jre": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~com_google_guava_guava_31_1_jre",
-              "sha256": "a42edc9cab792e39fe39bb94f3fca655ed157ff87a8af78e1d6ba5b07c4a00ab",
-              "urls": [
-                "https://maven.google.com/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar",
-                "https://repo1.maven.org/maven2/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar"
-              ],
-              "downloaded_file_path": "v1/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar"
-            }
-          },
           "org_apache_maven_maven_plugin_api_3_9_8": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
@@ -3806,6 +3793,18 @@
                 "https://repo1.maven.org/maven2/org/apache/maven/maven-plugin-api/3.9.8/maven-plugin-api-3.9.8.jar"
               ],
               "downloaded_file_path": "v1/org/apache/maven/maven-plugin-api/3.9.8/maven-plugin-api-3.9.8.jar"
+            }
+          },
+          "com_google_guava_guava_31_1_jre": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "name": "rules_jvm_external~6.6~maven~com_google_guava_guava_31_1_jre",
+              "sha256": "a42edc9cab792e39fe39bb94f3fca655ed157ff87a8af78e1d6ba5b07c4a00ab",
+              "urls": [
+                "https://repo1.maven.org/maven2/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar"
+              ],
+              "downloaded_file_path": "v1/com/google/guava/guava/31.1-jre/guava-31.1-jre.jar"
             }
           },
           "io_netty_netty_transport_classes_epoll_jar_sources_4_1_100_Final": {
@@ -4168,19 +4167,6 @@
                 "https://repo1.maven.org/maven2/org/apache/maven/resolver/maven-resolver-transport-file/1.9.20/maven-resolver-transport-file-1.9.20.jar"
               ],
               "downloaded_file_path": "v1/org/apache/maven/resolver/maven-resolver-transport-file/1.9.20/maven-resolver-transport-file-1.9.20.jar"
-            }
-          },
-          "org_ow2_asm_asm_9_0": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~org_ow2_asm_asm_9_0",
-              "sha256": "0df97574914aee92fd349d0cb4e00f3345d45b2c239e0bb50f0a90ead47888e0",
-              "urls": [
-                "https://maven.google.com/org/ow2/asm/asm/9.0/asm-9.0.jar",
-                "https://repo1.maven.org/maven2/org/ow2/asm/asm/9.0/asm-9.0.jar"
-              ],
-              "downloaded_file_path": "v1/org/ow2/asm/asm/9.0/asm-9.0.jar"
             }
           },
           "org_ow2_asm_asm_9_1": {
@@ -4781,7 +4767,6 @@
               "name": "rules_jvm_external~6.6~maven~junit_junit_4_13_2",
               "sha256": "8e495b634469d64fb8acfa3495a065cbacc8a0fff55ce1e31007be4c16dc57d3",
               "urls": [
-                "https://maven.google.com/junit/junit/4.13.2/junit-4.13.2.jar",
                 "https://repo1.maven.org/maven2/junit/junit/4.13.2/junit-4.13.2.jar"
               ],
               "downloaded_file_path": "v1/junit/junit/4.13.2/junit-4.13.2.jar"
@@ -5087,32 +5072,6 @@
               "downloaded_file_path": "v1/software/amazon/awssdk/checksums/2.26.12/checksums-2.26.12.jar"
             }
           },
-          "com_google_truth_truth_1_1_2": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~com_google_truth_truth_1_1_2",
-              "sha256": "a85e03b8b6ae8780f060cfded9500a3d1b5f52808f99a2ea6da9c683313c7518",
-              "urls": [
-                "https://maven.google.com/com/google/truth/truth/1.1.2/truth-1.1.2.jar",
-                "https://repo1.maven.org/maven2/com/google/truth/truth/1.1.2/truth-1.1.2.jar"
-              ],
-              "downloaded_file_path": "v1/com/google/truth/truth/1.1.2/truth-1.1.2.jar"
-            }
-          },
-          "net_bytebuddy_byte_buddy_jar_sources_1_12_7": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~net_bytebuddy_byte_buddy_jar_sources_1_12_7",
-              "sha256": "94a6f5d7d8491ca7541f2da90bac4f084e04264112e936334493b2c2f094455d",
-              "urls": [
-                "https://maven.google.com/net/bytebuddy/byte-buddy/1.12.7/byte-buddy-1.12.7-sources.jar",
-                "https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy/1.12.7/byte-buddy-1.12.7-sources.jar"
-              ],
-              "downloaded_file_path": "v1/net/bytebuddy/byte-buddy/1.12.7/byte-buddy-1.12.7-sources.jar"
-            }
-          },
           "com_google_http_client_google_http_client_apache_v2_1_44_2": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
@@ -5161,19 +5120,6 @@
                 "https://repo1.maven.org/maven2/com/twitter/inject-core_2.13/23.11.0/inject-core_2.13-23.11.0.jar"
               ],
               "downloaded_file_path": "v1/com/twitter/inject-core_2.13/23.11.0/inject-core_2.13-23.11.0.jar"
-            }
-          },
-          "com_google_guava_guava_jar_sources_31_1_jre": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~com_google_guava_guava_jar_sources_31_1_jre",
-              "sha256": "8ab1853cdaf936ec88be80c17302b7c20abafbd4f54d4fb54d7011c529e3a44a",
-              "urls": [
-                "https://maven.google.com/com/google/guava/guava/31.1-jre/guava-31.1-jre-sources.jar",
-                "https://repo1.maven.org/maven2/com/google/guava/guava/31.1-jre/guava-31.1-jre-sources.jar"
-              ],
-              "downloaded_file_path": "v1/com/google/guava/guava/31.1-jre/guava-31.1-jre-sources.jar"
             }
           },
           "com_twitter_finagle_netty4_2_13_jar_sources_23_11_0": {
@@ -5809,6 +5755,19 @@
               "downloaded_file_path": "v1/com/google/api/grpc/gapic-google-cloud-storage-v2/2.40.1-alpha/gapic-google-cloud-storage-v2-2.40.1-alpha-sources.jar"
             }
           },
+          "com_google_guava_guava_jar_sources_30_1_jre": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "name": "rules_jvm_external~6.6~maven~com_google_guava_guava_jar_sources_30_1_jre",
+              "sha256": "b17d4974b591e7e45d982d04ce400c424fa95288cbddce17394b65f65bfdec0f",
+              "urls": [
+                "https://maven.google.com/com/google/guava/guava/30.1-jre/guava-30.1-jre-sources.jar",
+                "https://repo1.maven.org/maven2/com/google/guava/guava/30.1-jre/guava-30.1-jre-sources.jar"
+              ],
+              "downloaded_file_path": "v1/com/google/guava/guava/30.1-jre/guava-30.1-jre-sources.jar"
+            }
+          },
           "io_grpc_grpc_stub_1_62_2": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
@@ -5871,19 +5830,6 @@
               "downloaded_file_path": "v1/com/twitter/util-slf4j-jul-bridge_2.13/23.11.0/util-slf4j-jul-bridge_2.13-23.11.0.jar"
             }
           },
-          "com_google_truth_truth_jar_sources_1_1_2": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~com_google_truth_truth_jar_sources_1_1_2",
-              "sha256": "a98b2f82af388484dfe1b2b859c3c05a28fcae000fc532ef0155e1814fa3af05",
-              "urls": [
-                "https://maven.google.com/com/google/truth/truth/1.1.2/truth-1.1.2-sources.jar",
-                "https://repo1.maven.org/maven2/com/google/truth/truth/1.1.2/truth-1.1.2-sources.jar"
-              ],
-              "downloaded_file_path": "v1/com/google/truth/truth/1.1.2/truth-1.1.2-sources.jar"
-            }
-          },
           "com_google_http_client_google_http_client_1_44_2": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
@@ -5907,19 +5853,6 @@
                 "https://repo1.maven.org/maven2/org/hibernate/validator/hibernate-validator/7.0.1.Final/hibernate-validator-7.0.1.Final-sources.jar"
               ],
               "downloaded_file_path": "v1/org/hibernate/validator/hibernate-validator/7.0.1.Final/hibernate-validator-7.0.1.Final-sources.jar"
-            }
-          },
-          "org_objenesis_objenesis_jar_sources_3_2": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~org_objenesis_objenesis_jar_sources_3_2",
-              "sha256": "56a7987f5746bd809c363e29055c41f5472a086b0e0e32248693e064d10bc306",
-              "urls": [
-                "https://maven.google.com/org/objenesis/objenesis/3.2/objenesis-3.2-sources.jar",
-                "https://repo1.maven.org/maven2/org/objenesis/objenesis/3.2/objenesis-3.2-sources.jar"
-              ],
-              "downloaded_file_path": "v1/org/objenesis/objenesis/3.2/objenesis-3.2-sources.jar"
             }
           },
           "io_opentelemetry_opentelemetry_api_logs_jar_sources_1_24_0_alpha": {
@@ -5973,19 +5906,6 @@
               "downloaded_file_path": "v1/io/zipkin/reporter2/zipkin-sender-okhttp3/2.16.3/zipkin-sender-okhttp3-2.16.3.jar"
             }
           },
-          "net_bytebuddy_byte_buddy_agent_jar_sources_1_12_7": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~net_bytebuddy_byte_buddy_agent_jar_sources_1_12_7",
-              "sha256": "a6d5b1157061231f61c833f1cc76c71287947c75b4064404a47f01f6e970c544",
-              "urls": [
-                "https://maven.google.com/net/bytebuddy/byte-buddy-agent/1.12.7/byte-buddy-agent-1.12.7-sources.jar",
-                "https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy-agent/1.12.7/byte-buddy-agent-1.12.7-sources.jar"
-              ],
-              "downloaded_file_path": "v1/net/bytebuddy/byte-buddy-agent/1.12.7/byte-buddy-agent-1.12.7-sources.jar"
-            }
-          },
           "net_codingwell_scala_guice_2_13_jar_sources_5_1_0": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
@@ -6009,19 +5929,6 @@
                 "https://repo1.maven.org/maven2/org/apache/maven/resolver/maven-resolver-util/1.9.20/maven-resolver-util-1.9.20.jar"
               ],
               "downloaded_file_path": "v1/org/apache/maven/resolver/maven-resolver-util/1.9.20/maven-resolver-util-1.9.20.jar"
-            }
-          },
-          "org_mockito_mockito_core_4_3_1": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~org_mockito_mockito_core_4_3_1",
-              "sha256": "148de2c6928365db29443ca12d35c930d9f481172b934fdd801d1cb1409ea83a",
-              "urls": [
-                "https://maven.google.com/org/mockito/mockito-core/4.3.1/mockito-core-4.3.1.jar",
-                "https://repo1.maven.org/maven2/org/mockito/mockito-core/4.3.1/mockito-core-4.3.1.jar"
-              ],
-              "downloaded_file_path": "v1/org/mockito/mockito-core/4.3.1/mockito-core-4.3.1.jar"
             }
           },
           "com_google_code_gson_gson_jar_sources_2_11_0": {
@@ -6111,19 +6018,6 @@
               "downloaded_file_path": "v1/io/netty/netty-buffer/4.1.100.Final/netty-buffer-4.1.100.Final-sources.jar"
             }
           },
-          "org_ow2_asm_asm_jar_sources_9_0": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~org_ow2_asm_asm_jar_sources_9_0",
-              "sha256": "829bc5eb0ccd705a7c8afbf7cdc4b7e9a9f733d3a1a954b9afffd99c8e063366",
-              "urls": [
-                "https://maven.google.com/org/ow2/asm/asm/9.0/asm-9.0-sources.jar",
-                "https://repo1.maven.org/maven2/org/ow2/asm/asm/9.0/asm-9.0-sources.jar"
-              ],
-              "downloaded_file_path": "v1/org/ow2/asm/asm/9.0/asm-9.0-sources.jar"
-            }
-          },
           "org_yaml_snakeyaml_jar_sources_1_28": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
@@ -6172,19 +6066,6 @@
                 "https://repo1.maven.org/maven2/io/grpc/grpc-core/1.62.2/grpc-core-1.62.2-sources.jar"
               ],
               "downloaded_file_path": "v1/io/grpc/grpc-core/1.62.2/grpc-core-1.62.2-sources.jar"
-            }
-          },
-          "net_bytebuddy_byte_buddy_agent_1_12_7": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~net_bytebuddy_byte_buddy_agent_1_12_7",
-              "sha256": "73d84bb6e8e8980e674d796a29063f510ceb527c6f8c912a08a13e236be05c71",
-              "urls": [
-                "https://maven.google.com/net/bytebuddy/byte-buddy-agent/1.12.7/byte-buddy-agent-1.12.7.jar",
-                "https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy-agent/1.12.7/byte-buddy-agent-1.12.7.jar"
-              ],
-              "downloaded_file_path": "v1/net/bytebuddy/byte-buddy-agent/1.12.7/byte-buddy-agent-1.12.7.jar"
             }
           },
           "com_twitter_util_validator_constraints_2_13_jar_sources_23_11_0": {
@@ -7582,19 +7463,6 @@
               "downloaded_file_path": "v1/io/grpc/grpc-xds/1.62.2/grpc-xds-1.62.2.jar"
             }
           },
-          "net_bytebuddy_byte_buddy_1_12_7": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~net_bytebuddy_byte_buddy_1_12_7",
-              "sha256": "d2e46555699e70361b5471a7e142f9c67855bba6907a285177ebd8ad973775d8",
-              "urls": [
-                "https://maven.google.com/net/bytebuddy/byte-buddy/1.12.7/byte-buddy-1.12.7.jar",
-                "https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy/1.12.7/byte-buddy-1.12.7.jar"
-              ],
-              "downloaded_file_path": "v1/net/bytebuddy/byte-buddy/1.12.7/byte-buddy-1.12.7.jar"
-            }
-          },
           "software_amazon_awssdk_http_auth_spi_jar_sources_2_26_12": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
@@ -8108,6 +7976,19 @@
               "downloaded_file_path": "v1/org/glassfish/jakarta.el/4.0.0/jakarta.el-4.0.0-sources.jar"
             }
           },
+          "junit_junit_4_12": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "name": "rules_jvm_external~6.6~maven~junit_junit_4_12",
+              "sha256": "59721f0805e223d84b90677887d9ff567dc534d7c502ca903c0c2b17f05c116a",
+              "urls": [
+                "https://maven.google.com/junit/junit/4.12/junit-4.12.jar",
+                "https://repo1.maven.org/maven2/junit/junit/4.12/junit-4.12.jar"
+              ],
+              "downloaded_file_path": "v1/junit/junit/4.12/junit-4.12.jar"
+            }
+          },
           "com_google_cloud_google_cloud_core_2_40_0": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
@@ -8180,19 +8061,6 @@
                 "https://repo1.maven.org/maven2/org/apache/maven/resolver/maven-resolver-api/1.9.20/maven-resolver-api-1.9.20-sources.jar"
               ],
               "downloaded_file_path": "v1/org/apache/maven/resolver/maven-resolver-api/1.9.20/maven-resolver-api-1.9.20-sources.jar"
-            }
-          },
-          "com_google_code_gson_gson_2_8_9": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~com_google_code_gson_gson_2_8_9",
-              "sha256": "d3999291855de495c94c743761b8ab5176cfeabe281a5ab0d8e8d45326fd703e",
-              "urls": [
-                "https://maven.google.com/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar",
-                "https://repo1.maven.org/maven2/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar"
-              ],
-              "downloaded_file_path": "v1/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar"
             }
           },
           "io_opentelemetry_opentelemetry_sdk_1_24_0": {
@@ -8358,19 +8226,6 @@
                 "https://repo1.maven.org/maven2/io/opentelemetry/opentelemetry-sdk-metrics/1.24.0/opentelemetry-sdk-metrics-1.24.0-sources.jar"
               ],
               "downloaded_file_path": "v1/io/opentelemetry/opentelemetry-sdk-metrics/1.24.0/opentelemetry-sdk-metrics-1.24.0-sources.jar"
-            }
-          },
-          "com_google_guava_guava_testlib_31_1_jre": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~com_google_guava_guava_testlib_31_1_jre",
-              "sha256": "aadc71b10d5c3ac474dd16be84cfb18d257e584d1e0a59f8cab64ef4376226ce",
-              "urls": [
-                "https://maven.google.com/com/google/guava/guava-testlib/31.1-jre/guava-testlib-31.1-jre.jar",
-                "https://repo1.maven.org/maven2/com/google/guava/guava-testlib/31.1-jre/guava-testlib-31.1-jre.jar"
-              ],
-              "downloaded_file_path": "v1/com/google/guava/guava-testlib/31.1-jre/guava-testlib-31.1-jre.jar"
             }
           },
           "io_netty_netty_codec_http2_jar_sources_4_1_73_Final": {
@@ -8776,6 +8631,19 @@
                 "https://repo1.maven.org/maven2/org/checkerframework/checker-qual/3.44.0/checker-qual-3.44.0.jar"
               ],
               "downloaded_file_path": "v1/org/checkerframework/checker-qual/3.44.0/checker-qual-3.44.0.jar"
+            }
+          },
+          "com_google_guava_guava_30_1_jre": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "name": "rules_jvm_external~6.6~maven~com_google_guava_guava_30_1_jre",
+              "sha256": "e6dd072f9d3fe02a4600688380bd422bdac184caf6fe2418cfdd0934f09432aa",
+              "urls": [
+                "https://maven.google.com/com/google/guava/guava/30.1-jre/guava-30.1-jre.jar",
+                "https://repo1.maven.org/maven2/com/google/guava/guava/30.1-jre/guava-30.1-jre.jar"
+              ],
+              "downloaded_file_path": "v1/com/google/guava/guava/30.1-jre/guava-30.1-jre.jar"
             }
           },
           "io_netty_netty_codec_http2_4_1_111_Final": {
@@ -9274,19 +9142,6 @@
               "downloaded_file_path": "v1/io/grpc/grpc-alts/1.62.2/grpc-alts-1.62.2-sources.jar"
             }
           },
-          "org_objenesis_objenesis_3_2": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~org_objenesis_objenesis_3_2",
-              "sha256": "03d960bd5aef03c653eb000413ada15eb77cdd2b8e4448886edf5692805e35f3",
-              "urls": [
-                "https://maven.google.com/org/objenesis/objenesis/3.2/objenesis-3.2.jar",
-                "https://repo1.maven.org/maven2/org/objenesis/objenesis/3.2/objenesis-3.2.jar"
-              ],
-              "downloaded_file_path": "v1/org/objenesis/objenesis/3.2/objenesis-3.2.jar"
-            }
-          },
           "org_apache_maven_resolver_maven_resolver_connector_basic_jar_sources_1_9_20": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
@@ -9673,6 +9528,19 @@
               "downloaded_file_path": "v1/io/netty/netty-codec-http/4.1.100.Final/netty-codec-http-4.1.100.Final.jar"
             }
           },
+          "junit_junit_jar_sources_4_12": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_file",
+            "attributes": {
+              "name": "rules_jvm_external~6.6~maven~junit_junit_jar_sources_4_12",
+              "sha256": "9f43fea92033ad82bcad2ae44cec5c82abc9d6ee4b095cab921d11ead98bf2ff",
+              "urls": [
+                "https://maven.google.com/junit/junit/4.12/junit-4.12-sources.jar",
+                "https://repo1.maven.org/maven2/junit/junit/4.12/junit-4.12-sources.jar"
+              ],
+              "downloaded_file_path": "v1/junit/junit/4.12/junit-4.12-sources.jar"
+            }
+          },
           "io_netty_netty_codec_http_jar_sources_4_1_111_Final": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
@@ -9721,19 +9589,6 @@
                 "https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.14/scala-library-2.13.14.jar"
               ],
               "downloaded_file_path": "v1/org/scala-lang/scala-library/2.13.14/scala-library-2.13.14.jar"
-            }
-          },
-          "com_google_code_gson_gson_jar_sources_2_8_9": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~com_google_code_gson_gson_jar_sources_2_8_9",
-              "sha256": "ba5bddb1a89eb721fcca39f3b34294532060f851e2407a82d82134a41eec4719",
-              "urls": [
-                "https://maven.google.com/com/google/code/gson/gson/2.8.9/gson-2.8.9-sources.jar",
-                "https://repo1.maven.org/maven2/com/google/code/gson/gson/2.8.9/gson-2.8.9-sources.jar"
-              ],
-              "downloaded_file_path": "v1/com/google/code/gson/gson/2.8.9/gson-2.8.9-sources.jar"
             }
           },
           "org_apache_maven_maven_model_builder_jar_sources_3_9_8": {
@@ -10042,19 +9897,6 @@
                 "https://repo1.maven.org/maven2/org/scala-lang/scalap/2.13.6/scalap-2.13.6-sources.jar"
               ],
               "downloaded_file_path": "v1/org/scala-lang/scalap/2.13.6/scalap-2.13.6-sources.jar"
-            }
-          },
-          "junit_junit_jar_sources_4_13_2": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~junit_junit_jar_sources_4_13_2",
-              "sha256": "34181df6482d40ea4c046b063cb53c7ffae94bdf1b1d62695bdf3adf9dea7e3a",
-              "urls": [
-                "https://maven.google.com/junit/junit/4.13.2/junit-4.13.2-sources.jar",
-                "https://repo1.maven.org/maven2/junit/junit/4.13.2/junit-4.13.2-sources.jar"
-              ],
-              "downloaded_file_path": "v1/junit/junit/4.13.2/junit-4.13.2-sources.jar"
             }
           },
           "io_grpc_grpc_protobuf_lite_1_62_2": {
@@ -10567,19 +10409,6 @@
               "downloaded_file_path": "v1/com/twitter/inject-app_2.13/23.11.0/inject-app_2.13-23.11.0.jar"
             }
           },
-          "com_google_guava_guava_testlib_jar_sources_31_1_jre": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~com_google_guava_guava_testlib_jar_sources_31_1_jre",
-              "sha256": "7149659f8966197dcd91a42183349f862d3973f8e65efe6d03e678464fa13bfd",
-              "urls": [
-                "https://maven.google.com/com/google/guava/guava-testlib/31.1-jre/guava-testlib-31.1-jre-sources.jar",
-                "https://repo1.maven.org/maven2/com/google/guava/guava-testlib/31.1-jre/guava-testlib-31.1-jre-sources.jar"
-              ],
-              "downloaded_file_path": "v1/com/google/guava/guava-testlib/31.1-jre/guava-testlib-31.1-jre-sources.jar"
-            }
-          },
           "io_grpc_grpc_xds_jar_sources_1_62_2": {
             "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
             "ruleClassName": "http_file",
@@ -10652,19 +10481,6 @@
                 "https://repo1.maven.org/maven2/org/apache/maven/maven-plugin-api/3.9.8/maven-plugin-api-3.9.8-sources.jar"
               ],
               "downloaded_file_path": "v1/org/apache/maven/maven-plugin-api/3.9.8/maven-plugin-api-3.9.8-sources.jar"
-            }
-          },
-          "org_mockito_mockito_core_jar_sources_4_3_1": {
-            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
-            "ruleClassName": "http_file",
-            "attributes": {
-              "name": "rules_jvm_external~6.6~maven~org_mockito_mockito_core_jar_sources_4_3_1",
-              "sha256": "7d530f39577843b16f6dba2c49846f07101f3ce734ac8caef4ba932f6527f1f6",
-              "urls": [
-                "https://maven.google.com/org/mockito/mockito-core/4.3.1/mockito-core-4.3.1-sources.jar",
-                "https://repo1.maven.org/maven2/org/mockito/mockito-core/4.3.1/mockito-core-4.3.1-sources.jar"
-              ],
-              "downloaded_file_path": "v1/org/mockito/mockito-core/4.3.1/mockito-core-4.3.1-sources.jar"
             }
           },
           "org_apache_maven_maven_resolver_provider_jar_sources_3_9_8": {

@@ -21,7 +21,7 @@ class Day11 extends aoc.NewDay(2024, 11) {
     }
   }
 
-  val cache: AsyncCache[(Long, Int), Long] = Caffeine.newBuilder().buildAsync[(Long, Int), Long]()
+  val cache: AsyncCache[(Long, Int), Long] = Caffeine.newBuilder().recordStats().buildAsync[(Long, Int), Long]()
 
   private def stoneDepth(v: Long, d: Int): Long = {
     val future = new CompletableFuture[Long]()
