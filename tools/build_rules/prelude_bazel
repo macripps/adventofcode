@@ -4,20 +4,8 @@ def advent_of_code_binary(year, day):
     scala_binary(
         name = "Day%s" % day,
         main_class = "aoc%s.Day%sMain" % (year, day),
-        srcs = [
-            "Day%s.scala" % day,
-        ],
         deps = [
-            "//src/main/scala/aoc",
-            "@maven//:com_google_inject_guice",
-            "@maven//:com_twitter_inject_app_2_13",
-            "@maven//:com_twitter_inject_core_2_13",
-            "@maven//:com_twitter_util_app_2_13",
-            "@maven//:com_twitter_util_app_lifecycle_2_13",
-            "@maven//:com_twitter_util_core_2_13",
-            "@maven//:com_twitter_util_slf4j_api_2_13",
-            "@maven//:com_twitter_util_slf4j_jul_bridge_2_13",
-            "@maven//:org_slf4j_slf4j_api",
+            "//src/main/scala/aoc%s" % year,
         ],
         runtime_deps = [
             "@maven//:ch_qos_logback_logback_classic",
