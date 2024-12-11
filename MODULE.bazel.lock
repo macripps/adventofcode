@@ -1,6 +1,6 @@
 {
   "lockFileVersion": 3,
-  "moduleFileHash": "5e627c1b2bf01bd6286c2976404539b1324c0cac00bc594feeb5635cc4e3f5f2",
+  "moduleFileHash": "5beb95b7dc51872f4e4daba55fe3028f52d5a8d6fc6d61d0679092c7b10bc9d5",
   "flags": {
     "cmdRegistries": [
       "https://bcr.bazel.build/"
@@ -45,6 +45,7 @@
                 "name": "maven",
                 "artifacts": [
                   "ch.qos.logback:logback-classic:1.4.13",
+                  "com.github.ben-manes.caffeine:caffeine:3.1.8",
                   "com.github.blemale:scaffeine_2.13:5.3.0",
                   "com.google.inject:guice:5.1.0",
                   "com.twitter:finagle-core_2.13:23.11.0",
@@ -91,7 +92,7 @@
         "aspect_bazel_lib": "aspect_bazel_lib@2.0.3",
         "bazel_skylib": "bazel_skylib@1.7.1",
         "rules_jvm_external": "rules_jvm_external@6.6",
-        "rules_proto": "rules_proto@6.0.2",
+        "rules_proto": "rules_proto@7.0.2",
         "rules_foreign_cc": "rules_foreign_cc@0.10.1",
         "bazel_tools": "bazel_tools@_",
         "local_config_platform": "local_config_platform@_"
@@ -593,7 +594,7 @@
       ],
       "deps": {
         "rules_android": "rules_android@0.1.1",
-        "bazel_features": "bazel_features@1.18.0",
+        "bazel_features": "bazel_features@1.19.0",
         "bazel_skylib": "bazel_skylib@1.7.1",
         "platforms": "platforms@0.0.10",
         "rules_license": "rules_license@1.0.0",
@@ -618,18 +619,18 @@
         }
       }
     },
-    "rules_proto@6.0.2": {
+    "rules_proto@7.0.2": {
       "name": "rules_proto",
-      "version": "6.0.2",
-      "key": "rules_proto@6.0.2",
+      "version": "7.0.2",
+      "key": "rules_proto@7.0.2",
       "repoName": "rules_proto",
       "executionPlatformsToRegister": [],
       "toolchainsToRegister": [],
       "extensionUsages": [],
       "deps": {
-        "bazel_features": "bazel_features@1.18.0",
+        "com_google_protobuf": "protobuf@27.1",
         "bazel_skylib": "bazel_skylib@1.7.1",
-        "rules_cc": "rules_cc@0.0.10",
+        "rules_cc": "rules_cc@0.0.15",
         "rules_license": "rules_license@1.0.0",
         "bazel_tools": "bazel_tools@_",
         "local_config_platform": "local_config_platform@_"
@@ -638,14 +639,14 @@
         "bzlFile": "@bazel_tools//tools/build_defs/repo:http.bzl",
         "ruleClassName": "http_archive",
         "attributes": {
-          "name": "rules_proto~6.0.2",
+          "name": "rules_proto~7.0.2",
           "urls": [
-            "https://github.com/bazelbuild/rules_proto/releases/download/6.0.2/rules_proto-6.0.2.tar.gz"
+            "https://github.com/bazelbuild/rules_proto/releases/download/7.0.2/rules_proto-7.0.2.tar.gz"
           ],
-          "integrity": "sha256-b7Z2fRvvU1MQVH4DJH91GLA0h3QMEbbGrbeVIDP+EpU=",
-          "strip_prefix": "rules_proto-6.0.2",
+          "integrity": "sha256-DlxkolmabibGoD1hYiQtIx7MDeIZU0w4y0QCFx3vIeg=",
+          "strip_prefix": "rules_proto-7.0.2",
           "remote_patches": {
-            "https://bcr.bazel.build/modules/rules_proto/6.0.2/patches/module_dot_bazel_version.patch": "sha256-mSkx6yiEGJElbRauESSW2YIUz1r8vRqmVAYOhV/Sjwc="
+            "https://bcr.bazel.build/modules/rules_proto/7.0.2/patches/module_dot_bazel_version.patch": "sha256-kxckjuQWVpV7S42vfiX3heOtrOWXlhW/tAfaQFbgNjA="
           },
           "remote_patch_strip": 1
         }
@@ -841,13 +842,13 @@
         }
       ],
       "deps": {
-        "rules_cc": "rules_cc@0.0.10",
+        "rules_cc": "rules_cc@0.0.15",
         "rules_java": "rules_java@7.12.2",
         "rules_license": "rules_license@1.0.0",
-        "rules_proto": "rules_proto@6.0.2",
+        "rules_proto": "rules_proto@7.0.2",
         "rules_python": "rules_python@0.23.1",
         "platforms": "platforms@0.0.10",
-        "com_google_protobuf": "protobuf@21.7",
+        "com_google_protobuf": "protobuf@27.1",
         "zlib": "zlib@1.3",
         "build_bazel_apple_support": "apple_support@1.5.0",
         "local_config_platform": "local_config_platform@_"
@@ -1043,10 +1044,10 @@
         }
       }
     },
-    "bazel_features@1.18.0": {
+    "bazel_features@1.19.0": {
       "name": "bazel_features",
-      "version": "1.18.0",
-      "key": "bazel_features@1.18.0",
+      "version": "1.19.0",
+      "key": "bazel_features@1.19.0",
       "repoName": "bazel_features",
       "executionPlatformsToRegister": [],
       "toolchainsToRegister": [],
@@ -1054,9 +1055,9 @@
         {
           "extensionBzlFile": "@bazel_features//private:extensions.bzl",
           "extensionName": "version_extension",
-          "usingModule": "bazel_features@1.18.0",
+          "usingModule": "bazel_features@1.19.0",
           "location": {
-            "file": "https://bcr.bazel.build/modules/bazel_features/1.18.0/MODULE.bazel",
+            "file": "https://bcr.bazel.build/modules/bazel_features/1.19.0/MODULE.bazel",
             "line": 15,
             "column": 24
           },
@@ -1079,14 +1080,14 @@
         "bzlFile": "@bazel_tools//tools/build_defs/repo:http.bzl",
         "ruleClassName": "http_archive",
         "attributes": {
-          "name": "bazel_features~1.18.0",
+          "name": "bazel_features~1.19.0",
           "urls": [
-            "https://github.com/bazel-contrib/bazel_features/releases/download/v1.18.0/bazel_features-v1.18.0.tar.gz"
+            "https://github.com/bazel-contrib/bazel_features/releases/download/v1.19.0/bazel_features-v1.19.0.tar.gz"
           ],
-          "integrity": "sha256-tLFFwZ4I/Ugzf1PDg9tGOY0KgQACkH/wxZB2LZJuBb4=",
-          "strip_prefix": "bazel_features-1.18.0",
+          "integrity": "sha256-Nkb/1Ed1NJC3fSOA+mP01V3Zci5WXYTf2gFTa0jhg9o=",
+          "strip_prefix": "bazel_features-1.19.0",
           "remote_patches": {
-            "https://bcr.bazel.build/modules/bazel_features/1.18.0/patches/module_dot_bazel_version.patch": "sha256-CgAejEjO5cd6yZaXlzgBSZytWKKYeDU+pHbhYscTw4o="
+            "https://bcr.bazel.build/modules/bazel_features/1.19.0/patches/module_dot_bazel_version.patch": "sha256-PYPpjeCJB6UPdLGFi3WQTUZg3QcWYGizPZCv0UydI8M="
           },
           "remote_patch_strip": 1
         }
@@ -1189,10 +1190,10 @@
       ],
       "deps": {
         "platforms": "platforms@0.0.10",
-        "rules_cc": "rules_cc@0.0.10",
-        "bazel_features": "bazel_features@1.18.0",
+        "rules_cc": "rules_cc@0.0.15",
+        "bazel_features": "bazel_features@1.19.0",
         "bazel_skylib": "bazel_skylib@1.7.1",
-        "rules_proto": "rules_proto@6.0.2",
+        "rules_proto": "rules_proto@7.0.2",
         "rules_license": "rules_license@1.0.0",
         "com_google_absl": "abseil-cpp@20230802.1",
         "bazel_tools": "bazel_tools@_",
@@ -1267,8 +1268,8 @@
         "bazel_skylib": "bazel_skylib@1.7.1",
         "rules_java": "rules_java@7.12.2",
         "rules_python": "rules_python@0.23.1",
-        "rules_cc": "rules_cc@0.0.10",
-        "rules_proto": "rules_proto@6.0.2",
+        "rules_cc": "rules_cc@0.0.15",
+        "rules_proto": "rules_proto@7.0.2",
         "bazel_tools": "bazel_tools@_",
         "local_config_platform": "local_config_platform@_"
       },
@@ -1318,7 +1319,7 @@
         }
       ],
       "deps": {
-        "bazel_features": "bazel_features@1.18.0",
+        "bazel_features": "bazel_features@1.19.0",
         "bazel_skylib": "bazel_skylib@1.7.1",
         "platforms": "platforms@0.0.10",
         "bazel_tools": "bazel_tools@_",
@@ -1341,10 +1342,48 @@
         }
       }
     },
-    "rules_cc@0.0.10": {
+    "protobuf@27.1": {
+      "name": "protobuf",
+      "version": "27.1",
+      "key": "protobuf@27.1",
+      "repoName": "com_google_protobuf",
+      "executionPlatformsToRegister": [],
+      "toolchainsToRegister": [],
+      "extensionUsages": [],
+      "deps": {
+        "com_google_absl": "abseil-cpp@20230802.1",
+        "bazel_skylib": "bazel_skylib@1.7.1",
+        "jsoncpp": "jsoncpp@1.9.5",
+        "rules_cc": "rules_cc@0.0.15",
+        "rules_java": "rules_java@7.12.2",
+        "rules_jvm_external": "rules_jvm_external@6.6",
+        "rules_pkg": "rules_pkg@0.7.0",
+        "rules_python": "rules_python@0.23.1",
+        "platforms": "platforms@0.0.10",
+        "zlib": "zlib@1.3",
+        "rules_proto": "rules_proto@7.0.2",
+        "bazel_tools": "bazel_tools@_",
+        "local_config_platform": "local_config_platform@_"
+      },
+      "repoSpec": {
+        "bzlFile": "@bazel_tools//tools/build_defs/repo:http.bzl",
+        "ruleClassName": "http_archive",
+        "attributes": {
+          "name": "protobuf~27.1",
+          "urls": [
+            "https://github.com/protocolbuffers/protobuf/releases/download/v27.1/protobuf-27.1.zip"
+          ],
+          "integrity": "sha256-fX8t3Mw348HF3+Za1p2Zkj2P6Evqxo7ZzexImQnE2NM=",
+          "strip_prefix": "protobuf-27.1",
+          "remote_patches": {},
+          "remote_patch_strip": 0
+        }
+      }
+    },
+    "rules_cc@0.0.15": {
       "name": "rules_cc",
-      "version": "0.0.10",
-      "key": "rules_cc@0.0.10",
+      "version": "0.0.15",
+      "key": "rules_cc@0.0.15",
       "repoName": "rules_cc",
       "executionPlatformsToRegister": [],
       "toolchainsToRegister": [
@@ -1352,15 +1391,16 @@
       ],
       "extensionUsages": [
         {
-          "extensionBzlFile": "@bazel_tools//tools/cpp:cc_configure.bzl",
+          "extensionBzlFile": "@rules_cc//cc:extensions.bzl",
           "extensionName": "cc_configure_extension",
-          "usingModule": "rules_cc@0.0.10",
+          "usingModule": "rules_cc@0.0.15",
           "location": {
-            "file": "https://bcr.bazel.build/modules/rules_cc/0.0.10/MODULE.bazel",
-            "line": 11,
+            "file": "https://bcr.bazel.build/modules/rules_cc/0.0.15/MODULE.bazel",
+            "line": 12,
             "column": 29
           },
           "imports": {
+            "local_config_cc": "local_config_cc",
             "local_config_cc_toolchains": "local_config_cc_toolchains"
           },
           "devImports": [],
@@ -1370,9 +1410,10 @@
         }
       ],
       "deps": {
+        "bazel_features": "bazel_features@1.19.0",
         "bazel_skylib": "bazel_skylib@1.7.1",
         "platforms": "platforms@0.0.10",
-        "stardoc": "stardoc@0.7.0",
+        "com_google_protobuf": "protobuf@27.1",
         "bazel_tools": "bazel_tools@_",
         "local_config_platform": "local_config_platform@_"
       },
@@ -1380,14 +1421,16 @@
         "bzlFile": "@bazel_tools//tools/build_defs/repo:http.bzl",
         "ruleClassName": "http_archive",
         "attributes": {
-          "name": "rules_cc~0.0.10",
+          "name": "rules_cc~0.0.15",
           "urls": [
-            "https://github.com/bazelbuild/rules_cc/releases/download/0.0.10/rules_cc-0.0.10.tar.gz"
+            "https://github.com/bazelbuild/rules_cc/releases/download/0.0.15/rules_cc-0.0.15.tar.gz"
           ],
-          "integrity": "sha256-ZbZ7gcbaN48TbMfn4U7gjVuTdZc0J+zrjHc6T2n6fkk=",
-          "strip_prefix": "rules_cc-0.0.10",
-          "remote_patches": {},
-          "remote_patch_strip": 0
+          "integrity": "sha256-9Krdg4fzgQM6mtBQBEOlKgzqX4rR7eQ2nTxhTreyaC4=",
+          "strip_prefix": "rules_cc-0.0.15",
+          "remote_patches": {
+            "https://bcr.bazel.build/modules/rules_cc/0.0.15/patches/module_dot_bazel_version.patch": "sha256-aFj4RhHKZ7U1Dpky9QH/glusOV1Mu6/BOC57gSI1tTk="
+          },
+          "remote_patch_strip": 1
         }
       }
     },
@@ -1493,8 +1536,8 @@
       "deps": {
         "platforms": "platforms@0.0.10",
         "bazel_skylib": "bazel_skylib@1.7.1",
-        "rules_proto": "rules_proto@6.0.2",
-        "com_google_protobuf": "protobuf@21.7",
+        "rules_proto": "rules_proto@7.0.2",
+        "com_google_protobuf": "protobuf@27.1",
         "bazel_tools": "bazel_tools@_",
         "local_config_platform": "local_config_platform@_"
       },
@@ -1515,91 +1558,6 @@
         }
       }
     },
-    "protobuf@21.7": {
-      "name": "protobuf",
-      "version": "21.7",
-      "key": "protobuf@21.7",
-      "repoName": "protobuf",
-      "executionPlatformsToRegister": [],
-      "toolchainsToRegister": [],
-      "extensionUsages": [
-        {
-          "extensionBzlFile": "@rules_jvm_external//:extensions.bzl",
-          "extensionName": "maven",
-          "usingModule": "protobuf@21.7",
-          "location": {
-            "file": "https://bcr.bazel.build/modules/protobuf/21.7/MODULE.bazel",
-            "line": 22,
-            "column": 22
-          },
-          "imports": {
-            "maven": "maven"
-          },
-          "devImports": [],
-          "tags": [
-            {
-              "tagName": "install",
-              "attributeValues": {
-                "name": "maven",
-                "artifacts": [
-                  "com.google.code.findbugs:jsr305:3.0.2",
-                  "com.google.code.gson:gson:2.8.9",
-                  "com.google.errorprone:error_prone_annotations:2.3.2",
-                  "com.google.j2objc:j2objc-annotations:1.3",
-                  "com.google.guava:guava:31.1-jre",
-                  "com.google.guava:guava-testlib:31.1-jre",
-                  "com.google.truth:truth:1.1.2",
-                  "junit:junit:4.13.2",
-                  "org.mockito:mockito-core:4.3.1"
-                ]
-              },
-              "devDependency": false,
-              "location": {
-                "file": "https://bcr.bazel.build/modules/protobuf/21.7/MODULE.bazel",
-                "line": 24,
-                "column": 14
-              }
-            }
-          ],
-          "hasDevUseExtension": false,
-          "hasNonDevUseExtension": true
-        }
-      ],
-      "deps": {
-        "bazel_skylib": "bazel_skylib@1.7.1",
-        "rules_python": "rules_python@0.23.1",
-        "rules_cc": "rules_cc@0.0.10",
-        "rules_proto": "rules_proto@6.0.2",
-        "rules_java": "rules_java@7.12.2",
-        "rules_pkg": "rules_pkg@0.7.0",
-        "com_google_abseil": "abseil-cpp@20230802.1",
-        "zlib": "zlib@1.3",
-        "upb": "upb@0.0.0-20220923-a547704",
-        "rules_jvm_external": "rules_jvm_external@6.6",
-        "com_google_googletest": "googletest@1.14.0",
-        "bazel_tools": "bazel_tools@_",
-        "local_config_platform": "local_config_platform@_"
-      },
-      "repoSpec": {
-        "bzlFile": "@bazel_tools//tools/build_defs/repo:http.bzl",
-        "ruleClassName": "http_archive",
-        "attributes": {
-          "name": "protobuf~21.7",
-          "urls": [
-            "https://github.com/protocolbuffers/protobuf/releases/download/v21.7/protobuf-all-21.7.zip"
-          ],
-          "integrity": "sha256-VJOiH17T/FAuZv7GuUScBqVRztYwAvpIkDxA36jeeko=",
-          "strip_prefix": "protobuf-21.7",
-          "remote_patches": {
-            "https://bcr.bazel.build/modules/protobuf/21.7/patches/add_module_dot_bazel.patch": "sha256-q3V2+eq0v2XF0z8z+V+QF4cynD6JvHI1y3kI/+rzl5s=",
-            "https://bcr.bazel.build/modules/protobuf/21.7/patches/add_module_dot_bazel_for_examples.patch": "sha256-O7YP6s3lo/1opUiO0jqXYORNHdZ/2q3hjz1QGy8QdIU=",
-            "https://bcr.bazel.build/modules/protobuf/21.7/patches/relative_repo_names.patch": "sha256-RK9RjW8T5UJNG7flIrnFiNE9vKwWB+8uWWtJqXYT0w4=",
-            "https://bcr.bazel.build/modules/protobuf/21.7/patches/add_missing_files.patch": "sha256-Hyne4DG2u5bXcWHNxNMirA2QFAe/2Cl8oMm1XJdkQIY="
-          },
-          "remote_patch_strip": 1
-        }
-      }
-    },
     "zlib@1.3": {
       "name": "zlib",
       "version": "1.3",
@@ -1610,7 +1568,7 @@
       "extensionUsages": [],
       "deps": {
         "platforms": "platforms@0.0.10",
-        "rules_cc": "rules_cc@0.0.10",
+        "rules_cc": "rules_cc@0.0.15",
         "bazel_tools": "bazel_tools@_",
         "local_config_platform": "local_config_platform@_"
       },
@@ -1691,7 +1649,7 @@
       "toolchainsToRegister": [],
       "extensionUsages": [],
       "deps": {
-        "rules_cc": "rules_cc@0.0.10",
+        "rules_cc": "rules_cc@0.0.15",
         "platforms": "platforms@0.0.10",
         "bazel_skylib": "bazel_skylib@1.7.1",
         "com_google_googletest": "googletest@1.14.0",
@@ -1712,6 +1670,36 @@
             "https://bcr.bazel.build/modules/abseil-cpp/20230802.1/patches/module_dot_bazel.patch": "sha256-QRZ3pjptCi+f7kEUY9rJZYln4tTl6bZu11laagT0YDk="
           },
           "remote_patch_strip": 0
+        }
+      }
+    },
+    "jsoncpp@1.9.5": {
+      "name": "jsoncpp",
+      "version": "1.9.5",
+      "key": "jsoncpp@1.9.5",
+      "repoName": "jsoncpp",
+      "executionPlatformsToRegister": [],
+      "toolchainsToRegister": [],
+      "extensionUsages": [],
+      "deps": {
+        "bazel_tools": "bazel_tools@_",
+        "local_config_platform": "local_config_platform@_"
+      },
+      "repoSpec": {
+        "bzlFile": "@bazel_tools//tools/build_defs/repo:http.bzl",
+        "ruleClassName": "http_archive",
+        "attributes": {
+          "name": "jsoncpp~1.9.5",
+          "urls": [
+            "https://github.com/open-source-parsers/jsoncpp/archive/refs/tags/1.9.5.tar.gz"
+          ],
+          "integrity": "sha256-9AmFblkgwY0ML7hSduJO5gfSoJtefV8KNxNokDwnXaI=",
+          "strip_prefix": "jsoncpp-1.9.5",
+          "remote_patches": {
+            "https://bcr.bazel.build/modules/jsoncpp/1.9.5/patches/build_dot_bazel.patch": "sha256-Vj8diXSWps8I8h5cdEqBDYmKBA2ulvWxMZBEQlIgcpU=",
+            "https://bcr.bazel.build/modules/jsoncpp/1.9.5/patches/module_dot_bazel.patch": "sha256-7RC7fS8N11vcyeDEaUZ05yBqr0YY7OzuzqaWz5W2XDo="
+          },
+          "remote_patch_strip": 1
         }
       }
     },
@@ -1747,40 +1735,6 @@
         }
       }
     },
-    "upb@0.0.0-20220923-a547704": {
-      "name": "upb",
-      "version": "0.0.0-20220923-a547704",
-      "key": "upb@0.0.0-20220923-a547704",
-      "repoName": "upb",
-      "executionPlatformsToRegister": [],
-      "toolchainsToRegister": [],
-      "extensionUsages": [],
-      "deps": {
-        "bazel_skylib": "bazel_skylib@1.7.1",
-        "rules_proto": "rules_proto@6.0.2",
-        "com_google_protobuf": "protobuf@21.7",
-        "com_google_absl": "abseil-cpp@20230802.1",
-        "platforms": "platforms@0.0.10",
-        "bazel_tools": "bazel_tools@_",
-        "local_config_platform": "local_config_platform@_"
-      },
-      "repoSpec": {
-        "bzlFile": "@bazel_tools//tools/build_defs/repo:http.bzl",
-        "ruleClassName": "http_archive",
-        "attributes": {
-          "name": "upb~0.0.0-20220923-a547704",
-          "urls": [
-            "https://github.com/protocolbuffers/upb/archive/a5477045acaa34586420942098f5fecd3570f577.tar.gz"
-          ],
-          "integrity": "sha256-z39x6v+QskwaKLSWRan/A6mmwecTQpHOcJActj5zZLU=",
-          "strip_prefix": "upb-a5477045acaa34586420942098f5fecd3570f577",
-          "remote_patches": {
-            "https://bcr.bazel.build/modules/upb/0.0.0-20220923-a547704/patches/module_dot_bazel.patch": "sha256-wH4mNS6ZYy+8uC0HoAft/c7SDsq2Kxf+J8dUakXhaB0="
-          },
-          "remote_patch_strip": 0
-        }
-      }
-    },
     "googletest@1.14.0": {
       "name": "googletest",
       "version": "1.14.0",
@@ -1792,7 +1746,7 @@
       "deps": {
         "com_google_absl": "abseil-cpp@20230802.1",
         "platforms": "platforms@0.0.10",
-        "rules_cc": "rules_cc@0.0.10",
+        "rules_cc": "rules_cc@0.0.15",
         "bazel_tools": "bazel_tools@_",
         "local_config_platform": "local_config_platform@_"
       },
@@ -2246,26 +2200,27 @@
         }
       }
     },
-    "@@bazel_features~1.18.0//private:extensions.bzl%version_extension": {
+    "@@bazel_features~1.19.0//private:extensions.bzl%version_extension": {
       "general": {
-        "bzlTransitiveDigest": "/ni2Pyot9yfZKolh2+RMcLgMRhihuhP2ZWU85BDanQk=",
+        "bzlTransitiveDigest": "/vJOb4IBPnuxjLO8/iEqHTGFZi8aA7E5PheUA6nMtMk=",
         "accumulatedFileDigests": {},
         "envVariables": {},
         "generatedRepoSpecs": {
           "bazel_features_version": {
-            "bzlFile": "@@bazel_features~1.18.0//private:version_repo.bzl",
+            "bzlFile": "@@bazel_features~1.19.0//private:version_repo.bzl",
             "ruleClassName": "version_repo",
             "attributes": {
-              "name": "bazel_features~1.18.0~version_extension~bazel_features_version"
+              "name": "bazel_features~1.19.0~version_extension~bazel_features_version"
             }
           },
           "bazel_features_globals": {
-            "bzlFile": "@@bazel_features~1.18.0//private:globals_repo.bzl",
+            "bzlFile": "@@bazel_features~1.19.0//private:globals_repo.bzl",
             "ruleClassName": "globals_repo",
             "attributes": {
-              "name": "bazel_features~1.18.0~version_extension~bazel_features_globals",
+              "name": "bazel_features~1.19.0~version_extension~bazel_features_globals",
               "globals": {
-                "CcSharedLibraryInfo": "7.0.0",
+                "CcSharedLibraryInfo": "6.0.0-pre.20220630.1",
+                "CcSharedLibraryHintInfo": "7.0.0-pre.20230316.2",
                 "PackageSpecificationInfo": "6.4.0",
                 "RunEnvironmentInfo": "5.3.0",
                 "DefaultInfo": "0.0.1",
@@ -2339,6 +2294,29 @@
             "ruleClassName": "sh_config",
             "attributes": {
               "name": "bazel_tools~sh_configure_extension~local_config_sh"
+            }
+          }
+        }
+      }
+    },
+    "@@rules_cc~0.0.15//cc:extensions.bzl%cc_configure_extension": {
+      "general": {
+        "bzlTransitiveDigest": "yxBL7MHhGRJITje64yhhUqZLeAPjfDsWTOTiAa2DBsw=",
+        "accumulatedFileDigests": {},
+        "envVariables": {},
+        "generatedRepoSpecs": {
+          "local_config_cc": {
+            "bzlFile": "@@rules_cc~0.0.15//cc/private/toolchain:cc_configure.bzl",
+            "ruleClassName": "cc_autoconf",
+            "attributes": {
+              "name": "rules_cc~0.0.15~cc_configure_extension~local_config_cc"
+            }
+          },
+          "local_config_cc_toolchains": {
+            "bzlFile": "@@rules_cc~0.0.15//cc/private/toolchain:cc_configure.bzl",
+            "ruleClassName": "cc_autoconf_toolchains",
+            "attributes": {
+              "name": "rules_cc~0.0.15~cc_configure_extension~local_config_cc_toolchains"
             }
           }
         }
@@ -2699,7 +2677,7 @@
     },
     "@@rules_java~7.12.2//java:extensions.bzl%toolchains": {
       "general": {
-        "bzlTransitiveDigest": "g+qhn0d5uIGhil3vQakv5G3g5VC0ZFFkcW5BoQ6Udy4=",
+        "bzlTransitiveDigest": "4nfVrv081+BHgCrGsGCLiVepHLcQs4I6ystG7R0KGLw=",
         "accumulatedFileDigests": {},
         "envVariables": {},
         "generatedRepoSpecs": {
@@ -3439,9 +3417,9 @@
     },
     "@@rules_jvm_external~6.6//:extensions.bzl%maven": {
       "general": {
-        "bzlTransitiveDigest": "nJV2Cnw6qdj2paVQiky8gheSh3pCAecJojn1czSZVmo=",
+        "bzlTransitiveDigest": "CcxLrCDUJeNZv3+jtxG9C0UPxZbW+3CaYuUQrB1AZOA=",
         "accumulatedFileDigests": {
-          "@@//:maven_install.json": "aec4291e45d45e4fb1dc926525724edc5eefe95ea5d97de0e43bd7a607f34724",
+          "@@//:maven_install.json": "d9c7240e0757f6ed6405e080731ea5ce8982d1acf24394f96d9ae82d65ba43dd",
           "@@stardoc~0.7.0//:maven_install.json": "de0bfa778b4ed6aebb77509362dd87ab8d20fc7c7c18d2a7429cdfee03949a21",
           "@@rules_jvm_external~6.6//:rules_jvm_external_deps_install.json": "4118652b33b0f31cf94b98b3aaa6e44eed9de0cf1941d16eebea40e45e0de817"
         },
@@ -7472,6 +7450,7 @@
               ],
               "artifacts": [
                 "{ \"group\": \"ch.qos.logback\", \"artifact\": \"logback-classic\", \"version\": \"1.4.13\" }",
+                "{ \"group\": \"com.github.ben-manes.caffeine\", \"artifact\": \"caffeine\", \"version\": \"3.1.8\" }",
                 "{ \"group\": \"com.github.blemale\", \"artifact\": \"scaffeine_2.13\", \"version\": \"5.3.0\" }",
                 "{ \"group\": \"com.google.inject\", \"artifact\": \"guice\", \"version\": \"5.1.0\" }",
                 "{ \"group\": \"com.twitter\", \"artifact\": \"finagle-core_2.13\", \"version\": \"23.11.0\" }",
@@ -7493,16 +7472,7 @@
                 "{ \"group\": \"io.opentelemetry\", \"artifact\": \"opentelemetry-semconv\", \"version\": \"1.24.0-alpha\" }",
                 "{ \"group\": \"io.zipkin.finagle2\", \"artifact\": \"zipkin-finagle_2.13\", \"version\": \"22.4.0\" }",
                 "{ \"group\": \"io.zipkin.finagle2\", \"artifact\": \"zipkin-finagle-http_2.13\", \"version\": \"22.4.0\" }",
-                "{ \"group\": \"org.slf4j\", \"artifact\": \"slf4j-api\", \"version\": \"2.0.9\" }",
-                "{ \"group\": \"com.google.code.findbugs\", \"artifact\": \"jsr305\", \"version\": \"3.0.2\" }",
-                "{ \"group\": \"com.google.code.gson\", \"artifact\": \"gson\", \"version\": \"2.8.9\" }",
-                "{ \"group\": \"com.google.errorprone\", \"artifact\": \"error_prone_annotations\", \"version\": \"2.3.2\" }",
-                "{ \"group\": \"com.google.j2objc\", \"artifact\": \"j2objc-annotations\", \"version\": \"1.3\" }",
-                "{ \"group\": \"com.google.guava\", \"artifact\": \"guava\", \"version\": \"31.1-jre\" }",
-                "{ \"group\": \"com.google.guava\", \"artifact\": \"guava-testlib\", \"version\": \"31.1-jre\" }",
-                "{ \"group\": \"com.google.truth\", \"artifact\": \"truth\", \"version\": \"1.1.2\" }",
-                "{ \"group\": \"junit\", \"artifact\": \"junit\", \"version\": \"4.13.2\" }",
-                "{ \"group\": \"org.mockito\", \"artifact\": \"mockito-core\", \"version\": \"4.3.1\" }"
+                "{ \"group\": \"org.slf4j\", \"artifact\": \"slf4j-api\", \"version\": \"2.0.9\" }"
               ],
               "fail_on_missing_checksum": true,
               "fetch_sources": true,
@@ -10186,6 +10156,7 @@
               "boms": [],
               "artifacts": [
                 "{ \"group\": \"ch.qos.logback\", \"artifact\": \"logback-classic\", \"version\": \"1.4.13\" }",
+                "{ \"group\": \"com.github.ben-manes.caffeine\", \"artifact\": \"caffeine\", \"version\": \"3.1.8\" }",
                 "{ \"group\": \"com.github.blemale\", \"artifact\": \"scaffeine_2.13\", \"version\": \"5.3.0\" }",
                 "{ \"group\": \"com.google.inject\", \"artifact\": \"guice\", \"version\": \"5.1.0\" }",
                 "{ \"group\": \"com.twitter\", \"artifact\": \"finagle-core_2.13\", \"version\": \"23.11.0\" }",
@@ -10207,16 +10178,7 @@
                 "{ \"group\": \"io.opentelemetry\", \"artifact\": \"opentelemetry-semconv\", \"version\": \"1.24.0-alpha\" }",
                 "{ \"group\": \"io.zipkin.finagle2\", \"artifact\": \"zipkin-finagle_2.13\", \"version\": \"22.4.0\" }",
                 "{ \"group\": \"io.zipkin.finagle2\", \"artifact\": \"zipkin-finagle-http_2.13\", \"version\": \"22.4.0\" }",
-                "{ \"group\": \"org.slf4j\", \"artifact\": \"slf4j-api\", \"version\": \"2.0.9\" }",
-                "{ \"group\": \"com.google.code.findbugs\", \"artifact\": \"jsr305\", \"version\": \"3.0.2\" }",
-                "{ \"group\": \"com.google.code.gson\", \"artifact\": \"gson\", \"version\": \"2.8.9\" }",
-                "{ \"group\": \"com.google.errorprone\", \"artifact\": \"error_prone_annotations\", \"version\": \"2.3.2\" }",
-                "{ \"group\": \"com.google.j2objc\", \"artifact\": \"j2objc-annotations\", \"version\": \"1.3\" }",
-                "{ \"group\": \"com.google.guava\", \"artifact\": \"guava\", \"version\": \"31.1-jre\" }",
-                "{ \"group\": \"com.google.guava\", \"artifact\": \"guava-testlib\", \"version\": \"31.1-jre\" }",
-                "{ \"group\": \"com.google.truth\", \"artifact\": \"truth\", \"version\": \"1.1.2\" }",
-                "{ \"group\": \"junit\", \"artifact\": \"junit\", \"version\": \"4.13.2\" }",
-                "{ \"group\": \"org.mockito\", \"artifact\": \"mockito-core\", \"version\": \"4.3.1\" }"
+                "{ \"group\": \"org.slf4j\", \"artifact\": \"slf4j-api\", \"version\": \"2.0.9\" }"
               ],
               "fetch_sources": true,
               "fetch_javadoc": false,
@@ -11036,7 +10998,7 @@
     },
     "@@rules_shell~0.3.0//shell/private/extensions:sh_configure.bzl%sh_configure": {
       "general": {
-        "bzlTransitiveDigest": "brQyVA3KCqxWh/N7rTy/JitgVGwCdPrt+8K77QhZ4lI=",
+        "bzlTransitiveDigest": "GiQdaEdSaKIKKFfskWOKLq3N1O5Xg3JMTvUnNjF3b0E=",
         "accumulatedFileDigests": {},
         "envVariables": {},
         "generatedRepoSpecs": {
