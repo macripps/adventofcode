@@ -37,10 +37,40 @@ scalatest_repositories()
 scalatest_toolchain()
 
 # Z3
+_Z3_BUILD = """\
+java_import(
+    name = "z3",
+    jars = [ "bin/com.microsoft.z3.jar" ],
+    deps = [
+        ":dylib",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+cc_import(
+    name = "libz3",
+    shared_library = "bin/libz3.dylib",
+)
+
+cc_import(
+    name = "libz3java",
+    shared_library = "bin/libz3java.dylib",
+)
+
+cc_library(
+    name = "dylib",
+    deps = [
+      ":libz3",
+      ":libz3java",
+    ],
+    visibility = ["//visibility:public"],
+)
+"""
+
 http_archive(
   name = "z3",
-  build_file = "//third_party:z3.BUILD",
-  urls = ["https://github.com/Z3Prover/z3/archive/refs/tags/z3-4.12.4.zip"],
-  integrity = "sha256-YnL+sPr+ggQ7GCvEPHxcVtaCX/uexFufbULW6QIyIgA=",
-  strip_prefix = "z3-z3-4.12.4",
+  build_file_content = _Z3_BUILD,
+  urls = ["https://github.com/Z3Prover/z3/releases/download/z3-4.13.3/z3-4.13.3-x64-osx-13.7.zip"],
+  integrity = "sha256-jUEDhUwLelmieuIG1dDw/KSLZdu+T9HBPu05bXXaCS8=",
+  strip_prefix = "z3-4.13.3-x64-osx-13.7",
 )

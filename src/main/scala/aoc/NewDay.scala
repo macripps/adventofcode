@@ -16,6 +16,7 @@ abstract class NewDay(year: Int, day: Int) extends App with AdventDSL {
   val debug = flag("debug", false, "enable debug mode")
 
   init {
+    println(System.getProperty("user.dir"))
     val serviceNameResource: Resource = Resource.create(Attributes.of(ResourceAttributes.SERVICE_NAME, "adventofcode"))
     val tracerProvider: SdkTracerProvider = SdkTracerProvider.builder()
       .addSpanProcessor(BatchSpanProcessor.builder(ZipkinSpanExporter.builder().build()).build())

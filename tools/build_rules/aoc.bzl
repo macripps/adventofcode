@@ -1,15 +1,14 @@
-load("@io_bazel_rules_scala//scala:scala.bzl", "scala_library", "scala_binary", "scala_test")
+load("@rules_java//java:defs.bzl", "java_binary")
 
 def advent_of_code_binary(year, day):
-    scala_binary(
+    java_binary(
         name = "Day%s" % day,
         main_class = "aoc%s.Day%sMain" % (year, day),
-        deps = [
-            "//src/main/scala/aoc%s" % year,
-        ],
         runtime_deps = [
+            "//src/main/scala/aoc%s" % year,
             "@maven//:ch_qos_logback_logback_classic",
         ],
+        data = ["@z3//:dylib"],
         resources = [
             "//src/main/resources/aoc%s:day%s.input" % (year, day),
         ]

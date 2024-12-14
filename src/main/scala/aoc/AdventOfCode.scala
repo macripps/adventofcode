@@ -1,6 +1,5 @@
 package aoc
 
-import aoc2023._
 import com.twitter.app.Flag
 import com.twitter.inject.app.App
 import io.opentelemetry.api.OpenTelemetry
@@ -33,7 +32,7 @@ object AdventOfCode extends App {
     println("Advent Of Code")
     println("--------------")
 
-    val days: Array[aoc.Day] = Array(Day9())
+    val days: Array[aoc.Day] = Array()
 
     val tracer = telemetry.getTracer("aoc")
     val compSpan = tracer.spanBuilder("adventofcode").startSpan()
