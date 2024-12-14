@@ -8,7 +8,7 @@ def advent_of_code_binary(year, day):
             "//src/main/scala/aoc%s" % year,
             "@maven//:ch_qos_logback_logback_classic",
         ],
-        data = ["@z3//:dylib"],
+#        data = ["@z3//:dylib"],
         resources = [
             "//src/main/resources/aoc%s:day%s.input" % (year, day),
         ]

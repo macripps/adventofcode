@@ -6,7 +6,7 @@ scala_library(
     srcs = glob(["*.scala"]),
     deps = [
         "//src/main/scala/aoc",
-        "@z3//:z3",
+#        "@z3//:z3",
         "@maven//:com_github_ben_manes_caffeine_caffeine",
         "@maven//:com_google_inject_guice",
         "@maven//:com_twitter_inject_app_2_13",
