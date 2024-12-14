@@ -40,21 +40,35 @@ scalatest_toolchain()
 _Z3_BUILD = """\
 java_import(
     name = "z3",
-    jars = [ "bin/com.microsoft.z3.jar" ],
+    jars = [ "com.microsoft.z3.jar" ],
     deps = [
         ":dylib",
     ],
     visibility = ["//visibility:public"],
 )
 
+genrule(
+    name = "z3_dylib",
+    srcs = ["libz3.dylib"],
+    outs = ["z3.dylib"],
+    cmd = "cp $(location libz3.dylib) $(location z3.dylib)",
+)
+
+genrule(
+    name = "z3java_dylib",
+    srcs = ["libz3java.dylib"],
+    outs = ["z3java.dylib"],
+    cmd = "cp $(location libz3java.dylib) $(location z3java.dylib)",
+)
+
 cc_import(
     name = "libz3",
-    shared_library = "bin/libz3.dylib",
+    shared_library = ":z3_dylib",
 )
 
 cc_import(
     name = "libz3java",
-    shared_library = "bin/libz3java.dylib",
+    shared_library = ":z3java_dylib",
 )
 
 cc_library(
@@ -68,9 +82,17 @@ cc_library(
 """
 
 http_archive(
-  name = "z3",
+  name = "z3_osx",
   build_file_content = _Z3_BUILD,
   urls = ["https://github.com/Z3Prover/z3/releases/download/z3-4.13.3/z3-4.13.3-x64-osx-13.7.zip"],
   integrity = "sha256-jUEDhUwLelmieuIG1dDw/KSLZdu+T9HBPu05bXXaCS8=",
-  strip_prefix = "z3-4.13.3-x64-osx-13.7",
+  strip_prefix = "z3-4.13.3-x64-osx-13.7/bin",
+)
+
+http_archive(
+  name = "z3",
+  build_file = "@//third_party:z3.BUILD",
+  urls = ["https://github.com/Z3Prover/z3/archive/refs/tags/z3-4.13.3.zip"],
+  integrity = "sha256-Ua00MnpnYysaUF/Ri9aIA6cXd3A9CjNf4tIkvOysWpU=",
+  strip_prefix = "z3-z3-4.13.3",
 )

@@ -1,3 +1,6 @@
+load("//tools/build_rules:aoc.bzl", "advent_of_code_binary")
+load("@io_bazel_rules_scala//scala:scala.bzl", "scala_library")
+
 scala_library(
     name = "aoc2023",
     srcs = glob(["*.scala"], exclude=["Day6.scala", "Day9.scala", "Day10.scala", "Day11.scala", "Day12.scala", "Day13.scala"]),

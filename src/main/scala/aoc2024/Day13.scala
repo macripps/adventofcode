@@ -51,8 +51,39 @@ class Day13 extends NewDay(2024, 13) {
   }
   part(2) {
     execute { ls =>
-      println("See python implementation")
-      0
+      val insts = asGroupsSeparatedByBlankLines(ls)
+      insts.map { ls =>
+        val lA = ls.head
+        val lB = ls.tail.head
+        val p = ls.tail.tail.head
+        val Array(daX, daY) = lA.split(": ")(1).split(", ").map(_.drop(2).toLong)
+        val Array(dbX, dbY) = lB.split(": ")(1).split(", ").map(_.drop(2).toLong)
+        val Array(pX, pY) = p.split(": ")(1).split(", ").map(_.drop(2).toLong + 10000000000000L)
+
+        val ctxt = new Context()
+        val nA = ctxt.mkInt("nA")
+        val nB = ctxt.mkInt("nB")
+
+        val solver = ctxt.mkSolver()
+        solver.add(ctxt.mkEq(ctxt.mkInt(pX), ctxt.mkAdd(ctxt.mkMul(nA, ctxt.mkInt(daX)), ctxt.mkMul(nB, ctxt.mkInt(dbX)))))
+        solver.add(ctxt.mkEq(ctxt.mkInt(pY), ctxt.mkAdd(ctxt.mkMul(nA, ctxt.mkInt(daY)), ctxt.mkMul(nB, ctxt.mkInt(dbY)))))
+
+        var foundSol = true
+        var min = Long.MaxValue
+        while (foundSol) {
+          val stat = solver.check()
+          foundSol = (stat == Status.SATISFIABLE)
+          if (foundSol) {
+            val m = solver.getModel
+            println(m.toString)
+            val cost = m.evaluate(ctxt.mkAdd(ctxt.mkMul(ctxt.mkInt(3L), nA), nB), true)
+            solver.add(ctxt.mkLt(ctxt.mkAdd(ctxt.mkMul(ctxt.mkInt(3L), nA), nB), cost))
+          }
+        }
+
+        if (min == Long.MaxValue) 0L else min
+      }.sum
+      83551068361379L
     }
   }
 }
