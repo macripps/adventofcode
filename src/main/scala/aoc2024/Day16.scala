@@ -1,7 +1,7 @@
 package aoc2024
 
 import aoc.Direction.Direction
-import aoc.{Direction, NewDay, Point, Search}
+import aoc.{Direction, NewDay, Point}
 
 import scala.collection.mutable
 
@@ -163,7 +163,7 @@ class Day16 extends NewDay(2024, 16) {
     }
   }
 
-  def findInGrid(grid: Array[Array[Char]], ch: Char): Point = {
+  private[this] def findInGrid(grid: Array[Array[Char]], ch: Char): Point = {
     grid.indices.find { c =>
       grid(c).indices.exists { r => grid(c)(r) == ch }
     }.flatMap { c =>
@@ -172,7 +172,6 @@ class Day16 extends NewDay(2024, 16) {
       }
     }.get
   }
-
 }
 
 object Day16Main extends Day16
