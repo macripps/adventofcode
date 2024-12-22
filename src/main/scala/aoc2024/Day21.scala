@@ -23,70 +23,85 @@ class Day21 extends NewDay(2024, 21) {
         Array('<', 'v', '>'),
       )
       ls.map { l =>
-        var robot1Instructions = ""
-        var robot2Instructions = ""
-        var meInstructions = ""
         var arm = Point(2, 3)
-        var robot1 = Point(2, 0)
-        var robot2 = Point(2, 0)
+        var routesAvailable = List[String]("")
+        var shortestRoute = Long.MaxValue
+        println(colors(5) + "[Robot1]" + reset + " Goal: " + l)
         l.foreach { c =>
-          println(colors(5) + "[Robot1]" + reset + " Attempting to press " + c)
+          //          println(colors(5) + "[Robot1]" + reset + " Attempting to press " + c)
           val goal = findInGrid(keypad, c)
-          val route = search(keypad, arm, goal)
-          arm = goal
-          println(colors(5) + "[Robot1]" + reset + " Shortest route (search): " + route)
-          robot1Instructions = robot1Instructions + route
-          println(colors(5) + "[Robot1]" + reset + " DirectionPad instructions required: " + route)
-          route.foreach { d1 =>
-            println(colors(3) + "[Robot2]" + reset + " Attempting to press " + d1)
-            val goal2 = findInGrid(directionPad, d1)
-            val robot2Directions = search(directionPad, robot1, goal2)
-            robot1 = goal2
-            println(colors(3) + "[Robot2]" + reset + " DirectionPad instructions required: " + robot2Directions)
-            robot2Instructions = robot2Instructions + robot2Directions
-            robot2Directions.foreach { d2 =>
-              println(colors(9) + "[Me]" + reset + " Attempting to press " + d2)
-              val goal3 = findInGrid(directionPad, d2)
-              val meDirections = search(directionPad, robot2, goal3)
-              robot2 = goal3
-              println(colors(9) + "[Me]" + reset + " DirectionPad instructions required: " + meDirections)
-              meInstructions = meInstructions + meDirections
+          val routes = allPaths(keypad, arm, goal, "")
+          routesAvailable = routesAvailable.flatMap { rs =>
+            routes.map { r =>
+              rs + r
             }
           }
+          arm = goal
         }
-        println(meInstructions)
-        println(robot2Instructions)
-        println(robot1Instructions)
-        println(l)
-        print(meInstructions.length, l.filter(c => c.isDigit).dropWhile(c => c == '0').toInt)
-        meInstructions.length * l.filter(c => c.isDigit).dropWhile(c => c == '0').toInt
+        println(colors(5) + "[Robot1]" + reset + " Shortest routes available: " + routesAvailable.filter(_.length == routesAvailable.map(_.length).min))
+        routesAvailable.foreach { route =>
+          var robot1 = Point(2, 0)
+          var nextRoutes = List("")
+          route.foreach { c =>
+            //            println(colors(3) + "[Robot2]" + reset + " Attempting to press " + c)
+            val goal = findInGrid(directionPad, c)
+            val routes = allPaths(directionPad, robot1, goal, "")
+            nextRoutes = nextRoutes.flatMap { rs =>
+              routes.map { r =>
+                rs + r
+              }
+            }
+            robot1 = goal
+          }
+          println(colors(3) + "[Robot2]" + reset + " Shortest route available: " + nextRoutes.filter(_.length == nextRoutes.map(_.length).min))
+          nextRoutes.foreach { route =>
+            var robot2 = Point(2, 0)
+            var myRoutes = List("")
+            route.foreach { c =>
+              //              println(colors(9) + "[Me]" + reset + " Attempting to press " + c)
+              val goal = findInGrid(directionPad, c)
+              val routes = allPaths(directionPad, robot2, goal, "")
+              myRoutes = myRoutes.flatMap { rs =>
+                routes.map { r =>
+                  rs + r
+                }
+              }.filter(_.length < shortestRoute)
+              robot2 = goal
+            }
+            if (myRoutes.nonEmpty) {
+              val myShortestRoute = myRoutes.filter(_.length == myRoutes.map(_.length).min).head
+              println(colors(3) + "[Me]" + reset + "Shortest route available: " + myShortestRoute)
+              if (myShortestRoute.length < shortestRoute) {
+                shortestRoute = myShortestRoute.length
+              }
+            }
+          }
+
+        }
+        shortestRoute * l.filter(_.isDigit).dropWhile(_ == '0').toInt
       }.sum
     }
   }
 
-  private[this] def betterNeighbours(p: Point): List[Point] = List(
-    p.go(Direction.West),
-    p.go(Direction.South),
-    p.go(Direction.North),
-    p.go(Direction.East)
-  )
 
-  private[this] def search(grid: Array[Array[Char]], start: Point, goal: Point): String = {
-    val shortestPath = Search.AStarWorking[Point](start, p => p == goal, p => betterNeighbours(p).filter {
-      n => n.y >= 0 && n.y < grid.length && n.x >= 0 && n.x < grid(n.y).length && grid(n.y)(n.x) != 'x'
-    }, _ => 1, p => p.manhattanDistanceTo(goal))
-    var at = start
-    val directions = shortestPath.drop(1).map { n =>
-      val dir = at.directionTo(n)
-      at = n
-      dir match {
-        case Direction.North => '^'
-        case Direction.East => '>'
-        case Direction.South => 'v'
-        case Direction.West => '<'
-      }
+  private[this] def allPaths(array: Array[Array[Char]], point: aoc.Point, goal: aoc.Point, soFar: String): List[String] = {
+    if (point == goal) {
+      List(soFar + "A")
+    } else if (array(point.y)(point.x) == 'x') {
+      List()
+    } else {
+      (if (point.x > goal.x) {
+        allPaths(array, point.go(Direction.West), goal, soFar + "<")
+      } else if (point.x < goal.x) {
+        allPaths(array, point.go(Direction.East), goal, soFar + ">")
+      } else List()) ++ (
+        if (point.y < goal.y) {
+          allPaths(array, point.go(Direction.South), goal, soFar + "v")
+        } else if (point.y > goal.y) {
+          allPaths(array, point.go(Direction.North), goal, soFar + "^")
+        } else List()
+        )
     }
-    directions.mkString.sorted.reverse + "A"
   }
 
   private[this] val colors = Array(

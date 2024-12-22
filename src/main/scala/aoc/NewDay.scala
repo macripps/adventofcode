@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit
 
 abstract class NewDay(year: Int, day: Int) extends App with AdventDSL {
   val debug = flag("debug", false, "enable debug mode")
+  val parts = flag("part", Seq(1,2), "parts to run")
 
   init {
     println(System.getProperty("user.dir"))
@@ -40,7 +41,7 @@ abstract class NewDay(year: Int, day: Int) extends App with AdventDSL {
       }
 
       trace("part_1") {
-        if (executes.contains(1)) {
+        if (executes.contains(1) && parts().contains(1)) {
           val part1TestsPass = trace("tests") {
             runTests(1)
           }
@@ -55,7 +56,7 @@ abstract class NewDay(year: Int, day: Int) extends App with AdventDSL {
       }
 
       trace("part_2") {
-        if (executes.contains(2)) {
+        if (executes.contains(2) && parts().contains(2)) {
           val part2TestsPass = trace("tests") {
             runTests(2)
           }
