@@ -38,6 +38,7 @@ maven.install(
         "io.opentelemetry:opentelemetry-semconv:1.24.0-alpha",
         "io.zipkin.finagle2:zipkin-finagle_2.13:22.4.0",
         "io.zipkin.finagle2:zipkin-finagle-http_2.13:22.4.0",
+        "org.scala-lang.modules:scala-parallel-collections_2.13:1.1.0",
         "org.slf4j:slf4j-api:2.0.9",
     ],
     repositories = [
