@@ -16,6 +16,7 @@ scala_library(
         "@maven//:com_twitter_util_core_2_13",
         "@maven//:com_twitter_util_slf4j_api_2_13",
         "@maven//:com_twitter_util_slf4j_jul_bridge_2_13",
+        "@maven//:org_scala_lang_modules_scala_parallel_collections_2_13",
         "@maven//:org_slf4j_slf4j_api",
     ],
     visibility = [
@@ -24,5 +25,5 @@ scala_library(
 )
 
 [
-    advent_of_code_binary(2024, day) for day in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
+    advent_of_code_binary(2024, day) for day in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22]
 ]
