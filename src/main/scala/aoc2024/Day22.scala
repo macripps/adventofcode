@@ -50,12 +50,10 @@ class Day22 extends NewDay(2024, 22) {
         |3
         |2024""".stripMargin -> 23)
     execute { ls =>
-      var maxBananas = Long.MinValue
-      val seenDiffs = mutable.Set[(Short, Short, Short, Short)]()
-      val priceDiffs = ls.map { l =>
+      val out = mutable.Map[(Short, Short, Short, Short), Long]().withDefault(_ => 0L)
+      ls.foreach { l =>
         var s = l.toLong
-
-        val out = mutable.Map[(Short, Short, Short, Short), Long]()
+        val seen = mutable.Set[(Short, Short, Short, Short)]()
 
         var v0 = s % 10.toShort
         s = next(s)
@@ -70,9 +68,9 @@ class Day22 extends NewDay(2024, 22) {
         var i3 = (v3 - v2).toShort
         (4 to 2000).foreach { _ =>
           val t = (i0, i1, i2, i3)
-          seenDiffs.add(t)
-          if (!out.contains(t)) {
-            out.addOne(t -> (s % 10))
+          if (!seen.contains(t)) {
+            seen += t
+            out(t) = out(t) + (s % 10)
           }
           s = next(s)
           i0 = i1
@@ -84,20 +82,8 @@ class Day22 extends NewDay(2024, 22) {
           i3 = ((s % 10) - v3).toShort
           v3 = (s % 10).toShort
         }
-        out
       }
-      seenDiffs.foreach { d =>
-        var bananas = 0L
-        priceDiffs.foreach { diffs =>
-          diffs.get(d).foreach { v =>
-            bananas = bananas + v
-          }
-        }
-        if (bananas > maxBananas) {
-          maxBananas = bananas
-        }
-      }
-      maxBananas
+      out.maxBy(_._2)._2
     }
   }
 
