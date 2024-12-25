@@ -140,7 +140,7 @@ class Day24 extends NewDay(2024, 24) {
                 var anotherFound: Boolean = false
                 for (c2 <- things.values) {
                   if (!(c2.equals(c))) {
-                    if ((c2.l.equals(output) || c2.r.equals(output)) && c2.isInstanceOf["Xor"]) {
+                    if ((c2.l.equals(output) || c2.r.equals(output)) && c2.isInstanceOf[Xor]) {
                       anotherFound = true
                     }
                   }
