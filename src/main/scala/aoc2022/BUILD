@@ -1,5 +1,5 @@
 load("//tools/build_rules:aoc.bzl", "advent_of_code_binary")
-load("@io_bazel_rules_scala//scala:scala.bzl", "scala_library")
+load("@rules_scala//scala:scala.bzl", "scala_library")
 
 scala_library(
     name = "aoc2022",
