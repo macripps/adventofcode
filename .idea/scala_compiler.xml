@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ScalaCompilerConfiguration">
-    <profile name="sbt 1" modules="adventofcode_4502" />
-    <profile name="sbt 2" modules="Advent Of Code">
+    <option name="incrementalityType" value="IDEA" />
+    <option name="separateProdTestSources" value="true" />
+    <profile name="sbt 1" modules="Advent Of Code,adventofcode_4502" />
+    <profile name="sbt 2" modules="Advent Of Code.main,Advent Of Code.test">
       <option name="deprecationWarnings" value="true" />
       <option name="featureWarnings" value="true" />
     </profile>
