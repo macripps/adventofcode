@@ -29,5 +29,6 @@ scala_library(
     for day in [
         1,
         2,
+        3,
     ]
 ]
