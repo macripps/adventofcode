@@ -30,5 +30,6 @@ scala_library(
         1,
         2,
         3,
+        4
     ]
 ]
