@@ -92,7 +92,7 @@ abstract class NewDay(year: Int, day: Int) extends App with AdventDSL {
     }
   }
 
-  private[this] def trace[T](name: String)(f: => T): T = {
+  protected[this] def trace[T](name: String)(f: => T): T = {
     val tracer = GlobalOpenTelemetry.get().getTracer("aoc")
     val span = tracer.spanBuilder(name).startSpan()
     val scope = span.makeCurrent()

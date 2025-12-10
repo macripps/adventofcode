@@ -5,3 +5,4 @@ build --strategy=Scalac=worker
 build --worker_sandboxing
 
 common --incompatible_allow_tags_propagation
+common --incompatible_enable_proto_toolchain_resolution

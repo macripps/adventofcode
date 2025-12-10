@@ -19,6 +19,8 @@ scala_library(
         "@maven//:com_twitter_util_core_2_13",
         "@maven//:com_twitter_util_slf4j_api_2_13",
         "@maven//:com_twitter_util_slf4j_jul_bridge_2_13",
+        "@maven//:io_opentelemetry_opentelemetry_api",
+        "@maven//:io_opentelemetry_opentelemetry_context",
         "@maven//:org_scala_lang_modules_scala_parallel_collections_2_13",
         "@maven//:org_slf4j_slf4j_api",
     ],
@@ -31,6 +33,11 @@ scala_library(
         2,
         3,
         4,
-        5
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
     ]
 ]

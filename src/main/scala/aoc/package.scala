@@ -155,6 +155,13 @@ package object aoc {
       )
     }
 
+    def hackyDistanceTo(p: Point3): Long = {
+      val x1 = (x - p.x).toLong
+      val y1 = (y - p.y).toLong
+      val z1 = (z - p.z).toLong
+      (x1 * x1) + (y1 * y1) + (z1 * z1)
+    }
+
     def manhattanDistanceTo(p: Point3): Int = math.abs(x - p.x) + math.abs(y - p.y) + math.abs(z - p.z)
   }
 

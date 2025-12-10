@@ -6,6 +6,7 @@ scala_library(
         "AdventDSL.scala",
         "package.scala",
         "Data.scala",
+        "DisjointSet.scala",
         "Maths.scala",
         "NewDay.scala",
         "Search.scala",
@@ -29,6 +30,7 @@ scala_library(
         "@maven//:io_opentelemetry_opentelemetry_exporter_prometheus",
         "@maven//:io_opentelemetry_opentelemetry_exporter_zipkin",
         "@maven//:io_opentelemetry_opentelemetry_semconv",
+        "@maven//:org_typelevel_spire_2_13",
     ],
     visibility = [
         "//visibility:public",
