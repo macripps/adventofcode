@@ -26,29 +26,19 @@ while i < len(lines):
         buttonSum = z3.simplify(z3.Sum([p * b[v] for p,b in zip(presses, buttonAdds)]))
         outs.append(buttonSum)
 
-    s = z3.Solver()
+    s = z3.Optimize()
     for j in range(len(presses)):
         s.add(*[presses[j] >= 0])
     for j in range(len(outs)):
         s.add(*[outs[j] == joltage[j]])
 
-    found = True
-    minscore = sys.maxsize
-    while (found):
-        found = s.check() == z3.sat
-        if found:
-            model = s.model()
-            result = sum([model[p].as_long() for p in presses])
-            if result < minscore:
-                minscore = result
-                print([model[p] for p in presses])
-                s.add(z3.Sum([p for p in presses]) < result)
+    s.minimize(z3.Sum(presses))
 
-    if minscore < sys.maxsize:
-        print(i, minscore)
-        total = total + minscore
+    s.check()
+    model = s.model()
+    result = sum([model[p].as_long() for p in presses])
+    total = total + result
 
     i = i + 1
 
-print("====")
 print(total)

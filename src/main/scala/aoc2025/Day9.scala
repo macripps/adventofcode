@@ -40,58 +40,30 @@ class Day9 extends NewDay(2025, 9) {
            |2,3
            |7,3""".stripMargin -> 24L)
     execute { ls =>
-      var minX = Int.MaxValue
-      var maxX = Int.MinValue
-      var minY = Int.MaxValue
-      var maxY = Int.MinValue
       val pts = ls.map { l =>
         val Array(x,y) = l.split(',').map(_.toInt)
-        if (x < minX) { minX = x }
-        if (x > maxX) { maxX = x }
-        if (y < minY) { minY = y }
-        if (y > maxY) { maxY = y }
         Point(x, y)
       }
-      val redGreenSet = mutable.LinkedHashSet[Point]()
+      val rectangles = mutable.LinkedHashSet[(Int,Int,Int,Int)]() // left,right,bottom,top
       pts.indices.foreach { pt1Idx =>
         val pt2Idx = (pt1Idx + 1) % pts.length
         val pt1 = pts(pt1Idx)
         val pt2 = pts(pt2Idx)
-        if (pt1.x == pt2.x) {
-          pt1.y.to(pt2.y, if (pt2.y > pt1.y) 1 else -1).foreach { y =>
-            redGreenSet.add(Point(pt1.x, y))
-          }
-        } else {
-          pt1.x.to(pt2.x, if (pt2.x > pt1.x) 1 else -1).foreach { x =>
-            redGreenSet.add(Point(x, pt1.y))
-          }
-        }
+        rectangles.add((math.min(pt1.x, pt2.x), math.max(pt1.x, pt2.x), math.min(pt1.y, pt2.y), math.max(pt1.y, pt2.y)))
       }
-      var s = Point(minX, minY)
-      while (!redGreenSet.contains(s)) {
-        s = Point(s.x + 1, s.y + 1)
-      }
-      s = Point(s.x + 1, s.y + 1)
-      val open = mutable.Queue[Point](s)
-      while (open.nonEmpty) {
-        val next = open.dequeue()
-        redGreenSet.addOne(next)
-        open.enqueueAll(next.neighbours.filter { p => !redGreenSet.contains(p) })
-      }
-      (0 until pts.length - 2).flatMap { p1Idx =>
-        (p1Idx+1 until pts.length).filter { p2Idx =>
-          val p1 = pts(p1Idx)
-          val p2 = pts(p2Idx)
-          val allInSet = p1.x.to(p2.x, if (p2.x > p1.x) 1 else -1).forall { x =>
-            p1.y.to(p2.y, if (p2.y > p1.y) 1 else -1).forall { y =>
-              redGreenSet.contains(Point(x, y))
-            }
+      pts.flatMap { pt1 =>
+        pts.map { pt2 =>
+          // Rectangle from pt1 => pt2
+          val minX = math.min(pt1.x, pt2.x)
+          val maxX = math.max(pt1.x, pt2.x)
+          val minY = math.min(pt1.y, pt2.y)
+          val maxY = math.max(pt1.y, pt2.y)
+          val size = if (rectangles.exists { case (rL, rR, rB, rT) =>
+            (minX < rR && maxX > rL && minY < rT && maxY > rB)
+          }) { 0L } else {
+            (math.abs((pt2.x-pt1.x)).toLong + 1)*(math.abs(pt2.y-pt1.y).toLong + 1)
           }
-          allInSet
-        }.map { p2Idx =>
-          val dx = math.abs(pts(p1Idx).x - pts(p2Idx).x) + 1
-          val dy = math.abs(pts(p1Idx).y - pts(p2Idx).y) + 1
-          dx.toLong * dy.toLong
+          size
         }
       }.max
     }
