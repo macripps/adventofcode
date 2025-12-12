@@ -1,6 +1,7 @@
 package aoc2025
 
 import aoc.NewDay
+import com.microsoft.z3.{Context, Optimize, Status}
 
 import scala.collection.mutable
 
@@ -36,34 +37,49 @@ class Day10 extends NewDay(2025, 10) {
     test("[.###.#] (0,1,2,3,4) (0,3,4) (0,1,2,4,5) (1,2) {10,11,11,5,10,5}" -> 11)
     execute { ls =>
       ls.map { l =>
-        val split = l.split(' ')
-        val wiring = split.drop(1).dropRight(1).map { w =>
-          w.drop(1).dropRight(1).split(',').map(_.toInt).toSet
-        }.sortBy(- _.size)
-        val desiredJoltage = split.last.drop(1).dropRight(1).split(',').map(_.toInt)
+        val data = l.split(' ')
+        val buttons = data.drop(1).dropRight(1).map { y =>
+          y.drop(1).dropRight(1).split(',').map(_.toInt)
+        }
+        val joltage = data.last.drop(1).dropRight(1).split(',').map(_.toInt)
 
-        val search = mutable.Queue[List[Set[Int]]](List())
-        def joltageOf(buttons: List[Set[Int]]): Array[Int] = {
-          val joltage = Array.ofDim[Int](desiredJoltage.length)
-          buttons.foreach { bs =>
-            bs.foreach { b =>
-              joltage(b) = joltage(b) + 1
-            }
+        val buttonAdds = buttons.map { bs =>
+          val perButtonAdds = Array.fill[Int](joltage.length)(0)
+          bs.foreach { k =>
+            perButtonAdds(k) = 1
           }
-          joltage
+          perButtonAdds
         }
-        while (!desiredJoltage.sameElements(joltageOf(search.front))) {
-          val current = search.dequeue()
-          val dj = joltageOf(current)
-          println(search.size, current, dj.mkString("(", ",", ")"), desiredJoltage.mkString("(", ",", ")"))
-          if (dj.zipWithIndex.forall {case (j, i) => j <= desiredJoltage(i)}) {
-            wiring.foreach { b =>
-              search.enqueue(current :+ b)
-            }
-          }
+
+        val c = new Context()
+        val optimize = c.mkOptimize()
+
+        val presses = buttons.indices.map { i =>
+          val p = c.mkIntConst("p" + i)
+          optimize.Add(c.mkGe(p, c.mkInt(0)))
+          p
         }
-        search.front.size
+
+        val outs = joltage.indices.map { v =>
+          c.mkAdd(presses.zip(buttonAdds).map { case (p,b) =>
+            c.mkMul(p, c.mkInt(b(v)))
+          }:_*).simplify()
+        }
+
+        outs.indices.foreach { j =>
+          optimize.Add(c.mkEq(outs(j), c.mkInt(joltage(j))))
+        }
+
+        val min = optimize.MkMinimize(c.mkAdd(presses:_*))
+        val result = optimize.Check() match {
+          case Status.SATISFIABLE => min.getValue
+          case Status.UNKNOWN => throw new Exception(optimize.getReasonUnknown)
+          case Status.UNSATISFIABLE => throw new Exception("Unsatisfiable")
+        }
+
+        result.toString.toLong
       }.sum
+
     }
   }
 }

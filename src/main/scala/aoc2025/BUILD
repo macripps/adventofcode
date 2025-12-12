@@ -23,6 +23,7 @@ scala_library(
         "@maven//:io_opentelemetry_opentelemetry_context",
         "@maven//:org_scala_lang_modules_scala_parallel_collections_2_13",
         "@maven//:org_slf4j_slf4j_api",
+        "@maven//:tools_aqua_z3_turnkey",
     ],
 )
 

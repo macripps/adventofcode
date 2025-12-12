@@ -71,6 +71,7 @@ maven.install(
         "org.scala-lang.modules:scala-parallel-collections_2.13:1.1.0",
         "org.slf4j:slf4j-api:2.0.9",
         "org.typelevel:spire_2.13:0.18.0",
+        "tools.aqua:z3-turnkey:4.14.1"
     ],
     repositories = [
         "https://maven.google.com",
