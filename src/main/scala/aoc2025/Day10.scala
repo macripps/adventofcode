@@ -1,9 +1,7 @@
 package aoc2025
 
 import aoc.NewDay
-import com.microsoft.z3.{Context, Optimize, Status}
-
-import scala.collection.mutable
+import com.microsoft.z3.{Context, Status}
 
 class Day10 extends NewDay(2025, 10) {
 
