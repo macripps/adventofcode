@@ -1,43 +1,34 @@
 package aoc2022
 
+import aoc.NewDay
+
 import scala.collection.mutable
 
-class Day13 extends aoc.Day(2022, 13) {
+class Day13 extends NewDay(2022, 13) {
   import Day13._
 
-  override def part1(input: Array[String]): Any = {
-    inputGroups(input).zipWithIndex.map { case (pairs, idx) =>
-      val left = parsePacket(pairs.head)
-      val right = parsePacket(pairs.tail.head)
-      val result: Int = PacketOrdering.compare(left, right)
-      if (result == -1) idx + 1 else 0
-    }.sum
+  part(1) {
+    execute { in =>
+      aoc.asGroupsSeparatedByBlankLines(in).zipWithIndex.map { case (pairs, idx) =>
+        val left = parsePacket(pairs.head)
+        val right = parsePacket(pairs.tail.head)
+        val result: Int = PacketOrdering.compare(left, right)
+        if (result == -1) idx + 1 else 0
+      }.sum
+    }
   }
 
-  val test =
-    """[1,1,3,1,1]
-      |[1,1,5,1,1]
-      |
-      |[[1],[2,3,4]]
-      |[[1],4]
-      |
-      |[9]
-      |[[8,7,6]]
-      |
-      |[[4,4],4,4]
-      |[[4,4],4,4,4]
-      |
-      |[7,7,7,7]
-      |[7,7,7]
-      |
-      |[]
-      |[3]
-      |
-      |[[[]]]
-      |[[]]
-      |
-      |[1,[2,[3,[4,[5,6,7]]]],8,9]
-      |[1,[2,[3,[4,[5,6,0]]]],8,9]""".stripMargin.split("\n")
+  part(2) {
+    execute { in =>
+      val divider2 = PacketList(Seq(PacketList(Seq(PacketNumber(2)))))
+      val divider6 = PacketList(Seq(PacketList(Seq(PacketNumber(6)))))
+      val allPackets = in.filter(_.nonEmpty).map(parsePacket) ++ Seq(
+        divider2, divider6
+      )
+      val sortedPackets = allPackets.sorted(PacketOrdering)
+      (sortedPackets.indexOf(divider2) + 1) * (sortedPackets.indexOf(divider6) + 1)
+    }
+  }
 
   private[this] def parsePacket(in: String): Packet = {
     if (in.isEmpty) {
@@ -69,22 +60,11 @@ class Day13 extends aoc.Day(2022, 13) {
       throw new IllegalArgumentException(in)
     }
   }
-
-  override def part2(input: Array[String]): Any = {
-    val divider2 = PacketList(Seq(PacketList(Seq(PacketNumber(2)))))
-    val divider6 = PacketList(Seq(PacketList(Seq(PacketNumber(6)))))
-    val allPackets = input.filter(_.nonEmpty).map(parsePacket) ++ Seq(
-      divider2, divider6
-    )
-    val sortedPackets = allPackets.sorted(PacketOrdering)
-    (sortedPackets.indexOf(divider2) + 1) * (sortedPackets.indexOf(divider6) + 1)
-  }
 }
 
+object Day13Main extends Day13
+
 object Day13 {
-  def apply() = new Day13
-
-
 }
 
 object PacketOrdering extends Ordering[Packet] {

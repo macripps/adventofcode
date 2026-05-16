@@ -1,25 +1,21 @@
 package aoc2022
 
+import aoc.NewDay
+
 import scala.collection.mutable
 
-class Day25 extends aoc.Day(2022, 25) {
-  override def part1(input: Array[String]): Any = {
-    decimalToSnafu(input.map(snafuToDecimal).sum)
+class Day25 extends NewDay(2022, 25) {
+  part(1) {
+    execute { in =>
+      decimalToSnafu(in.map(snafuToDecimal).sum)
+    }
   }
 
-  private[this] val test = """1=-0-2
-                             |12111
-                             |2=0=
-                             |21
-                             |2=01
-                             |111
-                             |20012
-                             |112
-                             |1=-1=
-                             |1-12
-                             |12
-                             |1=
-                             |122""".stripMargin.split("\n")
+  part(2) {
+    execute { _ =>
+      "Merry Christmas"
+    }
+  }
 
   private[this] val chars = Array('=', '-', '0', '1', '2')
   private[this] def snafuToDecimal(input: String): Long = {
@@ -71,10 +67,6 @@ class Day25 extends aoc.Day(2022, 25) {
     }
     result
   }
-
-  override def part2(input: Array[String]): Any = "Merry Christmas"
 }
 
-object Day25 {
-  def apply() = new Day25
-}
+object Day25Main extends Day25

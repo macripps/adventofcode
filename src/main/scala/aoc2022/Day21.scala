@@ -1,11 +1,26 @@
 package aoc2022
 
+import aoc.NewDay
+
 import aoc2022.Day21._
 
-class Day21 extends aoc.Day(2022, 21) {
-  override def part1(input: Array[String]): Any = {
-    val root = parse(input, "root")
-    root.eval
+class Day21 extends NewDay(2022, 21) {
+  part(1) {
+    execute { in =>
+      val root = parse(in, "root")
+      root.eval
+    }
+  }
+
+  part(2) {
+    execute { in =>
+      val humn = 3441198826073L
+      val root1 = parse2(in, "root", humn)
+      if (root1.eval == 0) {
+        println(humn)
+      }
+      humn
+    }
   }
 
   def parse(input: Array[String], monkey: String): Shout = {
@@ -20,15 +35,6 @@ class Day21 extends aoc.Day(2022, 21) {
         case equal(a, b) => Add(parse(input, a), parse(input, b))
       }
     }.get
-  }
-
-  override def part2(input: Array[String]): Any = {
-    val humn = 3441198826073L
-    val root1 = parse2(input, "root", humn)
-    if (root1.eval == 0) {
-      println(humn)
-    }
-    humn
   }
 
   def parse2(input: Array[String], monkey: String, humn: Long): Shout = {
@@ -48,28 +54,11 @@ class Day21 extends aoc.Day(2022, 21) {
       }.get
     }
   }
-
-  val test =
-    """root: pppw = sjmn
-      |dbpl: 5
-      |cczh: sllz + lgvd
-      |zczc: 2
-      |ptdq: humn - dvpt
-      |dvpt: 3
-      |lfqf: 4
-      |humn: 301
-      |ljgn: 2
-      |sjmn: drzm * dbpl
-      |sllz: 4
-      |pppw: cczh / lfqf
-      |lgvd: ljgn * ptdq
-      |drzm: hmdt - zczc
-      |hmdt: 32""".stripMargin.split("\n")
 }
 
-object Day21 {
-  def apply() = new Day21
+object Day21Main extends Day21
 
+object Day21 {
   val number = raw"(-?\d+)".r
   val minus = raw"(\w+) - (\w+)".r
   val add = raw"(\w+) \+ (\w+)".r

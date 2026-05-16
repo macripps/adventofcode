@@ -1,17 +1,27 @@
 package aoc2022
 
+import aoc.NewDay
+
 import aoc2022.Day19._
 
-class Day19 extends aoc.Day(2022, 19) {
-  override def part1(input: Array[String]): Any = {
-    val blueprints = test.map {
-      case line(id, cost1, cost2, cost3, cost4, cost5, cost6) =>
-        Blueprint(id.toInt, cost1.toInt, cost2.toInt, cost3.toInt, cost4.toInt, cost5.toInt, cost6.toInt)
+class Day19 extends NewDay(2022, 19) {
+  part(1) {
+    execute { _ =>
+      val blueprints = test.map {
+        case line(id, cost1, cost2, cost3, cost4, cost5, cost6) =>
+          Blueprint(id.toInt, cost1.toInt, cost2.toInt, cost3.toInt, cost4.toInt, cost5.toInt, cost6.toInt)
+      }
+      blueprints.map { bp =>
+        println(s"=== Blueprint ${bp.id} ===")
+        bp.id * part1search(bp, 24)
+      }.sum
     }
-    blueprints.map { bp =>
-      println(s"=== Blueprint ${bp.id} ===")
-      bp.id * part1search(bp, 24)
-    }.sum
+  }
+
+  part(2) {
+    execute { _ =>
+      "???"
+    }
   }
 
   def part1search(bp: Blueprint, time: Int): Int = {
@@ -124,15 +134,12 @@ class Day19 extends aoc.Day(2022, 19) {
   val test =
     """Blueprint 1: Each ore robot costs 4 ore. Each clay robot costs 2 ore. Each obsidian robot costs 3 ore and 14 clay. Each geode robot costs 2 ore and 7 obsidian.
       |Blueprint 2: Each ore robot costs 2 ore. Each clay robot costs 3 ore. Each obsidian robot costs 3 ore and 8 clay. Each geode robot costs 3 ore and 12 obsidian.""".stripMargin.split("\n")
-
-  override def part2(input: Array[String]): Any = "???"
 }
 
-object Day19 {
-  def apply() = new Day19
+object Day19Main extends Day19
 
+object Day19 {
   val line = raw"Blueprint (\d+): Each ore robot costs (\d+) ore. Each clay robot costs (\d+) ore. Each obsidian robot costs (\d+) ore and (\d+) clay. Each geode robot costs (\d+) ore and (\d+) obsidian.".r
 
   case class Blueprint(id: Int, oreRobotOreCost: Int, clayRobotOreCost: Int, obsidianRobotOreCost: Int, obsidianRobotClayCost: Int, geodeRobotOreCost: Int, geodeRobotObsidianCost: Int)
-
 }

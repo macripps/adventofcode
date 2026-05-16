@@ -1,23 +1,56 @@
 package aoc2022
 
+import aoc.NewDay
+
 import Day24._
 import aoc.Maths
 
 import scala.collection.mutable
 import scala.util.control.Breaks.{break, breakable}
 
-class Day24 extends aoc.Day(2022, 24) {
-  override def part1(input: Array[String]): Any = {
-    val (blizzards, height, width) = parse(input)
+class Day24 extends NewDay(2022, 24) {
+  part(1) {
+    execute { in =>
+      val (blizzards, height, width) = parse(in)
 
-    val versions = evolutions(blizzards, height, width)
-    search(
-      versions,
-      height,
-      width,
-      (0, aoc.Point(1, 0)),
-      aoc.Point(width - 2, height - 1),
-    )
+      val versions = evolutions(blizzards, height, width)
+      search(
+        versions,
+        height,
+        width,
+        (0, aoc.Point(1, 0)),
+        aoc.Point(width - 2, height - 1),
+      )
+    }
+  }
+
+  part(2) {
+    execute { in =>
+      val (blizzards, height, width) = parse(in)
+
+      val versions = evolutions(blizzards, height, width)
+      val leg1 = search(
+        versions,
+        height,
+        width,
+        (0, aoc.Point(1, 0)),
+        aoc.Point(width - 2, height - 1),
+      )
+      val leg2 = search(
+        versions,
+        height,
+        width,
+        (leg1, aoc.Point(width - 2, height - 1)),
+        aoc.Point(1, 0),
+      )
+      search(
+        versions,
+        height,
+        width,
+        (leg2, aoc.Point(1, 0)),
+        aoc.Point(width - 2, height - 1),
+      )
+    }
   }
 
   private[this] def search(
@@ -126,45 +159,10 @@ class Day24 extends aoc.Day(2022, 24) {
     }
     newBlizzards.toMap
   }
-
-  val test =
-    """#.######
-      |#>>.<^<#
-      |#.<..<<#
-      |#>v.><>#
-      |#<^v^^>#
-      |######.#""".stripMargin.split("\n")
-
-  override def part2(input: Array[String]): Any = {
-    val (blizzards, height, width) = parse(input)
-
-    val versions = evolutions(blizzards, height, width)
-    val leg1 = search(
-      versions,
-      height,
-      width,
-      (0, aoc.Point(1, 0)),
-      aoc.Point(width - 2, height - 1),
-    )
-    val leg2 = search(
-      versions,
-      height,
-      width,
-      (leg1, aoc.Point(width - 2, height - 1)),
-      aoc.Point(1, 0),
-    )
-    search(
-      versions,
-      height,
-      width,
-      (leg2, aoc.Point(1, 0)),
-      aoc.Point(width - 2, height - 1),
-    )
-  }
 }
 
-object Day24 {
-  def apply() = new Day24
+object Day24Main extends Day24
 
+object Day24 {
   type Blizzards = Map[aoc.Direction.Direction, Set[aoc.Point]]
 }

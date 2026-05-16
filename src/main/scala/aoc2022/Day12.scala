@@ -1,18 +1,42 @@
 package aoc2022
 
+import aoc.NewDay
+
 import scala.collection.mutable
 
-class Day12 extends aoc.Day(2022, 12) {
-  override def part1(input: Array[String]): Any = {
-    val in = input
-    val startR = in.indices.find { row => in(row).contains('S') }.get
-    val startC = in(startR).indexOf("S")
-    val start = aoc.Point(startC, startR)
-    val endR = in.indices.find { row => in(row).contains('E') }.get
-    val endC = in(endR).indexOf("E")
-    val end = aoc.Point(endC, endR)
-    val heights = gridToHeights(in)
-    pathLength(start, end, heights)
+class Day12 extends NewDay(2022, 12) {
+  part(1) {
+    execute { in =>
+      val startR = in.indices.find { row => in(row).contains('S') }.get
+      val startC = in(startR).indexOf("S")
+      val start = aoc.Point(startC, startR)
+      val endR = in.indices.find { row => in(row).contains('E') }.get
+      val endC = in(endR).indexOf("E")
+      val end = aoc.Point(endC, endR)
+      val heights = gridToHeights(in)
+      pathLength(start, end, heights)
+    }
+  }
+
+  part(2) {
+    execute { in =>
+      val heights = gridToHeights(in)
+      val starts = mutable.Set[aoc.Point]()
+      heights.indices.foreach { y =>
+        heights(y).indices.foreach { x =>
+          if (heights(y)(x) == 0) {
+            starts.addOne(aoc.Point(x, y))
+          }
+        }
+      }
+      val endR = in.indices.find { row => in(row).contains('E') }.get
+      val endC = in(endR).indexOf("E")
+      val end = aoc.Point(endC, endR)
+      starts.map { start =>
+        val p = pathLength(start, end, heights)
+        if (p >= 0) p else Integer.MAX_VALUE
+      }.min
+    }
   }
 
   private[this] def pathLength(start: aoc.Point, end: aoc.Point, heights: Array[Array[Int]]) = {
@@ -38,35 +62,6 @@ class Day12 extends aoc.Day(2022, 12) {
       }.toArray
     }
   }
-
-  val test =
-    """Sabqponm
-      |abcryxxl
-      |accszExk
-      |acctuvwj
-      |abdefghi""".stripMargin.split("\n")
-
-  override def part2(input: Array[String]): Any = {
-    val in = input
-    val heights = gridToHeights(in)
-    val starts = mutable.Set[aoc.Point]()
-    heights.indices.foreach { y =>
-      heights(y).indices.foreach { x =>
-        if (heights(y)(x) == 0) {
-          starts.addOne(aoc.Point(x, y))
-        }
-      }
-    }
-    val endR = in.indices.find { row => in(row).contains('E') }.get
-    val endC = in(endR).indexOf("E")
-    val end = aoc.Point(endC, endR)
-    starts.map { start =>
-      val p = pathLength(start, end, heights)
-      if (p >= 0) p else Integer.MAX_VALUE
-    }.min
-  }
 }
 
-object Day12 {
-  def apply() = new Day12
-}
+object Day12Main extends Day12

@@ -1,14 +1,28 @@
 package aoc2022
 
+import aoc.NewDay
 import aoc2022.Day7.{Directory, File}
 
 import scala.collection.mutable
 
-class Day7 extends aoc.Day(2022, 7) {
-  override def part1(input: Array[String]): Any = {
-    val (dirs, _) = parseAllDirectories(input)
-    val smallDirs = dirs.filter(e => e.size() <= 100000).toSeq
-    smallDirs.map(_.size()).sum
+class Day7 extends NewDay(2022, 7) {
+  part(1) {
+    execute { in =>
+      val (dirs, _) = parseAllDirectories(in)
+      val smallDirs = dirs.filter(e => e.size() <= 100000).toSeq
+      smallDirs.map(_.size()).sum
+    }
+  }
+
+  part(2) {
+    execute { in =>
+      val (dirs, fs) = parseAllDirectories(in)
+      val totalSpace = 70000000L
+      val minFreeSpace = 30000000L
+
+      val unusedSpace = totalSpace - fs.size()
+      dirs.filter(e => e.size() + unusedSpace > minFreeSpace).minBy(_.size()).size()
+    }
   }
 
   private[this] def parseAllDirectories(input: Array[String]) = {
@@ -48,44 +62,11 @@ class Day7 extends aoc.Day(2022, 7) {
     }
     (dirs, fs)
   }
-
-  override def part2(input: Array[String]): Any = {
-    val (dirs, fs) = parseAllDirectories(input)
-    val totalSpace = 70000000L
-    val minFreeSpace = 30000000L
-
-    val unusedSpace = totalSpace - fs.size()
-    dirs.filter(e => e.size() + unusedSpace > minFreeSpace).minBy(_.size()).size()
-  }
-
-  val test = """$ cd /
-               |$ ls
-               |dir a
-               |14848514 b.txt
-               |8504156 c.dat
-               |dir d
-               |$ cd a
-               |$ ls
-               |dir e
-               |29116 f
-               |2557 g
-               |62596 h.lst
-               |$ cd e
-               |$ ls
-               |584 i
-               |$ cd ..
-               |$ cd ..
-               |$ cd d
-               |$ ls
-               |4060174 j
-               |8033020 d.log
-               |5626152 d.ext
-               |7214296 k""".stripMargin.split("\n")
 }
 
-object Day7 {
-  def apply() = new Day7
+object Day7Main extends Day7
 
+object Day7 {
   trait Entry {
     def size(): Long
     def name(): String

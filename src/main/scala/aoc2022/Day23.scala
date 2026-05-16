@@ -1,53 +1,37 @@
 package aoc2022
 
+import aoc.NewDay
+
 import scala.collection.mutable
 
-class Day23 extends aoc.Day(2022, 23) {
-  override def part1(input: Array[String]): Any = {
-    var currentGrid = toGrid(input)
-    (0 until 10).foreach { round =>
-      currentGrid = iterate(currentGrid, round % moves.length)
+class Day23 extends NewDay(2022, 23) {
+  part(1) {
+    execute { in =>
+      var currentGrid = toGrid(in)
+      (0 until 10).foreach { round =>
+        currentGrid = iterate(currentGrid, round % moves.length)
+      }
+      val minX = currentGrid.minBy(pt => pt.x).x
+      val maxX = currentGrid.maxBy(pt => pt.x).x
+      val minY = currentGrid.minBy(pt => pt.y).y
+      val maxY = currentGrid.maxBy(pt => pt.y).y
+      ((maxY + 1 - minY) * (maxX + 1 - minX)) - currentGrid.size
     }
-    val minX = currentGrid.minBy(pt => pt.x).x
-    val maxX = currentGrid.maxBy(pt => pt.x).x
-    val minY = currentGrid.minBy(pt => pt.y).y
-    val maxY = currentGrid.maxBy(pt => pt.y).y
-    ((maxY + 1 - minY) * (maxX + 1 - minX)) - currentGrid.size
   }
 
-  override def part2(input: Array[String]): Any = {
-    var currentGrid = toGrid(input)
-    var round = 0
-    var nextGrid = Set[aoc.Point]()
-    while (nextGrid != currentGrid) {
-      nextGrid = currentGrid
-      currentGrid = iterate(currentGrid, round % moves.length)
-      round = round + 1
+  part(2) {
+    execute { in =>
+      var currentGrid = toGrid(in)
+      var round = 0
+      var nextGrid = Set[aoc.Point]()
+      while (nextGrid != currentGrid) {
+        nextGrid = currentGrid
+        currentGrid = iterate(currentGrid, round % moves.length)
+        round = round + 1
+      }
+      round
     }
-    round
   }
-
-  val test1 =
-    """.....
-      |..##.
-      |..#..
-      |.....
-      |..##.
-      |.....""".stripMargin.split("\n")
-
-  val test2 =
-    """..............
-      |..............
-      |.......#......
-      |.....###.#....
-      |...#...#.#....
-      |....#...##....
-      |...#.###......
-      |...##.#.##....
-      |....#..#......
-      |..............
-      |..............
-      |..............""".stripMargin.split("\n")
 
   private[this] def toGrid(data: Array[String]): Set[aoc.Point] = {
     val grid = mutable.Set[aoc.Point]()
@@ -94,6 +78,4 @@ class Day23 extends aoc.Day(2022, 23) {
   }
 }
 
-object Day23 {
-  def apply() = new Day23
-}
+object Day23Main extends Day23

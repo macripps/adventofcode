@@ -1,27 +1,54 @@
 package aoc2022
 
+import aoc.NewDay
+
 import scala.collection.mutable
 
-class Day11 extends aoc.Day(2022, 11) {
-  override def part1(input: Array[String]): Any = {
-    val monkeys = inputMonkeys.map(m => m.id -> m).toMap
-    var handled = Map[Int, Int]()
+class Day11 extends NewDay(2022, 11) {
+  part(1) {
+    execute { _ =>
+      val monkeys = inputMonkeys.map(m => m.id -> m).toMap
+      var handled = Map[Int, Int]()
 
-    (1 to 20).foreach { round =>
-      (0 until monkeys.size).foreach { m =>
-        val monkey = monkeys(m)
-        while (monkey.items.nonEmpty) {
-          var item = monkey.items.dequeue()
-          handled = handled + (m -> (handled.getOrElse(m, 0) + 1))
-          item = monkey.op(item)
-          item = item / 3
-          val divisible = (item % monkey.divisor) == 0
-          val target = if (divisible) monkey.outputs._1 else monkey.outputs._2
-          monkeys(target).items.enqueue(item)
+      (1 to 20).foreach { round =>
+        (0 until monkeys.size).foreach { m =>
+          val monkey = monkeys(m)
+          while (monkey.items.nonEmpty) {
+            var item = monkey.items.dequeue()
+            handled = handled + (m -> (handled.getOrElse(m, 0) + 1))
+            item = monkey.op(item)
+            item = item / 3
+            val divisible = (item % monkey.divisor) == 0
+            val target = if (divisible) monkey.outputs._1 else monkey.outputs._2
+            monkeys(target).items.enqueue(item)
+          }
         }
       }
+      handled.values.toSeq.sorted.takeRight(2).product
     }
-    handled.values.toSeq.sorted.takeRight(2).product
+  }
+
+  part(2) {
+    execute { _ =>
+      val monkeys = inputMonkeys.map(m => m.id -> m).toMap
+      val interestingRounds = Seq(1, 20, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000)
+      var handled = Map[Int, Long]()
+
+      (1 to 10000).foreach { round =>
+        (0 until monkeys.size).foreach { m =>
+          val monkey = monkeys(m)
+          while (monkey.items.nonEmpty) {
+            var item = monkey.items.dequeue()
+            handled = handled + (m -> (handled.getOrElse(m, 0L) + 1L))
+            item = monkey.op(item)
+            val divisible = (item % monkey.divisor) == 0
+            val target = if (divisible) monkey.outputs._1 else monkey.outputs._2
+            monkeys(target).items.enqueue(item)
+          }
+        }
+      }
+      handled.values.toSeq.sorted.takeRight(2).product
+    }
   }
 
   val inputMul = 2 * 3 * 5 * 7 * 11 * 13 * 17 * 19
@@ -45,32 +72,9 @@ class Day11 extends aoc.Day(2022, 11) {
     new Monkey(2, mutable.Queue(79, 60, 97), x => (x * x) % testMul, 13, (1, 3)),
     new Monkey(3, mutable.Queue(74), x => (x + 3) % testMul, 17, (0, 1)),
   )
-
-  override def part2(input: Array[String]): Any = {
-    val monkeys = inputMonkeys.map(m => m.id -> m).toMap
-    val interestingRounds = Seq(1, 20, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000)
-    var handled = Map[Int, Long]()
-
-    (1 to 10000).foreach { round =>
-      (0 until monkeys.size).foreach { m =>
-        val monkey = monkeys(m)
-        while (monkey.items.nonEmpty) {
-          var item = monkey.items.dequeue()
-          handled = handled + (m -> (handled.getOrElse(m, 0L) + 1L))
-          item = monkey.op(item)
-          val divisible = (item % monkey.divisor) == 0
-          val target = if (divisible) monkey.outputs._1 else monkey.outputs._2
-          monkeys(target).items.enqueue(item)
-        }
-      }
-    }
-    handled.values.toSeq.sorted.takeRight(2).product
-  }
 }
 
-object Day11 {
-  def apply() = new Day11
-}
+object Day11Main extends Day11
 
 class Monkey(val id: Int, val items: mutable.Queue[BigInt], val op: BigInt => BigInt, val divisor: Int, val outputs: (Int, Int)) {
 }
