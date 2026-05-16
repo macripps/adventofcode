@@ -1,77 +1,41 @@
 package aoc2021
 
-import aoc.Day
+import aoc.NewDay
 
 import scala.collection.mutable
 
-class Day12 extends Day(2021, 12) {
+class Day12 extends NewDay(2021, 12) {
 
   import Day12._
 
-  override def part1(input: Array[String]): String = {
-    val grid = Graph(mutable.Map[String, List[String]]())
-    input.foreach { l =>
-      val lr = l.split('-')
-      grid.addEdge(lr(0), lr(1))
-      grid.addEdge(lr(1), lr(0))
+  part(1) {
+    execute { in =>
+      val grid = Graph(mutable.Map[String, List[String]]())
+      in.foreach { l =>
+        val lr = l.split('-')
+        grid.addEdge(lr(0), lr(1))
+        grid.addEdge(lr(1), lr(0))
+      }
+      val paths = grid.allPaths("start", "end")
+      paths.length.toString
     }
-    val paths = grid.allPaths("start", "end")
-    paths.length.toString
   }
 
-  val example1 = """start-A
-                   |start-b
-                   |A-c
-                   |A-b
-                   |b-d
-                   |A-end
-                   |b-end""".stripMargin.split("\n")
-
-  val example2 = """dc-end
-                   |HN-start
-                   |start-kj
-                   |dc-start
-                   |dc-HN
-                   |LN-dc
-                   |HN-end
-                   |kj-sa
-                   |kj-HN
-                   |kj-dc""".stripMargin.split("\n")
-
-  val example3 = """fs-end
-                   |he-DX
-                   |fs-he
-                   |start-DX
-                   |pj-DX
-                   |end-zg
-                   |zg-sl
-                   |zg-pj
-                   |pj-he
-                   |RW-he
-                   |fs-DX
-                   |pj-RW
-                   |zg-RW
-                   |start-pj
-                   |he-WI
-                   |zg-he
-                   |pj-fs
-                   |start-RW""".stripMargin.split("\n")
-
-  override def part2(input: Array[String]): String = {
-    val grid = Graph(mutable.Map[String, List[String]]())
-    input.foreach { l =>
-      val lr = l.split('-')
-      grid.addEdge(lr(0), lr(1))
-      grid.addEdge(lr(1), lr(0))
+  part(2) {
+    execute { in =>
+      val grid = Graph(mutable.Map[String, List[String]]())
+      in.foreach { l =>
+        val lr = l.split('-')
+        grid.addEdge(lr(0), lr(1))
+        grid.addEdge(lr(1), lr(0))
+      }
+      val paths = grid.allPaths2("start", "end")
+      paths.length.toString
     }
-    val paths = grid.allPaths2("start", "end")
-    paths.length.toString
   }
 }
 
 object Day12 {
-  def apply() = new Day12
-
   case class Graph(adj: mutable.Map[String, List[String]]) {
     def addEdge(s: String, e: String): Unit = {
       if (!adj.contains(s)) {
@@ -133,3 +97,5 @@ object Day12 {
     }
   }
 }
+
+object Day12Main extends Day12

@@ -1,34 +1,36 @@
 package aoc2021
 
-import aoc.Day
+import aoc.NewDay
 import aoc2021.Day24.executeNative
 
 import scala.collection.mutable
 
-class Day24 extends Day(2021, 24) {
-  override def part1(input: Array[String]): String = {
-    var in: Long = 100000000000000L
-    var running = true
-    var smallest = Long.MaxValue
-    while (running) {
-      in = in - 1
-      val inputs = in.toString.toCharArray.map(_ - '0').toSeq
-      if (!inputs.contains(0)) {
-        //        val t0 = System.nanoTime()
-        //        val (_, _, _, z1) = execute(input, inputs)
-        val t1 = System.nanoTime()
-        val (_, _, _, z2) = executeNative(inputs)
-        val t2 = System.nanoTime()
-        //        println("One interpreted execution took " + (t1 - t0) + " nanos with result " + z1)
-        if (z2 < smallest) {
-          println("One native execution took " + (t2 - t1) + " nanos with result " + z2)
-          smallest = z2
-          println(in, z2)
+class Day24 extends NewDay(2021, 24) {
+  part(1) {
+    execute { _ =>
+      var in: Long = 100000000000000L
+      var running = true
+      var smallest = Long.MaxValue
+      while (running) {
+        in = in - 1
+        val inputs = in.toString.toCharArray.map(_ - '0').toSeq
+        if (!inputs.contains(0)) {
+          //        val t0 = System.nanoTime()
+          //        val (_, _, _, z1) = execute(input, inputs)
+          val t1 = System.nanoTime()
+          val (_, _, _, z2) = executeNative(inputs)
+          val t2 = System.nanoTime()
+          //        println("One interpreted execution took " + (t1 - t0) + " nanos with result " + z1)
+          if (z2 < smallest) {
+            println("One native execution took " + (t2 - t1) + " nanos with result " + z2)
+            smallest = z2
+            println(in, z2)
+          }
+          running = (z2 != 0)
         }
-        running = (z2 != 0)
       }
+      in.toString
     }
-    in.toString
   }
 
   def execute(program: Array[String], input: Seq[Int]): (Long, Long, Long, Long) = {
@@ -83,14 +85,14 @@ class Day24 extends Day(2021, 24) {
     (reg('w'), reg('x'), reg('y'), reg('z'))
   }
 
-  override def part2(input: Array[String]): String = {
-    ""
+  part(2) {
+    execute { _ =>
+      ""
+    }
   }
 }
 
 object Day24 {
-  def apply() = new Day24
-
   def executeNative(input: Seq[Int]): (Long, Long, Long, Long) = {
     var w = 0L
     var x = 0L
@@ -348,3 +350,5 @@ object Day24 {
     (w, x, y, z)
   }
 }
+
+object Day24Main extends Day24

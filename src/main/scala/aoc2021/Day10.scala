@@ -1,30 +1,19 @@
 package aoc2021
 
-import aoc.Day
+import aoc.NewDay
 
-import scala.collection.immutable.Queue
 import scala.collection.mutable
 import scala.util.control.Breaks.{break, breakable}
 
-class Day10 extends Day(2021, 10) {
-  val example =
-    """[({(<(())[]>[[{[]{<()<>>
-      |[(()[<>])]({[<{<<[]>>(
-      |{([(<{}[<>[]}>{[]{[(<()>
-      |(((({<>}<{<{<>}{[]{[]{}
-      |[[<[([]))<([[{}[[()]]]
-      |[{[{({}]{}}([{[{{{}}([]
-      |{<[[]]>}<{[{[{[]{()[[[]
-      |[<(<(<(<{}))><([]([]()
-      |<{([([[(<>()){}]>(<<{{
-      |<{([{{}}[<[[[<>{}]]]>[]]""".stripMargin.split("\n")
-
-  override def part1(input: Array[String]): String = {
-    println(input.length)
-    println(input.count(parse1(_) != 0))
-    input.map { l =>
-      parse1(l)
-    }.sum.toString
+class Day10 extends NewDay(2021, 10) {
+  part(1) {
+    execute { in =>
+      println(in.length)
+      println(in.count(parse1(_) != 0))
+      in.map { l =>
+        parse1(l)
+      }.sum.toString
+    }
   }
 
   def parse1(str: String): Int = {
@@ -57,11 +46,13 @@ class Day10 extends Day(2021, 10) {
     score
   }
 
-  override def part2(input: Array[String]): String = {
-    val scores = input.map { l =>
-      parse2(l)
-    }.filter(_ != 0).sorted
-    scores(scores.length/2).toString
+  part(2) {
+    execute { in =>
+      val scores = in.map { l =>
+        parse2(l)
+      }.filter(_ != 0).sorted
+      scores(scores.length/2).toString
+    }
   }
 
   def parse2(str: String): Long = {
@@ -101,6 +92,4 @@ class Day10 extends Day(2021, 10) {
   }
 }
 
-object Day10 {
-  def apply() = new Day10
-}
+object Day10Main extends Day10

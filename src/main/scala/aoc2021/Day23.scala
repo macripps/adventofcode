@@ -1,152 +1,154 @@
 package aoc2021
 
-import aoc.{Day, Search}
+import aoc.{NewDay, Search}
 import Day23._
 
 import scala.collection.mutable
 
-class Day23 extends Day(2021, 23) {
-  override def part1(input: Array[String]): String = {
-    val a1 = Amphipod(1, 'A', 1)
-    val a2 = Amphipod(2, 'A', 1)
-    val b1 = Amphipod(1, 'B', 10)
-    val b2 = Amphipod(2, 'B', 10)
-    val c1 = Amphipod(1, 'C', 100)
-    val c2 = Amphipod(2, 'C', 100)
-    val d1 = Amphipod(1, 'D', 1000)
-    val d2 = Amphipod(2, 'D', 1000)
+class Day23 extends NewDay(2021, 23) {
+  part(1) {
+    execute { _ =>
+      val a1 = Amphipod(1, 'A', 1)
+      val a2 = Amphipod(2, 'A', 1)
+      val b1 = Amphipod(1, 'B', 10)
+      val b2 = Amphipod(2, 'B', 10)
+      val c1 = Amphipod(1, 'C', 100)
+      val c2 = Amphipod(2, 'C', 100)
+      val d1 = Amphipod(1, 'D', 1000)
+      val d2 = Amphipod(2, 'D', 1000)
 
-    val allAmphipods = Map(a1 -> 14, a2 -> 16, b1 -> 12, b2 -> 17, c1 -> 15, c2 -> 18, d1 -> 11, d2 -> 13)
+      val allAmphipods = Map(a1 -> 14, a2 -> 16, b1 -> 12, b2 -> 17, c1 -> 15, c2 -> 18, d1 -> 11, d2 -> 13)
 
-    val state = State1(
-      None,
-      allAmphipods,
-      Array(
-        None, None, None, None, None, None, None, None, None, None, None,
-        Some(d1), Some(b1),
-        Some(d1), Some(a1),
-        Some(c1), Some(a2),
-        Some(b2), Some(c2),
+      val state = State1(
+        None,
+        allAmphipods,
+        Array(
+          None, None, None, None, None, None, None, None, None, None, None,
+          Some(d1), Some(b1),
+          Some(d1), Some(a1),
+          Some(c1), Some(a2),
+          Some(b2), Some(c2),
+        )
       )
-    )
 
-    def goal(s: State1): Boolean = {
-      s.map(0).isEmpty && s.map(1).isEmpty && s.map(2).isEmpty && s.map(3).isEmpty &&
-        s.map(4).isEmpty && s.map(5).isEmpty && s.map(6).isEmpty && s.map(7).isEmpty &&
-        s.map(8).isEmpty && s.map(9).isEmpty && s.map(10).isEmpty &&
-        s.map(11).nonEmpty && s.map(11).get.c == 'A' &&
-        s.map(12).nonEmpty && s.map(12).get.c == 'A' &&
-        s.map(13).nonEmpty && s.map(13).get.c == 'B' &&
-        s.map(14).nonEmpty && s.map(14).get.c == 'B' &&
-        s.map(15).nonEmpty && s.map(15).get.c == 'C' &&
-        s.map(16).nonEmpty && s.map(16).get.c == 'C' &&
-        s.map(17).nonEmpty && s.map(17).get.c == 'D' &&
-        s.map(18).nonEmpty && s.map(18).get.c == 'D'
-    }
+      def goal(s: State1): Boolean = {
+        s.map(0).isEmpty && s.map(1).isEmpty && s.map(2).isEmpty && s.map(3).isEmpty &&
+          s.map(4).isEmpty && s.map(5).isEmpty && s.map(6).isEmpty && s.map(7).isEmpty &&
+          s.map(8).isEmpty && s.map(9).isEmpty && s.map(10).isEmpty &&
+          s.map(11).nonEmpty && s.map(11).get.c == 'A' &&
+          s.map(12).nonEmpty && s.map(12).get.c == 'A' &&
+          s.map(13).nonEmpty && s.map(13).get.c == 'B' &&
+          s.map(14).nonEmpty && s.map(14).get.c == 'B' &&
+          s.map(15).nonEmpty && s.map(15).get.c == 'C' &&
+          s.map(16).nonEmpty && s.map(16).get.c == 'C' &&
+          s.map(17).nonEmpty && s.map(17).get.c == 'D' &&
+          s.map(18).nonEmpty && s.map(18).get.c == 'D'
+      }
 
-    val visited = mutable.Map[String, Int](state.flatString -> state.cost)
-    var minCost = Int.MaxValue
+      val visited = mutable.Map[String, Int](state.flatString -> state.cost)
+      var minCost = Int.MaxValue
 
-    val q = mutable.PriorityQueue[State1](state)((s1, s2) => s2.cost.compareTo(s1.cost))
-    while (q.nonEmpty) {
-      val next = q.dequeue()
-      if (next.cost <= minCost) {
-        if (goal(next)) {
-          if (next.cost < minCost) {
-            minCost = next.cost
+      val q = mutable.PriorityQueue[State1](state)((s1, s2) => s2.cost.compareTo(s1.cost))
+      while (q.nonEmpty) {
+        val next = q.dequeue()
+        if (next.cost <= minCost) {
+          if (goal(next)) {
+            if (next.cost < minCost) {
+              minCost = next.cost
+            }
+          }
+          val neighbours = next.nextStates
+          neighbours.foreach { n =>
+            if (!visited.contains(n.flatString) || visited(n.flatString) > n.cost) {
+              visited(n.flatString) = n.cost
+              q.addOne(n)
+            }
           }
         }
-        val neighbours = next.nextStates
-        neighbours.foreach { n =>
-          if (!visited.contains(n.flatString) || visited(n.flatString) > n.cost) {
-            visited(n.flatString) = n.cost
+      }
+      minCost.toString
+    }
+  }
+
+  part(2) {
+    execute { _ =>
+      val a1 = Amphipod(1, 'A', 1)
+      val a2 = Amphipod(2, 'A', 1)
+      val a3 = Amphipod(3, 'A', 1)
+      val a4 = Amphipod(4, 'A', 1)
+      val b1 = Amphipod(1, 'B', 10)
+      val b2 = Amphipod(2, 'B', 10)
+      val b3 = Amphipod(3, 'B', 10)
+      val b4 = Amphipod(4, 'B', 10)
+      val c1 = Amphipod(1, 'C', 100)
+      val c2 = Amphipod(2, 'C', 100)
+      val c3 = Amphipod(3, 'C', 100)
+      val c4 = Amphipod(4, 'C', 100)
+      val d1 = Amphipod(1, 'D', 1000)
+      val d2 = Amphipod(2, 'D', 1000)
+      val d3 = Amphipod(3, 'D', 1000)
+      val d4 = Amphipod(4, 'D', 1000)
+
+      val allAmphipods = Map(
+        a1 -> 14, a2 -> 21, a3 -> 24, a4 -> 26,
+        b1 -> 11, b2 -> 17, b3 -> 19, b4 -> 20,
+        c1 -> 15, c2 -> 16, c3 -> 22, c4 -> 25,
+        d1 -> 12, d2 -> 13, d3 -> 18, d4 -> 23,
+      )
+
+      val state = State2(
+        allAmphipods,
+        Array(
+          None, None, None, None, None, None, None, None, None, None, None,
+          Some(b1), Some(d1), Some(d2), Some(a1),
+          Some(c1), Some(c2), Some(b2), Some(d3),
+          Some(b3), Some(b4), Some(a2), Some(c3),
+          Some(d4), Some(a3), Some(c4), Some(a4),
+        )
+      )
+
+      def goal(s: State2): Boolean = {
+        s.map(0).isEmpty && s.map(1).isEmpty && s.map(2).isEmpty && s.map(3).isEmpty &&
+          s.map(4).isEmpty && s.map(5).isEmpty && s.map(6).isEmpty && s.map(7).isEmpty &&
+          s.map(8).isEmpty && s.map(9).isEmpty && s.map(10).isEmpty &&
+          s.map(11).nonEmpty && s.map(11).get.c == 'A' &&
+          s.map(12).nonEmpty && s.map(12).get.c == 'A' &&
+          s.map(13).nonEmpty && s.map(13).get.c == 'A' &&
+          s.map(14).nonEmpty && s.map(14).get.c == 'A' &&
+          s.map(15).nonEmpty && s.map(15).get.c == 'B' &&
+          s.map(16).nonEmpty && s.map(16).get.c == 'B' &&
+          s.map(17).nonEmpty && s.map(17).get.c == 'B' &&
+          s.map(18).nonEmpty && s.map(18).get.c == 'B'
+      }
+
+      print(state)
+
+//    val visited = mutable.Map[String, Int](state.flatString -> state.cost)
+      var minCost = Int.MaxValue
+
+      val q = mutable.PriorityQueue[State2](state)((s1, s2) => s1.cost.compareTo(s2.cost))
+      while (q.nonEmpty) {
+        val next = q.dequeue()
+        if (next.cost <= minCost) {
+          println(next, next.cost, q.size)
+          if (goal(next)) {
+            println(next.cost)
+            if (next.cost < minCost) {
+              minCost = next.cost
+            }
+          }
+          val neighbours = next.nextStates
+          neighbours.foreach { n =>
             q.addOne(n)
           }
         }
       }
+      minCost.toString
     }
-    minCost.toString
-  }
-
-  override def part2(input: Array[String]): String = {
-    val a1 = Amphipod(1, 'A', 1)
-    val a2 = Amphipod(2, 'A', 1)
-    val a3 = Amphipod(3, 'A', 1)
-    val a4 = Amphipod(4, 'A', 1)
-    val b1 = Amphipod(1, 'B', 10)
-    val b2 = Amphipod(2, 'B', 10)
-    val b3 = Amphipod(3, 'B', 10)
-    val b4 = Amphipod(4, 'B', 10)
-    val c1 = Amphipod(1, 'C', 100)
-    val c2 = Amphipod(2, 'C', 100)
-    val c3 = Amphipod(3, 'C', 100)
-    val c4 = Amphipod(4, 'C', 100)
-    val d1 = Amphipod(1, 'D', 1000)
-    val d2 = Amphipod(2, 'D', 1000)
-    val d3 = Amphipod(3, 'D', 1000)
-    val d4 = Amphipod(4, 'D', 1000)
-
-    val allAmphipods = Map(
-      a1 -> 14, a2 -> 21, a3 -> 24, a4 -> 26,
-      b1 -> 11, b2 -> 17, b3 -> 19, b4 -> 20,
-      c1 -> 15, c2 -> 16, c3 -> 22, c4 -> 25,
-      d1 -> 12, d2 -> 13, d3 -> 18, d4 -> 23,
-    )
-
-    val state = State2(
-      allAmphipods,
-      Array(
-        None, None, None, None, None, None, None, None, None, None, None,
-        Some(b1), Some(d1), Some(d2), Some(a1),
-        Some(c1), Some(c2), Some(b2), Some(d3),
-        Some(b3), Some(b4), Some(a2), Some(c3),
-        Some(d4), Some(a3), Some(c4), Some(a4),
-      )
-    )
-
-    def goal(s: State2): Boolean = {
-      s.map(0).isEmpty && s.map(1).isEmpty && s.map(2).isEmpty && s.map(3).isEmpty &&
-        s.map(4).isEmpty && s.map(5).isEmpty && s.map(6).isEmpty && s.map(7).isEmpty &&
-        s.map(8).isEmpty && s.map(9).isEmpty && s.map(10).isEmpty &&
-        s.map(11).nonEmpty && s.map(11).get.c == 'A' &&
-        s.map(12).nonEmpty && s.map(12).get.c == 'A' &&
-        s.map(13).nonEmpty && s.map(13).get.c == 'A' &&
-        s.map(14).nonEmpty && s.map(14).get.c == 'A' &&
-        s.map(15).nonEmpty && s.map(15).get.c == 'B' &&
-        s.map(16).nonEmpty && s.map(16).get.c == 'B' &&
-        s.map(17).nonEmpty && s.map(17).get.c == 'B' &&
-        s.map(18).nonEmpty && s.map(18).get.c == 'B'
-    }
-
-    print(state)
-
-//    val visited = mutable.Map[String, Int](state.flatString -> state.cost)
-    var minCost = Int.MaxValue
-
-    val q = mutable.PriorityQueue[State2](state)((s1, s2) => s1.cost.compareTo(s2.cost))
-    while (q.nonEmpty) {
-      val next = q.dequeue()
-      if (next.cost <= minCost) {
-        println(next, next.cost, q.size)
-        if (goal(next)) {
-          println(next.cost)
-          if (next.cost < minCost) {
-            minCost = next.cost
-          }
-        }
-        val neighbours = next.nextStates
-        neighbours.foreach { n =>
-          q.addOne(n)
-        }
-      }
-    }
-    minCost.toString
   }
 }
 
 object Day23 {
-  def apply() = new Day23
-
   case class Amphipod(id: Int, c: Char, cost: Int)
 
   case class State1(previousMove: Option[Amphipod], locs: Map[Amphipod, Int], map: Array[Option[Amphipod]]) {
@@ -414,3 +416,5 @@ object Day23 {
     }
   }
 }
+
+object Day23Main extends Day23

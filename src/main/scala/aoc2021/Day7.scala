@@ -1,22 +1,26 @@
 package aoc2021
 
-import aoc.Day
+import aoc.NewDay
 
-class Day7 extends Day(2021, 7) {
-  override def part1(input: Array[String]): String = {
-    val positions = input.head.split(',').map(_.toInt)
-    (positions.min to positions.max).map { p =>
-      positions.map(pos => cost1(p - pos)).sum
-    }.min.toString
+class Day7 extends NewDay(2021, 7) {
+  part(1) {
+    execute { in =>
+      val positions = in.head.split(',').map(_.toInt)
+      (positions.min to positions.max).map { p =>
+        positions.map(pos => cost1(p - pos)).sum
+      }.min.toString
+    }
   }
 
   def cost1(a: Int): Int = Math.abs(a)
 
-  override def part2(input: Array[String]): String = {
-    val positions = input.head.split(',').map(_.toInt)
-    (positions.min to positions.max).map { p =>
-      positions.map(pos => cost2(p - pos)).sum
-    }.min.toString
+  part(2) {
+    execute { in =>
+      val positions = in.head.split(',').map(_.toInt)
+      (positions.min to positions.max).map { p =>
+        positions.map(pos => cost2(p - pos)).sum
+      }.min.toString
+    }
   }
 
   def cost2(a: Int): Int = {
@@ -25,6 +29,4 @@ class Day7 extends Day(2021, 7) {
   }
 }
 
-object Day7 {
-  def apply() = new Day7()
-}
+object Day7Main extends Day7

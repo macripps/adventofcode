@@ -1,14 +1,16 @@
 package aoc2021
 
-import aoc.Day
+import aoc.NewDay
 import aoc2021.Day16._
 
-class Day16 extends Day(2021, 16) {
-  override def part1(input: Array[String]): String = {
-    val packet = hexStringToBinary(input.head)
-    val (p, _) = parse(packet, 0)
-    println(p)
-    sumOfVersions(p).toString
+class Day16 extends NewDay(2021, 16) {
+  part(1) {
+    execute { in =>
+      val packet = hexStringToBinary(in.head)
+      val (p, _) = parse(packet, 0)
+      println(p)
+      sumOfVersions(p).toString
+    }
   }
 
   def sumOfVersions(p: Packet): Int = {
@@ -19,10 +21,12 @@ class Day16 extends Day(2021, 16) {
     }
   }
 
-  override def part2(input: Array[String]): String = {
-    val packet = hexStringToBinary(input.head)
-    val (p, _) = parse(packet, 0)
-    eval(p).toString
+  part(2) {
+    execute { in =>
+      val packet = hexStringToBinary(in.head)
+      val (p, _) = parse(packet, 0)
+      eval(p).toString
+    }
   }
 
   def eval(p: Packet): Long = {
@@ -42,17 +46,6 @@ class Day16 extends Day(2021, 16) {
 }
 
 object Day16 {
-
-  val example0 = "D2FE28"
-  val example1 = "8A004A801A8002F478"
-  val example2 = "620080001611562C8802118E34"
-  val example3 = "C0015000016115A2E0802F182340"
-  val example4 = "A0016C880162017C3686B18A3D4780"
-
-  val example5 = "C200B40A82"
-
-  def apply() = new Day16
-
   trait Packet
 
   case class Literal(version: Int, typeId: Int, value: Long) extends Packet
@@ -128,3 +121,5 @@ object Day16 {
     }
   }
 }
+
+object Day16Main extends Day16

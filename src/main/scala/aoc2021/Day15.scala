@@ -1,42 +1,34 @@
 package aoc2021
 
-import aoc.{Day, Point}
+import aoc.{NewDay, Point}
 import aoc2021.Day15.Cell
 
 import scala.collection.mutable
 
-class Day15 extends Day(2021, 15) {
-  val example =
-    """1163751742
-      |1381373672
-      |2136511328
-      |3694931569
-      |7463417111
-      |1319128137
-      |1359912421
-      |3125421639
-      |1293138521
-      |2311944581""".stripMargin.split("\n")
-
-  override def part1(input: Array[String]): String = {
-    val grid = input.map(x => x.toCharArray.map(_ - '0'))
-    minCost(grid, grid.length - 1, grid.length - 1).toString
+class Day15 extends NewDay(2021, 15) {
+  part(1) {
+    execute { in =>
+      val grid = in.map(x => x.toCharArray.map(_ - '0'))
+      minCost(grid, grid.length - 1, grid.length - 1).toString
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    val grid = input.map(x => x.toCharArray.map(_ - '0'))
-    val biggerGrid = Array.ofDim[Int](grid.length * 5, grid.length * 5)
-    (0 to 4).foreach { rCopy =>
-      (0 to 4).foreach { cCopy =>
-        grid.indices.foreach { row =>
-          grid.indices.foreach { col =>
-            val nextVal = grid(row)(col) + rCopy + cCopy
-            biggerGrid(row + (grid.length * rCopy))(col + (grid.length * cCopy)) = if (nextVal > 9) nextVal - 9 else nextVal
+  part(2) {
+    execute { in =>
+      val grid = in.map(x => x.toCharArray.map(_ - '0'))
+      val biggerGrid = Array.ofDim[Int](grid.length * 5, grid.length * 5)
+      (0 to 4).foreach { rCopy =>
+        (0 to 4).foreach { cCopy =>
+          grid.indices.foreach { row =>
+            grid.indices.foreach { col =>
+              val nextVal = grid(row)(col) + rCopy + cCopy
+              biggerGrid(row + (grid.length * rCopy))(col + (grid.length * cCopy)) = if (nextVal > 9) nextVal - 9 else nextVal
+            }
           }
         }
       }
+      minCost(biggerGrid, biggerGrid.length - 1, biggerGrid.length - 1).toString
     }
-    minCost(biggerGrid, biggerGrid.length - 1, biggerGrid.length - 1).toString
   }
 
   def minCost(grid: Array[Array[Int]], row: Int, col: Int): Int = {
@@ -74,7 +66,7 @@ class Day15 extends Day(2021, 15) {
 }
 
 object Day15 {
-  def apply() = new Day15
-
   case class Cell(p: Point, cost: Int)
 }
+
+object Day15Main extends Day15

@@ -1,33 +1,37 @@
 package aoc2021
 
-import aoc.{Day, Point}
+import aoc.{NewDay, Point}
 
-class Day9 extends Day(2021, 9) {
-  override def part1(input: Array[String]): String = {
-    val nGrid = input.map(x => x.toCharArray)
-    nGrid.indices.flatMap { y =>
-      nGrid(y).indices.map { x =>
-        if ((x == 0 || nGrid(y)(x) < nGrid(y)(x-1)) &&
-          (x == nGrid(y).length - 1 || nGrid(y)(x) < nGrid(y)(x+1)) &&
-          (y == 0 || nGrid(y)(x) < nGrid(y-1)(x)) &&
-          (y == nGrid.length - 1 || nGrid(y)(x) < nGrid(y+1)(x))
-        ) {
-          nGrid(y)(x) - '0' + 1
-        } else 0
-      }
-    }.sum.toString
+class Day9 extends NewDay(2021, 9) {
+  part(1) {
+    execute { in =>
+      val nGrid = in.map(x => x.toCharArray)
+      nGrid.indices.flatMap { y =>
+        nGrid(y).indices.map { x =>
+          if ((x == 0 || nGrid(y)(x) < nGrid(y)(x-1)) &&
+            (x == nGrid(y).length - 1 || nGrid(y)(x) < nGrid(y)(x+1)) &&
+            (y == 0 || nGrid(y)(x) < nGrid(y-1)(x)) &&
+            (y == nGrid.length - 1 || nGrid(y)(x) < nGrid(y+1)(x))
+          ) {
+            nGrid(y)(x) - '0' + 1
+          } else 0
+        }
+      }.sum.toString
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    val nGrid = input.map(x => x.toCharArray)
-    nGrid.indices.flatMap { y =>
-      nGrid(y).indices.filter { x =>
-        (x == 0 || nGrid(y)(x) < nGrid(y)(x - 1)) &&
-          (x == nGrid(y).length - 1 || nGrid(y)(x) < nGrid(y)(x + 1)) &&
-          (y == 0 || nGrid(y)(x) < nGrid(y - 1)(x)) &&
-          (y == nGrid.length - 1 || nGrid(y)(x) < nGrid(y + 1)(x))
-      }.map(Point(_,y))
-    }.map(sizeOfBasin(nGrid, _)).sorted.reverse.take(3).product.toString
+  part(2) {
+    execute { in =>
+      val nGrid = in.map(x => x.toCharArray)
+      nGrid.indices.flatMap { y =>
+        nGrid(y).indices.filter { x =>
+          (x == 0 || nGrid(y)(x) < nGrid(y)(x - 1)) &&
+            (x == nGrid(y).length - 1 || nGrid(y)(x) < nGrid(y)(x + 1)) &&
+            (y == 0 || nGrid(y)(x) < nGrid(y - 1)(x)) &&
+            (y == nGrid.length - 1 || nGrid(y)(x) < nGrid(y + 1)(x))
+        }.map(Point(_,y))
+      }.map(sizeOfBasin(nGrid, _)).sorted.reverse.take(3).product.toString
+    }
   }
 
   def sizeOfBasin(grid: Array[Array[Char]], position: Point): Int = {
@@ -51,6 +55,4 @@ class Day9 extends Day(2021, 9) {
   }
 }
 
-object Day9 {
-  def apply() = new Day9
-}
+object Day9Main extends Day9

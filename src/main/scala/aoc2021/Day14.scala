@@ -1,86 +1,70 @@
 package aoc2021
 
-import aoc.Day
+import aoc.{NewDay, asGroupsSeparatedByBlankLines}
 
 import scala.collection.mutable
 
-class Day14 extends Day(2021, 14) {
-  val example =
-    """NNCB
-      |
-      |CH -> B
-      |HH -> N
-      |CB -> H
-      |NH -> C
-      |HB -> C
-      |HC -> B
-      |HN -> C
-      |NN -> C
-      |BH -> H
-      |NC -> B
-      |NB -> B
-      |BN -> B
-      |BB -> N
-      |BC -> B
-      |CC -> N
-      |CN -> C""".stripMargin.split("\n")
-
-  override def part1(input: Array[String]): String = {
-    val groups = inputGroups(input)
-    var polymer = groups.head.head
-    val rules = groups.tail.head.map { l =>
-      val lr = l.split(" -> ")
-      lr(0) -> lr(1)
-    }.toMap
-    1.to(10).foreach { _ =>
-      var newPolymer = ""
-      (0 to polymer.length - 2).foreach { i =>
-        val t = polymer.substring(i, i + 2)
-        if (rules.contains(t)) {
-          newPolymer = newPolymer + t(0) + rules(t)
-          if (i == polymer.length - 2) {
-            newPolymer = newPolymer + polymer.last
+class Day14 extends NewDay(2021, 14) {
+  part(1) {
+    execute { in =>
+      val groups = asGroupsSeparatedByBlankLines(in)
+      var polymer = groups.head.head
+      val rules = groups.tail.head.map { l =>
+        val lr = l.split(" -> ")
+        lr(0) -> lr(1)
+      }.toMap
+      1.to(10).foreach { _ =>
+        var newPolymer = ""
+        (0 to polymer.length - 2).foreach { i =>
+          val t = polymer.substring(i, i + 2)
+          if (rules.contains(t)) {
+            newPolymer = newPolymer + t(0) + rules(t)
+            if (i == polymer.length - 2) {
+              newPolymer = newPolymer + polymer.last
+            }
+          } else {
+            newPolymer = newPolymer + t
           }
-        } else {
-          newPolymer = newPolymer + t
         }
+        polymer = newPolymer
       }
-      polymer = newPolymer
+      val m = polymer.map { c => c -> polymer.count(c2 => c == c2) }.toMap
+      val x = m.maxBy(_._2)._2
+      val y = m.minBy(_._2)._2
+      (x - y).toString
     }
-    val m = polymer.map { c => c -> polymer.count(c2 => c == c2) }.toMap
-    val x = m.maxBy(_._2)._2
-    val y = m.minBy(_._2)._2
-    (x - y).toString
   }
 
-  override def part2(input: Array[String]): String = {
-    val groups = inputGroups(input)
-    val polymer = groups.head.head
-    val rules = groups.tail.head.map { l =>
-      val lr = l.split(" -> ")
-      lr(0) -> lr(1)
-    }.toMap
-    val countMaps = mutable.Map[Char, Long]().withDefaultValue(0)
-    (0 to polymer.length - 2).foreach { i =>
-      val t = polymer.substring(i, i + 2)
-      val cs = count(t, 40, rules)
-      cs.foreach { l =>
-        countMaps.addOne((l._1, countMaps(l._1) + cs(l._1)))
+  part(2) {
+    execute { in =>
+      val groups = asGroupsSeparatedByBlankLines(in)
+      val polymer = groups.head.head
+      val rules = groups.tail.head.map { l =>
+        val lr = l.split(" -> ")
+        lr(0) -> lr(1)
+      }.toMap
+      val countMaps = mutable.Map[Char, Long]().withDefaultValue(0)
+      (0 to polymer.length - 2).foreach { i =>
+        val t = polymer.substring(i, i + 2)
+        val cs = count(t, 40, rules)
+        cs.foreach { l =>
+          countMaps.addOne((l._1, countMaps(l._1) + cs(l._1)))
+        }
+        if (i != polymer.length - 2) {
+          countMaps.addOne((t.charAt(1), countMaps(t.charAt(1)) - 1))
+        }
       }
-      if (i != polymer.length - 2) {
-        countMaps.addOne((t.charAt(1), countMaps(t.charAt(1)) - 1))
-      }
+      val x = countMaps.maxBy(_._2)._2
+      val y = countMaps.minBy(_._2)._2
+      (x - y).toString
     }
-    val x = countMaps.maxBy(_._2)._2
-    val y = countMaps.minBy(_._2)._2
-    (x - y).toString
   }
 
   val cache = mutable.Map[(String, Int), Map[Char, Long]]()
 
   def count(input: String, depth: Int, rules: Map[String, String]): Map[Char, Long] = {
     if (cache.contains((input, depth))) {
-      if (debug) {
+      if (debug()) {
         println("Hit cached " + input + "/" + depth)
       }
       cache((input, depth))
@@ -90,7 +74,7 @@ class Day14 extends Day(2021, 14) {
         m = m + ((input.charAt(0), m(input.charAt(0)) + 1L))
         m = m + ((input.charAt(1), m(input.charAt(1)) + 1L))
         cache.put((input, depth), m)
-        if (debug) {
+        if (debug()) {
           println("Stored " + m + " at " + input + "/" + depth)
         }
         m
@@ -106,7 +90,7 @@ class Day14 extends Day(2021, 14) {
         cR.foreach { r =>
           merged = merged + ((r._1, merged(r._1) + r._2))
         }
-        if (debug) {
+        if (debug()) {
           println("Stored " + merged + " at " + input + "/" + depth)
         }
         cache.put((input, depth), merged)
@@ -116,6 +100,4 @@ class Day14 extends Day(2021, 14) {
   }
 }
 
-object Day14 {
-  def apply() = new Day14
-}
+object Day14Main extends Day14

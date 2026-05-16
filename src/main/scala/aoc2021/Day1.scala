@@ -1,14 +1,18 @@
 package aoc2021
 
-import aoc.Day
+import aoc.NewDay
 
-class Day1 extends Day(2021, 1) {
-  override def part1(input: Array[String]): String = {
-    input.zip(input.tail).count(increasing).toString
+class Day1 extends NewDay(2021, 1) {
+  part(1) {
+    execute { in =>
+      in.zip(in.tail).count(increasing).toString
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    input.zip(input.drop(3)).count(increasing).toString
+  part(2) {
+    execute { in =>
+      in.zip(in.drop(3)).count(increasing).toString
+    }
   }
 
   private[this] def increasing(e: (String, String)): Boolean = {
@@ -16,6 +20,4 @@ class Day1 extends Day(2021, 1) {
   }
 }
 
-object Day1 {
-  def apply() = new Day1()
-}
+object Day1Main extends Day1

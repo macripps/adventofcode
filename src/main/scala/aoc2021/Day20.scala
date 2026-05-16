@@ -1,13 +1,14 @@
 package aoc2021
 
-import aoc.{Day, Point}
-import aoc2021.Day20.example
+import aoc.{NewDay, Point}
 
 import scala.collection.mutable
 
-class Day20 extends Day(2021, 20) {
-  override def part1(input: Array[String]): String = {
-    solution(input, 2).toString
+class Day20 extends NewDay(2021, 20) {
+  part(1) {
+    execute { in =>
+      solution(in, 2).toString
+    }
   }
 
   def toBinary(string: String): Int = {
@@ -43,8 +44,10 @@ class Day20 extends Day(2021, 20) {
     }
   }
 
-  override def part2(input: Array[String]): String = {
-    solution(input, 50).toString
+  part(2) {
+    execute { in =>
+      solution(in, 50).toString
+    }
   }
 
   def solution(input: Array[String], times: Int): Int = {
@@ -84,15 +87,4 @@ class Day20 extends Day(2021, 20) {
   }
 }
 
-object Day20 {
-  def apply() = new Day20()
-
-  val example =
-    """..#.#..#####.#.#.#.###.##.....###.##.#..###.####..#####..#....#..#..##..###..######.###...####..#..#####..##..#.#####...##.#.#..#.##..#.#......#.###.######.###.####...#.##.##..#..#..#####.....#.#....###..#.##......#.....#..#..#..##..#...##.######.####.####.#.#...#.......#..#.#.#...####.##.#......#..#...##.#.##..#...##.#.##..###.#......#.#.......#.#.#.####.###.##...#.....####.#..#..#.##.#....##..#.####....##...##..#...#......#.#.......#.......##..####..#...#.#.#...##..#.#..###..#####........#..####......#..#
-      |
-      |#..#.
-      |#....
-      |##..#
-      |..#..
-      |..###""".stripMargin.split("\n")
-}
+object Day20Main extends Day20
