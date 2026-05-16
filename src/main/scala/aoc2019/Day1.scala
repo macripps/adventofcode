@@ -1,17 +1,18 @@
 package aoc2019
 
-import aoc.Day
+import aoc.NewDay
 
-class Day1 extends Day(2019, 1) {
-  override def part1(input: Array[String]): String = {
-    input.map(_.toInt / 3 - 2).sum.toString
+class Day1 extends NewDay(2019, 1) {
+  part(1) {
+    execute { in =>
+      in.map(_.toInt / 3 - 2).sum
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    println(fuel(14))
-    println(fuel(1969))
-    println(fuel(100756))
-    input.map{f => fuel(f.toInt)}.sum.toString
+  part(2) {
+    execute { in =>
+      in.map(s => fuel(s.toInt)).sum
+    }
   }
 
   def fuel(f: Int): Int = {
@@ -22,6 +23,4 @@ class Day1 extends Day(2019, 1) {
   }
 }
 
-object Day1 {
-  def apply() = new Day1()
-}
+object Day1Main extends Day1
