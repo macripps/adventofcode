@@ -1,6 +1,6 @@
 load("@rules_java//java:defs.bzl", "java_binary")
 
-def advent_of_code_binary(year, day):
+def advent_of_code_binary(year, day, resources = None):
     java_binary(
         name = "Day%s" % day,
         main_class = "aoc%s.Day%sMain" % (year, day),
@@ -12,7 +12,7 @@ def advent_of_code_binary(year, day):
 
         },
 #        data = ["@z3//:dylib"],
-        resources = [
+        resources = resources if resources != None else [
             "//src/main/resources/aoc%s:day%s.input" % (year, day),
-        ]
+        ],
     )
