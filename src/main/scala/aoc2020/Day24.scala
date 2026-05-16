@@ -1,66 +1,70 @@
 package aoc2020
 
-import aoc.Day
+import aoc.NewDay
 import Day24._
 
 import scala.collection.mutable
 
-class Day24 extends Day(2020, 24) {
-  override def part1(input: Array[String]): String = {
-    val tiles = mutable.Set[Point]()
-    input.foreach { l =>
-      val p = toPoint(l)
-      if (tiles.contains(p)) {
-        tiles.remove(p)
-      } else {
-        tiles.add(p)
-      }
-    }
-    tiles.size.toString
-  }
-
-  override def part2(input: Array[String]): String = {
-    val blackTiles = mutable.Set[Point]()
-    input.foreach { l =>
-      val p = toPoint(l)
-      if (blackTiles.contains(p)) {
-        blackTiles.remove(p)
-      } else {
-        blackTiles.add(p)
-      }
-    }
-
-    (1 to 100).foreach { _ =>
-      val positionsToCheck = blackTiles ++ blackTiles.flatMap(_.neighbours)
-      val toFlipToWhite = mutable.Set[Point]()
-      val toFlipToBlack = mutable.Set[Point]()
-      positionsToCheck.foreach { p =>
-        val blackNeighbours = p.neighbours.count(blackTiles.contains)
-        if (blackTiles.contains(p)) {
-          if (blackNeighbours == 0 || blackNeighbours > 2) {
-            toFlipToWhite.add(p)
-          }
+class Day24 extends NewDay(2020, 24) {
+  part(1) {
+    execute { in =>
+      val tiles = mutable.Set[Point]()
+      in.foreach { l =>
+        val p = toPoint(l)
+        if (tiles.contains(p)) {
+          tiles.remove(p)
         } else {
-          if (blackNeighbours == 2) {
-            toFlipToBlack.add(p)
-          }
+          tiles.add(p)
         }
       }
-      toFlipToBlack.foreach { t =>
-        blackTiles.add(t)
-      }
-      toFlipToWhite.foreach { t =>
-        blackTiles.remove(t)
-      }
+      tiles.size.toString
     }
+  }
 
-    blackTiles.size.toString
+  part(2) {
+    execute { in =>
+      val blackTiles = mutable.Set[Point]()
+      in.foreach { l =>
+        val p = toPoint(l)
+        if (blackTiles.contains(p)) {
+          blackTiles.remove(p)
+        } else {
+          blackTiles.add(p)
+        }
+      }
+
+      (1 to 100).foreach { _ =>
+        val positionsToCheck = blackTiles ++ blackTiles.flatMap(_.neighbours)
+        val toFlipToWhite = mutable.Set[Point]()
+        val toFlipToBlack = mutable.Set[Point]()
+        positionsToCheck.foreach { p =>
+          val blackNeighbours = p.neighbours.count(blackTiles.contains)
+          if (blackTiles.contains(p)) {
+            if (blackNeighbours == 0 || blackNeighbours > 2) {
+              toFlipToWhite.add(p)
+            }
+          } else {
+            if (blackNeighbours == 2) {
+              toFlipToBlack.add(p)
+            }
+          }
+        }
+        toFlipToBlack.foreach { t =>
+          blackTiles.add(t)
+        }
+        toFlipToWhite.foreach { t =>
+          blackTiles.remove(t)
+        }
+      }
+
+      blackTiles.size.toString
+    }
   }
 }
 
-object Day24 {
-  def apply() = new Day24()
+object Day24Main extends Day24
 
+object Day24 {
   case class Point(r: Int, g: Int, b: Int) {
     lazy val neighbours: Set[Point] = {
       Set(

@@ -1,37 +1,41 @@
 package aoc2020
 
-import aoc.Day
+import aoc.NewDay
 
 import scala.collection.mutable
 
-class Day10 extends Day(2020, 10) {
+class Day10 extends NewDay(2020, 10) {
   def adapters(input: Array[String]): Array[Int] = input.map(_.toInt).sorted
 
-  override def part1(input: Array[String]): String = {
-    var current = 0
-    var oneJDifferences = 0
-    var threeJDifferences = 1
-    adapters(input).foreach { a =>
-      if (a - current == 1) {
-        oneJDifferences = oneJDifferences + 1
-      } else if (a - current == 3) {
-        threeJDifferences = threeJDifferences + 1
+  part(1) {
+    execute { in =>
+      var current = 0
+      var oneJDifferences = 0
+      var threeJDifferences = 1
+      adapters(in).foreach { a =>
+        if (a - current == 1) {
+          oneJDifferences = oneJDifferences + 1
+        } else if (a - current == 3) {
+          threeJDifferences = threeJDifferences + 1
+        }
+        current = a
       }
-      current = a
+      "Product is " + (oneJDifferences * threeJDifferences)
     }
-    "Product is " + (oneJDifferences * threeJDifferences)
   }
 
-  override def part2(input: Array[String]): String = {
-    val adpts = adapters(input)
-    val permutations = Day10.part2(0 +: adpts :+ (adpts.max + 3))
-    "Permutations: " + permutations
+  part(2) {
+    execute { in =>
+      val adpts = adapters(in)
+      val permutations = Day10.part2(0 +: adpts :+ (adpts.max + 3))
+      "Permutations: " + permutations
+    }
   }
 }
 
-object Day10 {
-  def apply() = new Day10()
+object Day10Main extends Day10
 
+object Day10 {
   def part2(adapters: Array[Int]): Long = {
     cache.clear()
     iPart2(adapters, 0)

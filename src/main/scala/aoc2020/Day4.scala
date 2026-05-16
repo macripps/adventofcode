@@ -1,21 +1,25 @@
 package aoc2020
 
-import aoc.Day
+import aoc.NewDay
 import aoc2020.Day4.{toPassport, validPart1, validPart2}
 
-class Day4 extends Day(2020, 4) {
-  override def part1(input: Array[String]): String = {
-    "There were " + inputGroups(input).map(toPassport).count(validPart1) + " valid passports"
+class Day4 extends NewDay(2020, 4) {
+  part(1) {
+    execute { in =>
+      "There were " + inputGroups(in).map(toPassport).count(validPart1) + " valid passports"
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    "There were " + inputGroups(input).map(toPassport).count(validPart2) + " valid passports"
+  part(2) {
+    execute { in =>
+      "There were " + inputGroups(in).map(toPassport).count(validPart2) + " valid passports"
+    }
   }
 }
 
-object Day4 {
-  def apply() = new Day4()
+object Day4Main extends Day4
 
+object Day4 {
   def toPassport(lines: Iterable[String]): Map[String, String] = {
     lines.flatMap { l =>
       l.split(" ").map { p =>

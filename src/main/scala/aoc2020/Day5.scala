@@ -1,22 +1,26 @@
 package aoc2020
 
-import aoc.Day
+import aoc.NewDay
 import aoc2020.Day5.{binaryToInt, sumFrom, toBinary}
 
-class Day5 extends Day(2020, 5) {
-  override def part1(input: Array[String]): String = {
-    "The highest SeatID is " + input.map(toBinary).map(binaryToInt).max
+class Day5 extends NewDay(2020, 5) {
+  part(1) {
+    execute { in =>
+      "The highest SeatID is " + in.map(toBinary).map(binaryToInt).max
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    val sorted = input.map(toBinary).map(binaryToInt).sorted
-    "The missing SeatID is " + (sumFrom(sorted.head, sorted.last) - sorted.sum)
+  part(2) {
+    execute { in =>
+      val sorted = in.map(toBinary).map(binaryToInt).sorted
+      "The missing SeatID is " + (sumFrom(sorted.head, sorted.last) - sorted.sum)
+    }
   }
 }
 
-object Day5 {
-  def apply() = new Day5()
+object Day5Main extends Day5
 
+object Day5 {
   def toBinary(line: String): String = {
     line.replace('F', '0')
       .replace('B', '1')

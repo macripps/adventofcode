@@ -1,7 +1,7 @@
 package aoc2020
 
 import aoc.Direction._
-import aoc.{Day, Point, asGroupsSeparatedByBlankLines}
+import aoc.{NewDay, Point, asGroupsSeparatedByBlankLines}
 import aoc2020.Day20._
 
 import scala.util.control.Breaks.{break, breakable}
@@ -10,7 +10,7 @@ import scala.util.control.Breaks.{break, breakable}
  * Better implementation cribbed from @nielsutrecht
  * Many thanks!
  */
-class Day20 extends Day(2020, 20) {
+class Day20 extends NewDay(2020, 20) {
   def tilesList(input: Array[String]): List[Tile] = {
     asGroupsSeparatedByBlankLines(input.dropRight(1)).map { tileLines =>
       val tileHeader = tileLines.head
@@ -56,106 +56,110 @@ class Day20 extends Day(2020, 20) {
     }
   }
 
-  override def part1(input: Array[String]): String = {
-    val tiles = tilesList(input)
-    val sol = solution(tiles)
-    val minX = sol.keys.minBy(_.x).x
-    val minY = sol.keys.minBy(_.y).y
-    val maxX = sol.keys.maxBy(_.x).x
-    val maxY = sol.keys.maxBy(_.y).y
-    List(Point(minX, minY), Point(minX, maxY), Point(maxX, minY), Point(maxX, maxY)).map { p =>
-      sol(p).tile.id
-    }.product.toString
+  part(1) {
+    execute { in =>
+      val tiles = tilesList(in)
+      val sol = solution(tiles)
+      val minX = sol.keys.minBy(_.x).x
+      val minY = sol.keys.minBy(_.y).y
+      val maxX = sol.keys.maxBy(_.x).x
+      val maxY = sol.keys.maxBy(_.y).y
+      List(Point(minX, minY), Point(minX, maxY), Point(maxX, minY), Point(maxX, maxY)).map { p =>
+        sol(p).tile.id
+      }.product.toString
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    val tiles = tilesList(input)
-    val sol = solution(tiles)
+  part(2) {
+    execute { in =>
+      val tiles = tilesList(in)
+      val sol = solution(tiles)
 
-    val minX = sol.keys.minBy(_.x).x
-    val minY = sol.keys.minBy(_.y).y
-    val maxX = sol.keys.maxBy(_.x).x
-    val maxY = sol.keys.maxBy(_.y).y
+      val minX = sol.keys.minBy(_.x).x
+      val minY = sol.keys.minBy(_.y).y
+      val maxX = sol.keys.maxBy(_.x).x
+      val maxY = sol.keys.maxBy(_.y).y
 
-    val min = Point(minX, minY)
-    val max = Point(maxX, maxY)
+      val min = Point(minX, minY)
+      val max = Point(maxX, maxY)
 
-    val width = tiles.head.grids.head.contents.length
-    val size = (max.x - min.x + 1) * (width - 2)
+      val width = tiles.head.grids.head.contents.length
+      val size = (max.x - min.x + 1) * (width - 2)
 
-    val outputGrid = Array.ofDim[Char](size, size)
+      val outputGrid = Array.ofDim[Char](size, size)
 
-    (minX to maxX).foreach { x =>
-      (minY to maxY).foreach { y =>
-        val p = Point(x, y)
-        val x0 = (p.x - min.x) * (width - 2)
-        val y0 = (p.y - min.y) * (width - 2)
+      (minX to maxX).foreach { x =>
+        (minY to maxY).foreach { y =>
+          val p = Point(x, y)
+          val x0 = (p.x - min.x) * (width - 2)
+          val y0 = (p.y - min.y) * (width - 2)
 
-        val grid = sol(p).grid
+          val grid = sol(p).grid
 
-        grid.contents.drop(1).dropRight(1).zipWithIndex.foreach { case (s, gy) =>
-          s.drop(1).dropRight(1).zipWithIndex.foreach { case (c, gx) =>
-            outputGrid(y0 + gy)(x0 + gx) = c
+          grid.contents.drop(1).dropRight(1).zipWithIndex.foreach { case (s, gy) =>
+            s.drop(1).dropRight(1).zipWithIndex.foreach { case (c, gx) =>
+              outputGrid(y0 + gy)(x0 + gx) = c
+            }
           }
         }
       }
+
+      val monster =
+        """                  #
+          |#    ##    ##    ###
+          | #  #  #  #  #  #   """.stripMargin.split("\n").map(_.toCharArray)
+
+      val monsterCounts = Grid(outputGrid).allOrientations.map { grid =>
+        val c = grid.contents
+        (0 until c.length - 3).foreach { y =>
+          (0 until c(y).length - 20).foreach { x =>
+            if ((c(y + 1)(x) == '#' || c(y + 1)(x) == 'Z') &&
+              (c(y + 2)(x + 1) == '#' || c(y + 2)(x + 1) == 'Z') &&
+              (c(y + 2)(x + 4) == '#' || c(y + 2)(x + 4) == 'Z') &&
+              (c(y + 1)(x + 5) == '#' || c(y + 1)(x + 5) == 'Z') &&
+              (c(y + 1)(x + 6) == '#' || c(y + 1)(x + 6) == 'Z') &&
+              (c(y + 2)(x + 7) == '#' || c(y + 2)(x + 7) == 'Z') &&
+              (c(y + 2)(x + 10) == '#' || c(y + 2)(x + 10) == 'Z') &&
+              (c(y + 1)(x + 11) == '#' || c(y + 1)(x + 11) == 'Z') &&
+              (c(y + 1)(x + 12) == '#' || c(y + 1)(x + 12) == 'Z') &&
+              (c(y + 2)(x + 13) == '#' || c(y + 2)(x + 13) == 'Z') &&
+              (c(y + 2)(x + 16) == '#' || c(y + 2)(x + 16) == 'Z') &&
+              (c(y + 1)(x + 17) == '#' || c(y + 1)(x + 17) == 'Z') &&
+              (c(y + 0)(x + 18) == '#' || c(y)(x + 18) == 'Z') &&
+              (c(y + 1)(x + 18) == '#' || c(y + 1)(x + 18) == 'Z') &&
+              (c(y + 1)(x + 19) == '#' || c(y + 1)(x + 19) == 'Z')
+            ) {
+              c(y + 1)(x) = 'Z'
+              c(y + 2)(x + 1) = 'Z'
+              c(y + 2)(x + 4) = 'Z'
+              c(y + 1)(x + 5) = 'Z'
+              c(y + 1)(x + 6) = 'Z'
+              c(y + 2)(x + 7) = 'Z'
+              c(y + 2)(x + 10) = 'Z'
+              c(y + 1)(x + 11) = 'Z'
+              c(y + 1)(x + 12) = 'Z'
+              c(y + 2)(x + 13) = 'Z'
+              c(y + 2)(x + 16) = 'Z'
+              c(y + 1)(x + 17) = 'Z'
+              c(y)(x + 18) = 'Z'
+              c(y + 1)(x + 18) = 'Z'
+              c(y + 1)(x + 19) = 'Z'
+            }
+          }
+        }
+        c.map(_.count(x => x == '#')).sum
+      }.min
+
+      println(monster.map(_.mkString("")).mkString("\n"))
+
+      monsterCounts.toString
     }
-
-    val monster =
-      """                  #
-        |#    ##    ##    ###
-        | #  #  #  #  #  #   """.stripMargin.split("\n").map(_.toCharArray)
-
-    val monsterCounts = Grid(outputGrid).allOrientations.map { grid =>
-      val c = grid.contents
-      (0 until c.length - 3).foreach { y =>
-        (0 until c(y).length - 20).foreach { x =>
-          if ((c(y + 1)(x) == '#' || c(y + 1)(x) == 'Z') &&
-            (c(y + 2)(x + 1) == '#' || c(y + 2)(x + 1) == 'Z') &&
-            (c(y + 2)(x + 4) == '#' || c(y + 2)(x + 4) == 'Z') &&
-            (c(y + 1)(x + 5) == '#' || c(y + 1)(x + 5) == 'Z') &&
-            (c(y + 1)(x + 6) == '#' || c(y + 1)(x + 6) == 'Z') &&
-            (c(y + 2)(x + 7) == '#' || c(y + 2)(x + 7) == 'Z') &&
-            (c(y + 2)(x + 10) == '#' || c(y + 2)(x + 10) == 'Z') &&
-            (c(y + 1)(x + 11) == '#' || c(y + 1)(x + 11) == 'Z') &&
-            (c(y + 1)(x + 12) == '#' || c(y + 1)(x + 12) == 'Z') &&
-            (c(y + 2)(x + 13) == '#' || c(y + 2)(x + 13) == 'Z') &&
-            (c(y + 2)(x + 16) == '#' || c(y + 2)(x + 16) == 'Z') &&
-            (c(y + 1)(x + 17) == '#' || c(y + 1)(x + 17) == 'Z') &&
-            (c(y + 0)(x + 18) == '#' || c(y)(x + 18) == 'Z') &&
-            (c(y + 1)(x + 18) == '#' || c(y + 1)(x + 18) == 'Z') &&
-            (c(y + 1)(x + 19) == '#' || c(y + 1)(x + 19) == 'Z')
-          ) {
-            c(y + 1)(x) = 'Z'
-            c(y + 2)(x + 1) = 'Z'
-            c(y + 2)(x + 4) = 'Z'
-            c(y + 1)(x + 5) = 'Z'
-            c(y + 1)(x + 6) = 'Z'
-            c(y + 2)(x + 7) = 'Z'
-            c(y + 2)(x + 10) = 'Z'
-            c(y + 1)(x + 11) = 'Z'
-            c(y + 1)(x + 12) = 'Z'
-            c(y + 2)(x + 13) = 'Z'
-            c(y + 2)(x + 16) = 'Z'
-            c(y + 1)(x + 17) = 'Z'
-            c(y)(x + 18) = 'Z'
-            c(y + 1)(x + 18) = 'Z'
-            c(y + 1)(x + 19) = 'Z'
-          }
-        }
-      }
-      c.map(_.count(x => x == '#')).sum
-    }.min
-
-    println(monster.map(_.mkString("")).mkString("\n"))
-
-    monsterCounts.toString
   }
 }
 
-object Day20 {
-  def apply() = new Day20()
+object Day20Main extends Day20
 
+object Day20 {
   case class Tile(id: Long, grids: List[Grid])
 
   object Tile {

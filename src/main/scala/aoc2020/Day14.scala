@@ -1,50 +1,54 @@
 package aoc2020
 
-import aoc.Day
+import aoc.NewDay
 
 import scala.collection.mutable
 
-class Day14 extends Day(2020, 14) {
-  override def part1(input: Array[String]): String = {
-    val memory = mutable.Map[Long, Long]()
-    var mask = ""
-    input.foreach { line =>
-      if (line.startsWith("mask = ")) {
-        mask = line.drop(7)
-      } else if (line.startsWith("mem[")) {
-        val end = line.indexOf(']')
-        val loc = line.substring(4, end).toLong
-        val value = line.drop(end + 4).toLong
+class Day14 extends NewDay(2020, 14) {
+  part(1) {
+    execute { in =>
+      val memory = mutable.Map[Long, Long]()
+      var mask = ""
+      in.foreach { line =>
+        if (line.startsWith("mask = ")) {
+          mask = line.drop(7)
+        } else if (line.startsWith("mem[")) {
+          val end = line.indexOf(']')
+          val loc = line.substring(4, end).toLong
+          val value = line.drop(end + 4).toLong
 
-        memory(loc) = Day14.applyValueMask(mask, value)
-      }
-    }
-    "The sum of memory is " + (memory.values.sum)
-  }
-
-  override def part2(input: Array[String]): String = {
-    val memory = mutable.Map[Long, Long]()
-    var mask = ""
-    input.foreach { line =>
-      if (line.startsWith("mask = ")) {
-        mask = line.drop(7)
-      } else if (line.startsWith("mem[")) {
-        val end = line.indexOf(']')
-        val loc = line.substring(4, end).toLong
-        val value = line.drop(end + 4).toLong
-
-        Day14.applyMemoryMask(mask, loc).foreach { loc =>
-          memory(loc) = value
+          memory(loc) = Day14.applyValueMask(mask, value)
         }
       }
+      "The sum of memory is " + (memory.values.sum)
     }
-    "The sum of memory is " + (memory.values.sum)
+  }
+
+  part(2) {
+    execute { in =>
+      val memory = mutable.Map[Long, Long]()
+      var mask = ""
+      in.foreach { line =>
+        if (line.startsWith("mask = ")) {
+          mask = line.drop(7)
+        } else if (line.startsWith("mem[")) {
+          val end = line.indexOf(']')
+          val loc = line.substring(4, end).toLong
+          val value = line.drop(end + 4).toLong
+
+          Day14.applyMemoryMask(mask, loc).foreach { loc =>
+            memory(loc) = value
+          }
+        }
+      }
+      "The sum of memory is " + (memory.values.sum)
+    }
   }
 }
 
-object Day14 {
-  def apply() = new Day14()
+object Day14Main extends Day14
 
+object Day14 {
   def applyValueMask(mask: String, value: Long): Long = {
     val out = toBinaryStringOfLength(value, 36)
     val res = mask.zipWithIndex.map {

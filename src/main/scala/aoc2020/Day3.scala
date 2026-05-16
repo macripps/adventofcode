@@ -1,29 +1,33 @@
 package aoc2020
 
-import aoc.Day
+import aoc.NewDay
 import aoc2020.Day3.treesHit
 
-class Day3 extends Day(2020, 3) {
+class Day3 extends NewDay(2020, 3) {
 
-  override def part1(input: Array[String]): String = {
-    "You hit " + Day3.treesHit((3, 1), input) + " trees"
+  part(1) {
+    execute { in =>
+      "You hit " + Day3.treesHit((3, 1), in) + " trees"
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    val slopes = Array[(Int,Int)](
-      (1, 1),
-      (3, 1),
-      (5, 1),
-      (7, 1),
-      (1, 2),
-    )
-    "You hit " + slopes.map(treesHit(_, input)).product + " trees"
+  part(2) {
+    execute { in =>
+      val slopes = Array[(Int,Int)](
+        (1, 1),
+        (3, 1),
+        (5, 1),
+        (7, 1),
+        (1, 2),
+      )
+      "You hit " + slopes.map(treesHit(_, in)).product + " trees"
+    }
   }
 }
 
-object Day3 {
-  def apply() = new Day3()
+object Day3Main extends Day3
 
+object Day3 {
   def treesHit(slope: (Int, Int), lines: Array[String]): Long = {
     var x = 0
     var y = 0

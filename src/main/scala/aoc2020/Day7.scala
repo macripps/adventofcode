@@ -1,29 +1,33 @@
 package aoc2020
 
-import aoc.Day
+import aoc.NewDay
 
 import scala.collection.mutable
 import Day7._
 
-class Day7 extends Day(2020, 7) {
+class Day7 extends NewDay(2020, 7) {
 
-  override def part1(input: Array[String]): String = {
-    val parsed = parse(input)
-    "Shiny gold bags are contained within " + Day7.part1(Colour("shiny gold"), parsed) + " other bags"
+  part(1) {
+    execute { in =>
+      val parsed = parse(in)
+      "Shiny gold bags are contained within " + Day7.part1(Colour("shiny gold"), parsed) + " other bags"
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    val parsed = parse(input)
-    "Shiny gold bags contain " + Day7.part2(Colour("shiny gold"), parsed) + " other bags"
+  part(2) {
+    execute { in =>
+      val parsed = parse(in)
+      "Shiny gold bags contain " + Day7.part2(Colour("shiny gold"), parsed) + " other bags"
+    }
   }
 }
+
+object Day7Main extends Day7
 
 object Day7 {
   case class Colour(c: String)
 
   case class Edge(c1: Colour, c2: Colour, n: Int)
-
-  def apply() = new Day7()
 
   def parse(lines: Array[String]): Array[Edge] = {
     lines.flatMap { line =>

@@ -1,30 +1,32 @@
 package aoc2020
 
-import aoc.Day
+import aoc.NewDay
 
-class Day1 extends Day(2020, 1) {
-  override def part1(input: Array[String]): String = {
-    val pair = Day1.findPairThatSumTo(input.map(_.toLong).sorted, 2020)
-    pair match {
-      case Some(p) => "The product of " + p._1 + " and " + p._2 + " is " + (p._1 * p._2)
-      case None => "No pair summed to 2020"
+class Day1 extends NewDay(2020, 1) {
+  part(1) {
+    execute { in =>
+      val pair = Day1.findPairThatSumTo(in.map(_.toLong).sorted, 2020)
+      pair match {
+        case Some(p) => "The product of " + p._1 + " and " + p._2 + " is " + (p._1 * p._2)
+        case None => "No pair summed to 2020"
+      }
     }
   }
 
-  override def part2(input: Array[String]): String = {
-    val trio = Day1.findTripleThatSumTo(input.map(_.toLong).sorted, 2020)
-    trio match {
-      case Some(t) => "The product of " + t._1 + " and " + t._2 + " and " + t._3 + " is " + (t._1 * t._2 * t._3)
-      case None => "No trio summed to 2020"
+  part(2) {
+    execute { in =>
+      val trio = Day1.findTripleThatSumTo(in.map(_.toLong).sorted, 2020)
+      trio match {
+        case Some(t) => "The product of " + t._1 + " and " + t._2 + " and " + t._3 + " is " + (t._1 * t._2 * t._3)
+        case None => "No trio summed to 2020"
+      }
     }
   }
 }
 
-object Day1 {
-  def apply(): Day1 = {
-    new Day1()
-  }
+object Day1Main extends Day1
 
+object Day1 {
   def findPairThatSumTo(nums: Array[Long], total: Long): Option[(Long, Long)] = {
     var lower = 0
     var upper = nums.length - 1

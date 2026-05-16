@@ -1,40 +1,44 @@
 package aoc2020
 
-import aoc.Day
+import aoc.NewDay
 
-class Day11 extends Day(2020, 11) {
-  override def part1(input: Array[String]): String = {
-    var grid = input.map(_.toCharArray)
-    var it = 1
-    var nextGrid = Day11.iterate1(grid)
-    while (Day11.different(grid, nextGrid)) {
-      grid = nextGrid
-      nextGrid = Day11.iterate1(grid)
-      it = it + 1
+class Day11 extends NewDay(2020, 11) {
+  part(1) {
+    execute { in =>
+      var grid = in.map(_.toCharArray)
+      var it = 1
+      var nextGrid = Day11.iterate1(grid)
+      while (Day11.different(grid, nextGrid)) {
+        grid = nextGrid
+        nextGrid = Day11.iterate1(grid)
+        it = it + 1
+      }
+     "Iterations: " + it + ", Occupied: " + nextGrid.map { x => x.count { p => p == '#' } }.sum
     }
-   "Iterations: " + it + ", Occupied: " + nextGrid.map { x => x.count { p => p == '#' } }.sum
   }
 
   def toString(grid: Array[Array[Char]]): String = {
     grid.map(_.mkString("")).mkString("\n")
   }
 
-  override def part2(input: Array[String]): String = {
-    var grid = input.map(_.toCharArray)
-    var it = 1
-    var nextGrid = Day11.iterate2(grid)
-    while (Day11.different(grid, nextGrid)) {
-      grid = nextGrid
-      nextGrid = Day11.iterate2(grid)
-      it = it + 1
+  part(2) {
+    execute { in =>
+      var grid = in.map(_.toCharArray)
+      var it = 1
+      var nextGrid = Day11.iterate2(grid)
+      while (Day11.different(grid, nextGrid)) {
+        grid = nextGrid
+        nextGrid = Day11.iterate2(grid)
+        it = it + 1
+      }
+      "Iterations: " + it + ", Occupied: " + nextGrid.map { x => x.count { p => p == '#' } }.sum
     }
-    "Iterations: " + it + ", Occupied: " + nextGrid.map { x => x.count { p => p == '#' } }.sum
   }
 }
 
-object Day11 {
-  def apply() = new Day11
+object Day11Main extends Day11
 
+object Day11 {
   def iterate1(grid: Array[Array[Char]]): Array[Array[Char]] = {
     val nextGrid = Array.ofDim[Char](grid.length, grid(0).length)
     grid.indices.map { i =>

@@ -1,50 +1,54 @@
 package aoc2020
 
-import aoc.Day
+import aoc.NewDay
 import aoc2020.Day22._
 
 import scala.collection.mutable
 
-class Day22 extends Day(2020, 22) {
+class Day22 extends NewDay(2020, 22) {
   def decks(input: Array[String]): Seq[Seq[Int]] = inputGroups(input).map { g =>
     g.drop(1).map(_.toInt).toSeq
   }.toSeq
 
-  override def part1(input: Array[String]): String = {
-    val dcks = decks(input)
-    var p1Deck = dcks.head
-    var p2Deck = dcks(1)
+  part(1) {
+    execute { in =>
+      val dcks = decks(in)
+      var p1Deck = dcks.head
+      var p2Deck = dcks(1)
 
-    while (p1Deck.nonEmpty && p2Deck.nonEmpty) {
-      val p1Draw = p1Deck.head
-      val p2Draw = p2Deck.head
+      while (p1Deck.nonEmpty && p2Deck.nonEmpty) {
+        val p1Draw = p1Deck.head
+        val p2Draw = p2Deck.head
 
-      if (p1Draw > p2Draw) {
-        p1Deck = (p1Deck.tail :+ p1Draw) :+ p2Draw
-        p2Deck = p2Deck.tail
-      } else {
-        p1Deck = p1Deck.tail
-        p2Deck = (p2Deck.tail :+ p2Draw) :+ p1Draw
+        if (p1Draw > p2Draw) {
+          p1Deck = (p1Deck.tail :+ p1Draw) :+ p2Draw
+          p2Deck = p2Deck.tail
+        } else {
+          p1Deck = p1Deck.tail
+          p2Deck = (p2Deck.tail :+ p2Draw) :+ p1Draw
+        }
       }
-    }
 
-    (score(p1Deck) + score(p2Deck)).toString
+      (score(p1Deck) + score(p2Deck)).toString
+    }
   }
 
   def score(deck: Seq[Int]): Int = {
     deck.reverse.zipWithIndex.map { case (v, idx) => v * (idx + 1) }.sum
   }
 
-  override def part2(input: Array[String]): String = {
-    val dcks = decks(input)
-    val (_, p1Deck, p2Deck) = new RecursiveGame(dcks.head, dcks(1)).play()
-    (score(p1Deck) + score(p2Deck)).toString
+  part(2) {
+    execute { in =>
+      val dcks = decks(in)
+      val (_, p1Deck, p2Deck) = new RecursiveGame(dcks.head, dcks(1)).play()
+      (score(p1Deck) + score(p2Deck)).toString
+    }
   }
 }
 
-object Day22 {
-  def apply() = new Day22()
+object Day22Main extends Day22
 
+object Day22 {
   class RecursiveGame(p1Deck: Seq[Int], p2Deck: Seq[Int]) {
     val cache: mutable.Set[(Seq[Int], Seq[Int])] = mutable.Set[(Seq[Int], Seq[Int])]()
 

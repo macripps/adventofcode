@@ -1,21 +1,25 @@
 package aoc2020
 
-import aoc.Day
+import aoc.NewDay
 import Day18._
 
-class Day18 extends Day(2020, 18) {
-  override def part1(input: Array[String]): String = {
-    input.map(_.replace(" ", "")).map(parse).sum.toString
+class Day18 extends NewDay(2020, 18) {
+  part(1) {
+    execute { in =>
+      in.map(_.replace(" ", "")).map(parse).sum.toString
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    input.map(_.replace(" ", "")).map(parse2).sum.toString
+  part(2) {
+    execute { in =>
+      in.map(_.replace(" ", "")).map(parse2).sum.toString
+    }
   }
 }
 
-object Day18 {
-  def apply() = new Day18()
+object Day18Main extends Day18
 
+object Day18 {
   def parse(line: String): Long = {
     line.toLongOption match {
       case Some(x) => x
