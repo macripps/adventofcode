@@ -1,21 +1,23 @@
 package aoc2016
 
-import aoc.Day
+import aoc.NewDay
 import Day4._
 
-class Day4 extends Day(2016, 4) {
-  override def part1(input: Array[String]): String = {
-    input.map(Room).filter(_.isReal).map(_.sectorId).sum.toString
+class Day4 extends NewDay(2016, 4) {
+  part(1) {
+    execute { in =>
+      in.map(Room).filter(_.isReal).map(_.sectorId).sum.toString
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    input.map(Room).filter(x => x.isReal && x.decodedName == "northpoleobjectstorage").head.sectorId.toString
+  part(2) {
+    execute { in =>
+      in.map(Room).filter(x => x.isReal && x.decodedName == "northpoleobjectstorage").head.sectorId.toString
+    }
   }
 }
 
 object Day4 {
-  def apply() = new Day4()
-
   case class Room(s: String) {
     val sectorId: Int = {
       val t = s.split("-").last
@@ -72,3 +74,5 @@ object Day4 {
   }
 
 }
+
+object Day4Main extends Day4

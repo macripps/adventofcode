@@ -1,60 +1,64 @@
 package aoc2016
 
-import aoc.Day
+import aoc.NewDay
 
 import scala.util.matching.Regex
 
-class Day22 extends Day(2016, 22) {
+class Day22 extends NewDay(2016, 22) {
 
   import Day22._
 
-  def nodes(input: Array[String]): Array[Node] = input.drop(2).map {
+  def nodes(in: Array[String]): Array[Node] = in.drop(2).map {
     case line(x: String, y: String, size: String, used: String) => Node("node-x" + x + "-y" + y, x.toInt, y.toInt, size.toInt, used.toInt)
   }
 
-  override def part1(input: Array[String]): String = {
-    val nods = nodes(input)
-    nods.filter(_.used != 0).flatMap { n =>
-      nods.filter { n2 => n.name != n2.name && n2.avail >= n.used }
-    }.length.toString
+  part(1) {
+    execute { in =>
+      val nods = nodes(in)
+      nods.filter(_.used != 0).flatMap { n =>
+        nods.filter { n2 => n.name != n2.name && n2.avail >= n.used }
+      }.length.toString
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    val m = nodes(input).map { n => Point(n.x, n.y) -> n }.toMap
-    val maxX = m.keys.maxBy(_.x).x
-    val maxY = m.keys.maxBy(_.y).y
-    val g = Point(maxX, 0)
-    (0 to maxY).foreach { y =>
-      (0 to maxX).foreach { x =>
-        val n = m(Point(x, y))
-        if (x == 0 && y == 0) {
-          print('(')
-        } else {
-          print(' ')
+  part(2) {
+    execute { in =>
+      val m = nodes(in).map { n => Point(n.x, n.y) -> n }.toMap
+      val maxX = m.keys.maxBy(_.x).x
+      val maxY = m.keys.maxBy(_.y).y
+      val g = Point(maxX, 0)
+      (0 to maxY).foreach { y =>
+        (0 to maxX).foreach { x =>
+          val n = m(Point(x, y))
+          if (x == 0 && y == 0) {
+            print('(')
+          } else {
+            print(' ')
+          }
+          if (n.x == g.x && n.y == g.y) {
+            print('G')
+          } else if (n.used == 0) {
+            print('_')
+          } else if (n.size > 100) {
+            print('#')
+          } else {
+            print('.')
+          }
+          if (x == 0 && y == 0) {
+            print(')')
+          } else {
+            print(' ')
+          }
         }
-        if (n.x == g.x && n.y == g.y) {
-          print('G')
-        } else if (n.used == 0) {
-          print('_')
-        } else if (n.size > 100) {
-          print('#')
-        } else {
-          print('.')
-        }
-        if (x == 0 && y == 0) {
-          print(')')
-        } else {
-          print(' ')
-        }
+        println()
       }
-      println()
-    }
-    // Number of moves to get to (maxX-1, 0) -> 26
-    // Number of moves to get to (maxX, 0) -> 1 (goal is now at maxX-1, 0)
-    // Number of moves to shift goal left 1 -> 5
-    // Number of times to shift goal left -> maxX-1
+      // Number of moves to get to (maxX-1, 0) -> 26
+      // Number of moves to get to (maxX, 0) -> 1 (goal is now at maxX-1, 0)
+      // Number of moves to shift goal left 1 -> 5
+      // Number of times to shift goal left -> maxX-1
 
-    (26 + 1 + (5 * 33)).toString
+      (26 + 1 + (5 * 33)).toString
+    }
   }
 
   def nextStates(s: State): Set[State] = {
@@ -112,8 +116,6 @@ class Day22 extends Day(2016, 22) {
 }
 
 object Day22 {
-  def apply() = new Day22()
-
   val line: Regex = raw"/dev/grid/node-x(\d+)-y(\d+)\s+(\d+)T\s+(\d+)T\s+\d+T\s+\d+%".r
 
   case class Node(name: String, x: Int, y: Int, size: Int, used: Int) {
@@ -125,3 +127,5 @@ object Day22 {
   case class State(nodes: Set[Node], goalData: Point)(val parent: Option[State])
 
 }
+
+object Day22Main extends Day22

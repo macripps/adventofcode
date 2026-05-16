@@ -1,51 +1,54 @@
 package aoc2016
 
-import aoc.Day
+import aoc.NewDay
 
 import scala.util.matching.Regex
 
-class Day10 extends Day(2016, 10) {
+class Day10 extends NewDay(2016, 10) {
   import aoc2016.Day10._
-  override def part1(input: Array[String]): String = {
-    val output = Array.ofDim[Int](21)
-    val botsB = Map.newBuilder[Int, Bot]
-    input.foreach {
-      case i@neitherToOutput(id: String, _: String, _: String) => botsB.addOne(id.toInt, new Bot(id.toInt, None, None, i))
-      case i@lowToOutput(id: String, _: String, _: String) => botsB.addOne(id.toInt, new Bot(id.toInt, None, None, i))
-      case i@highToOutput(id: String, _: String, _: String) => botsB.addOne(id.toInt, new Bot(id.toInt, None, None, i))
-      case i@bothToOutput(id: String, _: String, _: String) => botsB.addOne(id.toInt, new Bot(id.toInt, None, None, i))
-      case _ =>
+
+  part(1) {
+    execute { in =>
+      val output = Array.ofDim[Int](21)
+      val botsB = Map.newBuilder[Int, Bot]
+      in.foreach {
+        case i@neitherToOutput(id: String, _: String, _: String) => botsB.addOne(id.toInt, new Bot(id.toInt, None, None, i))
+        case i@lowToOutput(id: String, _: String, _: String) => botsB.addOne(id.toInt, new Bot(id.toInt, None, None, i))
+        case i@highToOutput(id: String, _: String, _: String) => botsB.addOne(id.toInt, new Bot(id.toInt, None, None, i))
+        case i@bothToOutput(id: String, _: String, _: String) => botsB.addOne(id.toInt, new Bot(id.toInt, None, None, i))
+        case _ =>
+      }
+      val bots = botsB.result()
+      in.foreach {
+        case valueToBot(value: String, bot: String) => bots(bot.toInt).receive(value.toInt, bots, output)
+        case _ =>
+      }
+      bots.find { case (_, x) => math.min(x.v1.get, x.v2.get) == 17 && math.max(x.v1.get, x.v2.get) == 61 }.head._1.toString
     }
-    val bots = botsB.result()
-    input.foreach {
-      case valueToBot(value: String, bot: String) => bots(bot.toInt).receive(value.toInt, bots, output)
-      case _ =>
-    }
-    bots.find { case (_, x) => math.min(x.v1.get, x.v2.get) == 17 && math.max(x.v1.get, x.v2.get) == 61 }.head._1.toString
   }
 
-  override def part2(input: Array[String]): String = {
-    val output = Array.ofDim[Int](21)
-    val botsB = Map.newBuilder[Int, Bot]
-    input.foreach {
-      case i@neitherToOutput(id: String, _: String, _: String) => botsB.addOne(id.toInt, new Bot(id.toInt, None, None, i))
-      case i@lowToOutput(id: String, _: String, _: String) => botsB.addOne(id.toInt, new Bot(id.toInt, None, None, i))
-      case i@highToOutput(id: String, _: String, _: String) => botsB.addOne(id.toInt, new Bot(id.toInt, None, None, i))
-      case i@bothToOutput(id: String, _: String, _: String) => botsB.addOne(id.toInt, new Bot(id.toInt, None, None, i))
-      case _ =>
+  part(2) {
+    execute { in =>
+      val output = Array.ofDim[Int](21)
+      val botsB = Map.newBuilder[Int, Bot]
+      in.foreach {
+        case i@neitherToOutput(id: String, _: String, _: String) => botsB.addOne(id.toInt, new Bot(id.toInt, None, None, i))
+        case i@lowToOutput(id: String, _: String, _: String) => botsB.addOne(id.toInt, new Bot(id.toInt, None, None, i))
+        case i@highToOutput(id: String, _: String, _: String) => botsB.addOne(id.toInt, new Bot(id.toInt, None, None, i))
+        case i@bothToOutput(id: String, _: String, _: String) => botsB.addOne(id.toInt, new Bot(id.toInt, None, None, i))
+        case _ =>
+      }
+      val bots = botsB.result()
+      in.foreach {
+        case valueToBot(value: String, bot: String) => bots(bot.toInt).receive(value.toInt, bots, output)
+        case _ =>
+      }
+      output.take(3).product.toString
     }
-    val bots = botsB.result()
-    input.foreach {
-      case valueToBot(value: String, bot: String) => bots(bot.toInt).receive(value.toInt, bots, output)
-      case _ =>
-    }
-    output.take(3).product.toString
   }
 }
 
 object Day10 {
-  def apply() = new Day10()
-
   class Bot(val id: Int, var v1: Option[Int], var v2: Option[Int], val inst: String) {
     def receive(i: Int, bots: Map[Int, Bot], output: Array[Int]): Unit = {
       if (!v1.isDefined) {
@@ -83,3 +86,5 @@ object Day10 {
   val bothToOutput: Regex = raw"bot (\d+) gives low to output (\d+) and high to output (\d+)".r
 
 }
+
+object Day10Main extends Day10

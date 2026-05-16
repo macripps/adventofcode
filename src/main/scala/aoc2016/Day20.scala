@@ -1,20 +1,22 @@
 package aoc2016
 
-import aoc.Day
+import aoc.NewDay
 
 import scala.collection.immutable.NumericRange
 
-class Day20 extends Day(2016, 20) {
-  override def part1(input: Array[String]): String = {
-    val ranges = input.map(x => {
-      val a = x.split("-")
-      Range.Long.inclusive(a(0).toLong, a(1).toLong, 1L)
-    }).sortBy(x => x.start)
-    var k = ranges.head
-    ranges.drop(1).foreach { r =>
-      k = extend(k, r)
+class Day20 extends NewDay(2016, 20) {
+  part(1) {
+    execute { in =>
+      val ranges = in.map(x => {
+        val a = x.split("-")
+        Range.Long.inclusive(a(0).toLong, a(1).toLong, 1L)
+      }).sortBy(x => x.start)
+      var k = ranges.head
+      ranges.drop(1).foreach { r =>
+        k = extend(k, r)
+      }
+      (1L + k.end).toString
     }
-    (1L + k.end).toString
   }
 
   def extend(r1: NumericRange.Inclusive[Long], r2: NumericRange.Inclusive[Long]): NumericRange.Inclusive[Long] = {
@@ -27,35 +29,35 @@ class Day20 extends Day(2016, 20) {
     }
   }
 
-  override def part2(input: Array[String]): String = {
-    val mergedRanges = List.newBuilder[NumericRange.Inclusive[Long]]
-    val ranges = input.map(x => {
-      val a = x.split("-")
-      Range.Long.inclusive(a(0).toLong, a(1).toLong, 1L)
-    }).sortBy(x => x.start)
-    var i = 1
-    var r = ranges(0)
-    while (i < ranges.length) {
-      val k = ranges(i)
-      if (k.start.asInstanceOf[Long] <= 1L + r.end) {
-        r = Range.Long.inclusive(r.start, math.max(r.end, k.end), 1L)
-      } else {
-        mergedRanges.addOne(r)
-        r = k
+  part(2) {
+    execute { in =>
+      val mergedRanges = List.newBuilder[NumericRange.Inclusive[Long]]
+      val ranges = in.map(x => {
+        val a = x.split("-")
+        Range.Long.inclusive(a(0).toLong, a(1).toLong, 1L)
+      }).sortBy(x => x.start)
+      var i = 1
+      var r = ranges(0)
+      while (i < ranges.length) {
+        val k = ranges(i)
+        if (k.start.asInstanceOf[Long] <= 1L + r.end) {
+          r = Range.Long.inclusive(r.start, math.max(r.end, k.end), 1L)
+        } else {
+          mergedRanges.addOne(r)
+          r = k
+        }
+        i = i + 1
       }
-      i = i + 1
-    }
-    mergedRanges.addOne(r)
-    val merged = mergedRanges.result()
-    var allowed = 0L
-    merged.indices.drop(1).foreach { i =>
-      allowed += (merged(i).start.asInstanceOf[Long] - 1L - merged(i - 1).end.asInstanceOf[Long])
-    }
+      mergedRanges.addOne(r)
+      val merged = mergedRanges.result()
+      var allowed = 0L
+      merged.indices.drop(1).foreach { i =>
+        allowed += (merged(i).start.asInstanceOf[Long] - 1L - merged(i - 1).end.asInstanceOf[Long])
+      }
 
-    allowed.toString
+      allowed.toString
+    }
   }
 }
 
-object Day20 {
-  def apply() = new Day20()
-}
+object Day20Main extends Day20

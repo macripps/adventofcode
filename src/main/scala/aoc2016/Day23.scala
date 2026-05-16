@@ -1,27 +1,31 @@
 package aoc2016
 
-import aoc.Day
+import aoc.NewDay
 
 import scala.collection.mutable
 import scala.util.matching.Regex
 
-class Day23 extends Day(2016, 23) {
+class Day23 extends NewDay(2016, 23) {
   import Day12._
   import Day23._
 
-  override def part1(input: Array[String]): String = {
-    val registers = mutable.Map("a" -> 7L, "b" -> 0L, "c" -> 0L, "d" -> 0L)
-    execute(input.length, input.toBuffer, registers)
-    registers("a").toString
+  part(1) {
+    execute { in =>
+      val registers = mutable.Map("a" -> 7L, "b" -> 0L, "c" -> 0L, "d" -> 0L)
+      runProgram(in.length, in.toBuffer, registers)
+      registers("a").toString
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    val registers = mutable.Map("a" -> 12L, "b" -> 0L, "c" -> 0L, "d" -> 0L)
-    execute(input.length, input.toBuffer, registers)
-    registers("a").toString
+  part(2) {
+    execute { in =>
+      val registers = mutable.Map("a" -> 12L, "b" -> 0L, "c" -> 0L, "d" -> 0L)
+      runProgram(in.length, in.toBuffer, registers)
+      registers("a").toString
+    }
   }
 
-  def execute(inputLength: Int, program: mutable.Buffer[String], registers: mutable.Map[String, Long]): Unit = {
+  def runProgram(inputLength: Int, program: mutable.Buffer[String], registers: mutable.Map[String, Long]): Unit = {
     var ep = 0
     while (ep < program.length) {
       if (ep == 10 || ep == 16) {
@@ -88,10 +92,10 @@ class Day23 extends Day(2016, 23) {
 }
 
 object Day23 {
-  def apply() = new Day23()
-
   val tgl: Regex = raw"tgl (\w)".r
 }
+
+object Day23Main extends Day23
 
 /*
 cpy a b       var b = a

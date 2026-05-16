@@ -1,22 +1,24 @@
 package aoc2016
 
-import aoc.Day
+import aoc.NewDay
 
-class Day9 extends Day(2016, 9) {
+class Day9 extends NewDay(2016, 9) {
   import Day9._
 
-  override def part1(input: Array[String]): String = {
-    input.map(decompressLength).mkString("\n")
+  part(1) {
+    execute { in =>
+      in.map(decompressLength).mkString("\n")
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    input.map(decompressV2Length).mkString("\n")
+  part(2) {
+    execute { in =>
+      in.map(decompressV2Length).mkString("\n")
+    }
   }
 }
 
 object Day9 {
-  def apply() = new Day9()
-
   def decompressLength(s: String): Long = {
     var l = 0L
     var i = 0
@@ -69,3 +71,5 @@ object Day9 {
     l
   }
 }
+
+object Day9Main extends Day9

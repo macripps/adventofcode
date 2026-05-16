@@ -1,16 +1,18 @@
 package aoc2016
 
-import aoc.Day
+import aoc.NewDay
 
-class Day18 extends Day(2016, 18) {
-  override def part1(input: Array[String]): String = {
-    var row = input(0)
-    var spaces = row.count(_ == '.')
-    (2 to 40).foreach { _ =>
-      row = iterate(row)
-      spaces = spaces + row.count(_ == '.')
+class Day18 extends NewDay(2016, 18) {
+  part(1) {
+    execute { in =>
+      var row = in(0)
+      var spaces = row.count(_ == '.')
+      (2 to 40).foreach { _ =>
+        row = iterate(row)
+        spaces = spaces + row.count(_ == '.')
+      }
+      spaces.toString
     }
-    spaces.toString
   }
 
   def iterate(str: String): String = {
@@ -32,17 +34,17 @@ class Day18 extends Day(2016, 18) {
     }
   }
 
-  override def part2(input: Array[String]): String = {
-    var row = input(0)
-    var spaces = row.count(_ == '.')
-    (2 to 400000).foreach { _ =>
-      row = iterate(row)
-      spaces = spaces + row.count(_ == '.')
+  part(2) {
+    execute { in =>
+      var row = in(0)
+      var spaces = row.count(_ == '.')
+      (2 to 400000).foreach { _ =>
+        row = iterate(row)
+        spaces = spaces + row.count(_ == '.')
+      }
+      spaces.toString
     }
-    spaces.toString
   }
 }
 
-object Day18 {
-  def apply() = new Day18()
-}
+object Day18Main extends Day18

@@ -1,24 +1,29 @@
 package aoc2016
 
-import aoc.{Day, Search}
+import aoc.{NewDay, Search}
 
 import java.security.MessageDigest
 import scala.collection.mutable
 
-class Day17 extends Day(2016, 17) {
+class Day17 extends NewDay(2016, 17) {
   import Day17._
-  override def part1(input: Array[String]): String = {
-    val in = input(0)
-    Search.breadthFirst[Square](Square(0, 0, in)(None), neighbours, s => s.x == 3 && s.y == 3).path.drop(in.length)
+
+  part(1) {
+    execute { in =>
+      val hash = in(0)
+      Search.breadthFirst[Square](Square(0, 0, hash)(None), neighbours, s => s.x == 3 && s.y == 3).path.drop(hash.length)
+    }
   }
 
   def neighbours(s: Square): Set[Square] = s.neighbours
 
-  override def part2(input: Array[String]): String = {
-    val hash = input(0)
-    val result = findAllPaths[Square](Square(0, 0, hash)(None), neighbours, s => s.x == 3 && s.y == 3)
-    val out = result.maxBy(s => s.path.length)
-    (out.path.length - hash.length).toString
+  part(2) {
+    execute { in =>
+      val hash = in(0)
+      val result = findAllPaths[Square](Square(0, 0, hash)(None), neighbours, s => s.x == 3 && s.y == 3)
+      val out = result.maxBy(s => s.path.length)
+      (out.path.length - hash.length).toString
+    }
   }
 
   def findAllPaths[A](root: A, f: A => Set[A], isGoal: A => Boolean): Set[A] = {
@@ -45,8 +50,6 @@ class Day17 extends Day(2016, 17) {
 }
 
 object Day17 {
-  def apply() = new Day17()
-
   case class Square(x: Int, y: Int, path: String)(val from: Option[Square]) {
     val md: MessageDigest = MessageDigest.getInstance("MD5")
     def neighbours: Set[Square] = {
@@ -68,3 +71,5 @@ object Day17 {
     }
   }
 }
+
+object Day17Main extends Day17

@@ -1,24 +1,26 @@
 package aoc2016
 
-import aoc.Day
+import aoc.NewDay
 
 import java.security.MessageDigest
 import scala.collection.mutable
 
-class Day14 extends Day(2016, 14) {
-  override def part1(input: Array[String]): String = {
-    val md = MessageDigest.getInstance("MD5")
-    val stream = mutable.LinkedHashMap[Int, String]()
+class Day14 extends NewDay(2016, 14) {
+  part(1) {
+    execute { in =>
+      val md = MessageDigest.getInstance("MD5")
+      val stream = mutable.LinkedHashMap[Int, String]()
 
-    def getOrUpdate(i: Int): String = {
-      if (!stream.contains(i)) {
-        val x = input(0) + i
-        stream(i) = md.digest(x.getBytes).map("%02x" format _).mkString("")
+      def getOrUpdate(i: Int): String = {
+        if (!stream.contains(i)) {
+          val x = in(0) + i
+          stream(i) = md.digest(x.getBytes).map("%02x" format _).mkString("")
+        }
+        stream(i)
       }
-      stream(i)
-    }
 
-    findKeys(getOrUpdate).take(64).last.toString
+      findKeys(getOrUpdate).take(64).last.toString
+    }
   }
 
   def findKeys(getOrUpdate: Int => String): LazyList[Int] = {
@@ -44,25 +46,25 @@ class Day14 extends Day(2016, 14) {
     }
   }
 
-  override def part2(input: Array[String]): String = {
-    val md = MessageDigest.getInstance("MD5")
-    val stream = mutable.LinkedHashMap[Int, String]()
+  part(2) {
+    execute { in =>
+      val md = MessageDigest.getInstance("MD5")
+      val stream = mutable.LinkedHashMap[Int, String]()
 
-    def getOrUpdate(i: Int): String = {
-      if (!stream.contains(i)) {
-        var x = input(0) + i
-        (1 to 2017).foreach { _ =>
-          x = md.digest(x.getBytes).map("%02x" format _).mkString("")
+      def getOrUpdate(i: Int): String = {
+        if (!stream.contains(i)) {
+          var x = in(0) + i
+          (1 to 2017).foreach { _ =>
+            x = md.digest(x.getBytes).map("%02x" format _).mkString("")
+          }
+          stream(i) = x
         }
-        stream(i) = x
+        stream(i)
       }
-      stream(i)
-    }
 
-    findKeys(getOrUpdate).take(64).last.toString
+      findKeys(getOrUpdate).take(64).last.toString
+    }
   }
 }
 
-object Day14 {
-  def apply() = new Day14()
-}
+object Day14Main extends Day14

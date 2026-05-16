@@ -1,29 +1,23 @@
 package aoc2016
 
-import aoc.{Day, Search}
+import aoc.{NewDay, Search}
 
-class Day11 extends Day(2016, 11) {
+class Day11 extends NewDay(2016, 11) {
 
   import Day11._
 
-  override def part1(input: Array[String]): String = {
-    val state = toState
-    var result = Search.breadthFirst[State](state, transition, isGoal)
-    var length = 0
-    while (result.parent.isDefined) {
-      length = length + 1
-      result = result.parent.get
+  part(1) {
+    execute { _ =>
+      val state = toState
+      var result = Search.breadthFirst[State](state, transition, isGoal)
+      var length = 0
+      while (result.parent.isDefined) {
+        length = length + 1
+        result = result.parent.get
+      }
+      length.toString
     }
-    length.toString
   }
-
-  val example: State = State(
-    elevator = 1,
-    firstFloor = Set(Microchip("H"), Microchip("L")),
-    secondFloor = Set(Generator("H")),
-    thirdFloor = Set(Generator("L")),
-    fourthFloor = Set(),
-  )(None)
 
   def transition(state: State): Set[State] = {
     val newStates = state.elevator match {
@@ -194,21 +188,21 @@ class Day11 extends Day(2016, 11) {
     )(None)
   }
 
-  override def part2(input: Array[String]): String = {
-    val state = toState2
-    var result = Search.breadthFirst[State](state, transition, isGoal)
-    var length = 0
-    while (result.parent.isDefined) {
-      length = length + 1
-      result = result.parent.get
+  part(2) {
+    execute { _ =>
+      val state = toState2
+      var result = Search.breadthFirst[State](state, transition, isGoal)
+      var length = 0
+      while (result.parent.isDefined) {
+        length = length + 1
+        result = result.parent.get
+      }
+      length.toString
     }
-    length.toString
   }
 }
 
 object Day11 {
-  def apply() = new Day11()
-
   trait Item
 
   case class Microchip(t: String) extends Item
@@ -239,3 +233,5 @@ object Day11 {
   }
 
 }
+
+object Day11Main extends Day11

@@ -1,43 +1,34 @@
 package aoc2016
 
-import aoc.Day
+import aoc.NewDay
 
 import scala.util.matching.Regex
 
-class Day21 extends Day(2016, 21) {
+class Day21 extends NewDay(2016, 21) {
 
   import Day21._
 
-  val example = Seq(
-    "swap position 4 with position 0",
-    "swap letter d with letter b",
-    "reverse positions 0 through 4",
-    "rotate left 1 step",
-    "move position 1 to position 4",
-    "move position 3 to position 0",
-    "rotate based on position of letter b",
-    "rotate based on position of letter d",
-  )
-
-  override def part1(input: Array[String]): String = {
-    val x = "abcdefgh".toCharArray
-    input.foreach {
-      case swapPosition(pos1: String, pos2: String) =>
-        swapPosition(x, pos1.toInt, pos2.toInt)
-      case swapLetter(l1: String, l2: String) =>
-        swapLetter(x, l1.charAt(0), l2.charAt(0))
-      case reversePositions(p1: String, p2: String) =>
-        reversePositions(x, p1.toInt, p2.toInt)
-      case rotateLeft(steps: String) =>
-        rotateLeft(x, steps.toInt)
-      case rotateRight(steps: String) =>
-        rotateRight(x, steps.toInt)
-      case movePosition(p1: String, p2: String) =>
-        movePosition(x, p1.toInt, p2.toInt)
-      case rotateLetter(p1: String) =>
-        rotateLetter(x, p1.charAt(0))
+  part(1) {
+    execute { in =>
+      val x = "abcdefgh".toCharArray
+      in.foreach {
+        case swapPosition(pos1: String, pos2: String) =>
+          swapPosition(x, pos1.toInt, pos2.toInt)
+        case swapLetter(l1: String, l2: String) =>
+          swapLetter(x, l1.charAt(0), l2.charAt(0))
+        case reversePositions(p1: String, p2: String) =>
+          reversePositions(x, p1.toInt, p2.toInt)
+        case rotateLeft(steps: String) =>
+          rotateLeft(x, steps.toInt)
+        case rotateRight(steps: String) =>
+          rotateRight(x, steps.toInt)
+        case movePosition(p1: String, p2: String) =>
+          movePosition(x, p1.toInt, p2.toInt)
+        case rotateLetter(p1: String) =>
+          rotateLetter(x, p1.charAt(0))
+      }
+      x.mkString
     }
-    x.mkString
   }
 
   def swapPosition(x: Array[Char], p1: Int, p2: Int): Unit = {
@@ -96,42 +87,42 @@ class Day21 extends Day(2016, 21) {
     rotateRight(x, r)
   }
 
-  override def part2(input: Array[String]): String = {
-    val x = "fbgdceah".toCharArray
-    val unRotateLetter = Map(
-      0 -> 7,
-      1 -> 7,
-      2 -> 2,
-      3 -> 6,
-      4 -> 1,
-      5 -> 5,
-      6 -> 0,
-      7 -> 4,
-    )
-    input.reverse.foreach {
-      case swapPosition(pos1: String, pos2: String) =>
-        swapPosition(x, pos1.toInt, pos2.toInt)
-      case swapLetter(l1: String, l2: String) =>
-        swapLetter(x, l1.charAt(0), l2.charAt(0))
-      case reversePositions(p1: String, p2: String) =>
-        reversePositions(x, p1.toInt, p2.toInt)
-      case rotateLeft(steps: String) =>
-        rotateRight(x, steps.toInt)
-      case rotateRight(steps: String) =>
-        rotateLeft(x, steps.toInt)
-      case movePosition(p1: String, p2: String) =>
-        movePosition(x, p2.toInt, p1.toInt)
-      case rotateLetter(p1: String) =>
-        val r = unRotateLetter(x.indexOf(p1.charAt(0)))
-        rotateRight(x, r)
+  part(2) {
+    execute { in =>
+      val x = "fbgdceah".toCharArray
+      val unRotateLetter = Map(
+        0 -> 7,
+        1 -> 7,
+        2 -> 2,
+        3 -> 6,
+        4 -> 1,
+        5 -> 5,
+        6 -> 0,
+        7 -> 4,
+      )
+      in.reverse.foreach {
+        case swapPosition(pos1: String, pos2: String) =>
+          swapPosition(x, pos1.toInt, pos2.toInt)
+        case swapLetter(l1: String, l2: String) =>
+          swapLetter(x, l1.charAt(0), l2.charAt(0))
+        case reversePositions(p1: String, p2: String) =>
+          reversePositions(x, p1.toInt, p2.toInt)
+        case rotateLeft(steps: String) =>
+          rotateRight(x, steps.toInt)
+        case rotateRight(steps: String) =>
+          rotateLeft(x, steps.toInt)
+        case movePosition(p1: String, p2: String) =>
+          movePosition(x, p2.toInt, p1.toInt)
+        case rotateLetter(p1: String) =>
+          val r = unRotateLetter(x.indexOf(p1.charAt(0)))
+          rotateRight(x, r)
+      }
+      x.mkString
     }
-    x.mkString
   }
 }
 
 object Day21 {
-  def apply() = new Day21()
-
   val swapPosition: Regex = raw"swap position (\d) with position (\d)".r
   val swapLetter: Regex = raw"swap letter (\w) with letter (\w)".r
   val rotateLeft: Regex = raw"rotate left (\d+) steps?".r
@@ -140,3 +131,5 @@ object Day21 {
   val reversePositions: Regex = raw"reverse positions (\d) through (\d)".r
   val movePosition: Regex = raw"move position (\d) to position (\d)".r
 }
+
+object Day21Main extends Day21

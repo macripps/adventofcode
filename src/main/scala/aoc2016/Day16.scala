@@ -1,12 +1,14 @@
 package aoc2016
 
-import aoc.Day
+import aoc.NewDay
 
-class Day16 extends Day(2016, 16) {
-  override def part1(input: Array[String]): String = {
-    val length = 272
-    val x = input(0)
-    checksum(f(x, length).take(length))
+class Day16 extends NewDay(2016, 16) {
+  part(1) {
+    execute { in =>
+      val length = 272
+      val x = in(0)
+      checksum(f(x, length).take(length))
+    }
   }
 
   def f(x: String, length: Int): String = {
@@ -38,13 +40,13 @@ class Day16 extends Day(2016, 16) {
     x.result()
   }
 
-  override def part2(input: Array[String]): String = {
-    val length = 35651584
-    val x = input(0)
-    checksum(f(x, length).take(length))
+  part(2) {
+    execute { in =>
+      val length = 35651584
+      val x = in(0)
+      checksum(f(x, length).take(length))
+    }
   }
 }
 
-object Day16 {
-  def apply() = new Day16()
-}
+object Day16Main extends Day16

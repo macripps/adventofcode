@@ -1,10 +1,12 @@
 package aoc2016
 
-import aoc.Day
+import aoc.NewDay
 
-class Day7 extends Day(2016, 7) {
-  override def part1(input: Array[String]): String = {
-    input.count(supportsTLS).toString
+class Day7 extends NewDay(2016, 7) {
+  part(1) {
+    execute { in =>
+      in.count(supportsTLS).toString
+    }
   }
 
   def supportsTLS(s: String): Boolean = {
@@ -28,8 +30,10 @@ class Day7 extends Day(2016, 7) {
     validInBrackets && validOutOfBrackets
   }
 
-  override def part2(input: Array[String]): String = {
-    input.count(supportsSSL).toString
+  part(2) {
+    execute { in =>
+      in.count(supportsSSL).toString
+    }
   }
 
   def supportsSSL(s: String): Boolean = {
@@ -69,6 +73,4 @@ class Day7 extends Day(2016, 7) {
   }
 }
 
-object Day7 {
-  def apply() = new Day7()
-}
+object Day7Main extends Day7

@@ -1,25 +1,31 @@
 package aoc2016
 
-import aoc.Day
+import aoc.NewDay
 
 import scala.collection.mutable
 import scala.util.matching.Regex
 
-class Day25 extends Day(2016, 25){
+class Day25 extends NewDay(2016, 25){
   import Day12._
   import Day23._
   import Day25._
 
-  override def part1(input: Array[String]): String = {
-    LazyList.from(1).find { a =>
-      val registers = mutable.Map("a" -> a.toLong, "b" -> 0L, "c" -> 0L, "d" -> 0L)
-      execute(input.length, input.toBuffer, registers)
-    }.toString
+  part(1) {
+    execute { in =>
+      LazyList.from(1).find { a =>
+        val registers = mutable.Map("a" -> a.toLong, "b" -> 0L, "c" -> 0L, "d" -> 0L)
+        runProgram(in.length, in.toBuffer, registers)
+      }.toString
+    }
   }
 
-  override def part2(input: Array[String]): String = ""
+  part(2) {
+    execute { _ =>
+      ""
+    }
+  }
 
-  def execute(inputLength: Int, program: mutable.Buffer[String], registers: mutable.Map[String, Long]): Boolean = {
+  def runProgram(inputLength: Int, program: mutable.Buffer[String], registers: mutable.Map[String, Long]): Boolean = {
     var ep = 0
     var validOutput = true
     var expectedOutput = 0L
@@ -94,7 +100,7 @@ class Day25 extends Day(2016, 25){
 }
 
 object Day25 {
-  def apply() = new Day25()
-
   val out: Regex = raw"out (\w)".r
 }
+
+object Day25Main extends Day25
