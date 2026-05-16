@@ -1,41 +1,43 @@
 package aoc2017
 
-import aoc.Day
+import aoc.NewDay
 
 import scala.collection.mutable
 import scala.util.matching.Regex
 
-class Day23 extends Day(2017, 23) {
+class Day23 extends NewDay(2017, 23) {
 
   import Day23._
 
-  override def part1(input: Array[String]): String = {
-    val registers = mutable.Map[String, Long]()
-    var ep = 0
-    var muls = 0
-    while (ep >= 0 && ep < input.length) {
-      input(ep) match {
-        case set(r1: String, rOrVal: String) =>
-          registers(r1) = regOrVal(registers, rOrVal)
-          ep = ep + 1
-        case sub(r1: String, rOrVal: String) =>
-          registers(r1) = regOrVal(registers, r1) - regOrVal(registers, rOrVal)
-          ep = ep + 1
-        case mul(r1: String, rOrVal: String) =>
-          muls = muls + 1
-          registers(r1) = regOrVal(registers, r1) * regOrVal(registers, rOrVal)
-          ep = ep + 1
-        case jnz(rOrVal1: String, rOrVal2: String) =>
-          val x = regOrVal(registers, rOrVal1)
-          if (x != 0) {
-            ep = ep + regOrVal(registers, rOrVal2).toInt
-          } else {
+  part(1) {
+    execute { in =>
+      val registers = mutable.Map[String, Long]()
+      var ep = 0
+      var muls = 0
+      while (ep >= 0 && ep < in.length) {
+        in(ep) match {
+          case set(r1: String, rOrVal: String) =>
+            registers(r1) = regOrVal(registers, rOrVal)
             ep = ep + 1
-          }
+          case sub(r1: String, rOrVal: String) =>
+            registers(r1) = regOrVal(registers, r1) - regOrVal(registers, rOrVal)
+            ep = ep + 1
+          case mul(r1: String, rOrVal: String) =>
+            muls = muls + 1
+            registers(r1) = regOrVal(registers, r1) * regOrVal(registers, rOrVal)
+            ep = ep + 1
+          case jnz(rOrVal1: String, rOrVal2: String) =>
+            val x = regOrVal(registers, rOrVal1)
+            if (x != 0) {
+              ep = ep + regOrVal(registers, rOrVal2).toInt
+            } else {
+              ep = ep + 1
+            }
+        }
       }
+      println(registers)
+      muls.toString
     }
-    println(registers)
-    muls.toString
   }
 
   def regOrVal(registers: mutable.Map[String, Long], str: String): Long = {
@@ -44,18 +46,20 @@ class Day23 extends Day(2017, 23) {
     } else str.toLong
   }
 
-  override def part2(input: Array[String]): String = {
-    // Setup
-    var b = 0
-    var c = 0
-    // Init
-    b = 99
-    c = b
-    b = b * 100
-    b = b + 100_000
-    c = b
-    c = c + 17_000
-    Range.inclusive(b, c, 17).count(!isPrime(_)).toString
+  part(2) {
+    execute { _ =>
+      // Setup
+      var b = 0
+      var c = 0
+      // Init
+      b = 99
+      c = b
+      b = b * 100
+      b = b + 100_000
+      c = b
+      c = c + 17_000
+      Range.inclusive(b, c, 17).count(!isPrime(_)).toString
+    }
   }
 
   def isPrime(x: Long): Boolean = {
@@ -69,10 +73,10 @@ class Day23 extends Day(2017, 23) {
 }
 
 object Day23 {
-  def apply() = new Day23()
-
   val set: Regex = raw"set (\w) (-?\w+)".r
   val sub: Regex = raw"sub (\w) (-?\w+)".r
   val mul: Regex = raw"mul (\w) (-?\w+)".r
   val jnz: Regex = raw"jnz (-?\w+) (-?\w+)".r
 }
+
+object Day23Main extends Day23

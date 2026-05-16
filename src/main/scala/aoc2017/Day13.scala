@@ -1,17 +1,19 @@
 package aoc2017
 
-import aoc.Day
+import aoc.NewDay
 
-class Day13 extends Day(2017, 13) {
-  override def part1(input: Array[String]): String = {
-    input.map { line =>
-      val kv = line.split(": ")
-      val col = kv(0).toInt
-      val depth = kv(1).toInt
-      if (pos(col, depth) == 1) {
-        col * depth
-      } else 0
-    }.sum.toString
+class Day13 extends NewDay(2017, 13) {
+  part(1) {
+    execute { in =>
+      in.map { line =>
+        val kv = line.split(": ")
+        val col = kv(0).toInt
+        val depth = kv(1).toInt
+        if (pos(col, depth) == 1) {
+          col * depth
+        } else 0
+      }.sum.toString
+    }
   }
 
   def pos(col: Int, depth: Int): Int = {
@@ -19,21 +21,21 @@ class Day13 extends Day(2017, 13) {
     r(col % r.length)
   }
 
-  override def part2(input: Array[String]): String = {
-    LazyList.from(1).find { x =>
-      val sc = input.map { line =>
-        val kv = line.split(": ")
-        val col = kv(0).toInt
-        val depth = kv(1).toInt
-        if (pos(col + x, depth) == 1) {
-          1
-        } else 0
-      }.sum
-      sc == 0
-    }.get.toString
+  part(2) {
+    execute { in =>
+      LazyList.from(1).find { x =>
+        val sc = in.map { line =>
+          val kv = line.split(": ")
+          val col = kv(0).toInt
+          val depth = kv(1).toInt
+          if (pos(col + x, depth) == 1) {
+            1
+          } else 0
+        }.sum
+        sc == 0
+      }.get.toString
+    }
   }
 }
 
-object Day13 {
-  def apply() = new Day13()
-}
+object Day13Main extends Day13

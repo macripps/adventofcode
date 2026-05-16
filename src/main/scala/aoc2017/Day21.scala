@@ -1,22 +1,25 @@
 package aoc2017
 
-import aoc.Day
+import aoc.NewDay
 
 import scala.collection.mutable
 
-class Day21 extends Day(2017, 21) {
+class Day21 extends NewDay(2017, 21) {
   import Day21._
-
-  val example = Seq(
-    "../.# => ##./#../...",
-    ".#./..#/### => #..#/..../..../#..#",
-  )
 
   val start: Grid = Grid(Array(Array('.', '#', '.'), Array('.', '.', '#'), Array('#', '#', '#')))
 
-  override def part1(input: Array[String]): String = result(input, 5)
+  part(1) {
+    execute { in =>
+      result(in, 5)
+    }
+  }
 
-  override def part2(input: Array[String]): String = result(input, 18)
+  part(2) {
+    execute { in =>
+      result(in, 18)
+    }
+  }
 
   def result(input: Array[String], its: Int): String = {
     val rules = mutable.Map[String, Grid]()
@@ -77,8 +80,6 @@ class Day21 extends Day(2017, 21) {
 }
 
 object Day21 {
-  def apply() = new Day21()
-
   case class Grid(contents: Array[Array[Char]]) {
 
     def rotate: Grid = {
@@ -117,3 +118,5 @@ object Day21 {
     }
   }
 }
+
+object Day21Main extends Day21

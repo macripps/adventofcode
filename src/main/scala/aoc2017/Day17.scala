@@ -1,50 +1,53 @@
 package aoc2017
 
-import aoc.Day
+import aoc.NewDay
 
-class Day17 extends Day(2017, 17) {
+class Day17 extends NewDay(2017, 17) {
 
   import Day17._
 
-  override def part1(input: Array[String]): String = {
-    val buffer = new Node(0)
-    buffer.next = buffer
-    val steps = input.head.toInt
-    var n = buffer
-    var o = n
-    (1 to 2017).foreach { i =>
-      (1 to steps).foreach { _ =>
-        n = n.next
+  part(1) {
+    execute { in =>
+      val buffer = new Node(0)
+      buffer.next = buffer
+      val steps = in.head.toInt
+      var n = buffer
+      var o = n
+      (1 to 2017).foreach { i =>
+        (1 to steps).foreach { _ =>
+          n = n.next
+        }
+        val k = new Node(i)
+        k.next = n.next
+        n.next = k
+        o = k.next
+        n = k
       }
-      val k = new Node(i)
-      k.next = n.next
-      n.next = k
-      o = k.next
-      n = k
+      o.v.toString
     }
-    o.v.toString
   }
 
-  override def part2(input: Array[String]): String = {
-    val steps = input.head.toInt
-    var res = 0
-    var pos = 0
-    (1 to 50_000_000).foreach { i =>
-      pos = (pos + steps) % i
-      pos = pos + 1
-      if (pos == 1) {
-        res = i
+  part(2) {
+    execute { in =>
+      val steps = in.head.toInt
+      var res = 0
+      var pos = 0
+      (1 to 50_000_000).foreach { i =>
+        pos = (pos + steps) % i
+        pos = pos + 1
+        if (pos == 1) {
+          res = i
+        }
       }
+      res.toString
     }
-    res.toString
   }
 }
 
 object Day17 {
-  def apply() = new Day17()
-
   class Node(val v: Int) {
     var next: Node = _
   }
-
 }
+
+object Day17Main extends Day17

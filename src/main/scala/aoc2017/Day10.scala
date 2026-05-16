@@ -1,34 +1,36 @@
 package aoc2017
 
-import aoc.Day
+import aoc.NewDay
 
-class Day10 extends Day(2017, 10) {
+class Day10 extends NewDay(2017, 10) {
   import Day10._
-  override def part1(input: Array[String]): String = {
-    val r = (0 to 255).toArray
-    var pos = 0
-    var skip = 0
-    input.head.split(",").map(_.toInt).foreach { i =>
-      val d = pos + i - 1
-      (pos to (pos + i / 2)).zip(Range.inclusive(d, pos + i / 2, -1)).foreach { ps =>
-        val t = r(ps._1 % r.length)
-        r(ps._1 % r.length) = r(ps._2 % r.length)
-        r(ps._2 % r.length) = t
+  part(1) {
+    execute { in =>
+      val r = (0 to 255).toArray
+      var pos = 0
+      var skip = 0
+      in.head.split(",").map(_.toInt).foreach { i =>
+        val d = pos + i - 1
+        (pos to (pos + i / 2)).zip(Range.inclusive(d, pos + i / 2, -1)).foreach { ps =>
+          val t = r(ps._1 % r.length)
+          r(ps._1 % r.length) = r(ps._2 % r.length)
+          r(ps._2 % r.length) = t
+        }
+        pos = (pos + i + skip) % r.length
+        skip = skip + 1
       }
-      pos = (pos + i + skip) % r.length
-      skip = skip + 1
+      (r(0) * r(1)).toString
     }
-    (r(0) * r(1)).toString
   }
 
-  override def part2(input: Array[String]): String = {
-    knotHash(input.head).map(n => "%02x" format n).mkString
+  part(2) {
+    execute { in =>
+      knotHash(in.head).map(n => "%02x" format n).mkString
+    }
   }
 }
 
 object Day10 {
-  def apply() = new Day10()
-
   def knotHash(input: String): Iterator[Int] = {
     val lengths = input.toCharArray.map(_.toInt) ++ Seq(17, 31, 73, 47, 23)
     val r = (0 to 255).toArray
@@ -51,3 +53,5 @@ object Day10 {
     }
   }
 }
+
+object Day10Main extends Day10

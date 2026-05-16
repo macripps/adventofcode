@@ -1,12 +1,14 @@
 package aoc2017
 
-import aoc.{Day, Point}
+import aoc.{NewDay, Point}
 
 import scala.collection.mutable
 
-class Day3 extends Day(2017, 3) {
-  override def part1(input: Array[String]): String = {
-    points(input(0).toInt).last.manhattanDistanceTo(Point(0,0)).toString
+class Day3 extends NewDay(2017, 3) {
+  part(1) {
+    execute { in =>
+      points(in(0).toInt).last.manhattanDistanceTo(Point(0,0)).toString
+    }
   }
 
   def points(target: Int): Seq[Point] = {
@@ -30,35 +32,35 @@ class Day3 extends Day(2017, 3) {
     out.result()
   }
 
-  override def part2(input: Array[String]): String = {
-    val target = input(0).toInt
-    var result = points(target)
-    val grid = mutable.Map[Point, Int]()
-    var write = 1
-    var nxt = result.head
-    result = result.tail
-    grid(nxt) = write
-    while (write < target) {
-      nxt = result.head
+  part(2) {
+    execute { in =>
+      val target = in(0).toInt
+      var result = points(target)
+      val grid = mutable.Map[Point, Int]()
+      var write = 1
+      var nxt = result.head
       result = result.tail
-      val neighbours = List(
-        Point(nxt.x - 1, nxt.y - 1),
-        Point(nxt.x - 1, nxt.y),
-        Point(nxt.x - 1, nxt.y + 1),
-        Point(nxt.x, nxt.y - 1),
-        Point(nxt.x, nxt.y + 1),
-        Point(nxt.x + 1, nxt.y-1),
-        Point(nxt.x + 1, nxt.y),
-        Point(nxt.x + 1, nxt.y+1),
-      ).filter(grid.contains)
-      write = neighbours.map(grid.apply).sum
       grid(nxt) = write
-    }
+      while (write < target) {
+        nxt = result.head
+        result = result.tail
+        val neighbours = List(
+          Point(nxt.x - 1, nxt.y - 1),
+          Point(nxt.x - 1, nxt.y),
+          Point(nxt.x - 1, nxt.y + 1),
+          Point(nxt.x, nxt.y - 1),
+          Point(nxt.x, nxt.y + 1),
+          Point(nxt.x + 1, nxt.y-1),
+          Point(nxt.x + 1, nxt.y),
+          Point(nxt.x + 1, nxt.y+1),
+        ).filter(grid.contains)
+        write = neighbours.map(grid.apply).sum
+        grid(nxt) = write
+      }
 
-    write.toString
+      write.toString
+    }
   }
 }
 
-object Day3 {
-  def apply() = new Day3()
-}
+object Day3Main extends Day3

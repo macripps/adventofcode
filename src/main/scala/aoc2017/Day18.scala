@@ -1,43 +1,44 @@
 package aoc2017
 
-import aoc.Day
+import aoc.NewDay
 
 import scala.collection.mutable
 import scala.util.matching.Regex
 
-class Day18 extends Day(2017, 18) {
+class Day18 extends NewDay(2017, 18) {
 
   import Day18._
 
-  override def part1(input: Array[String]): String = {
-    val p = new Program(0, input, mutable.Map[String, Long]())
-    val o = new Program(0, input, mutable.Map[String, Long]())
-    p.target = o
-    while (p.running && !p.paused) {
-      p.step()
+  part(1) {
+    execute { in =>
+      val p = new Program(0, in, mutable.Map[String, Long]())
+      val o = new Program(0, in, mutable.Map[String, Long]())
+      p.target = o
+      while (p.running && !p.paused) {
+        p.step()
+      }
+      o.inQ.last.toString
     }
-    o.inQ.last.toString
   }
 
-  override def part2(input: Array[String]): String = {
-    val p0 = new Program(0, input, mutable.Map[String, Long](("p", 0)))
-    val p1 = new Program(1, input, mutable.Map[String, Long](("p", 1)))
-    p0.target = p1
-    p1.target = p0
+  part(2) {
+    execute { in =>
+      val p0 = new Program(0, in, mutable.Map[String, Long](("p", 0)))
+      val p1 = new Program(1, in, mutable.Map[String, Long](("p", 1)))
+      p0.target = p1
+      p1.target = p0
 
-    while (!(p0.paused && p1.paused)) {
-      p0.step()
-      p1.step()
+      while (!(p0.paused && p1.paused)) {
+        p0.step()
+        p1.step()
+      }
+
+      p1.sentValues.toString
     }
-
-    p1.sentValues.toString
-
   }
 }
 
 object Day18 {
-  def apply() = new Day18()
-
   val snd: Regex = raw"snd (\w)".r
   val set: Regex = raw"set (\w) (\w+)".r
   val add: Regex = raw"add (\w) (-?\w+)".r
@@ -127,3 +128,5 @@ object Day18 {
   }
 
 }
+
+object Day18Main extends Day18
