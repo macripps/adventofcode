@@ -1,31 +1,33 @@
 package aoc2015
 
-import aoc.Day
+import aoc.NewDay
 import Day10._
 
-class Day10 extends Day(2015, 10) {
-  override def part1(input: Array[String]): String = {
-    var line = input(0)
-    (1 to 40).foreach { i =>
-      line = next(line)
-    }
+class Day10 extends NewDay(2015, 10) {
+  part(1) {
+    execute { in =>
+      var line = in(0)
+      (1 to 40).foreach { i =>
+        line = next(line)
+      }
 
-    line.length.toString
+      line.length.toString
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    var line = input(0)
-    (1 to 50).foreach { i =>
-      line = next(line)
-    }
+  part(2) {
+    execute { in =>
+      var line = in(0)
+      (1 to 50).foreach { i =>
+        line = next(line)
+      }
 
-    line.length.toString
+      line.length.toString
+    }
   }
 }
 
 object Day10 {
-  def apply() = new Day10()
-
   def next(line: String): String = {
     var i = 0
     val out = new StringBuilder
@@ -40,3 +42,5 @@ object Day10 {
     out.toString()
   }
 }
+
+object Day10Main extends Day10

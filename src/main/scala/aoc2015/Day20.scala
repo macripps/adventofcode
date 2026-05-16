@@ -1,33 +1,35 @@
 package aoc2015
 
-import aoc.Day
+import aoc.NewDay
 
-class Day20 extends Day(2015, 20) {
-  override def part1(input: Array[String]): String = {
-    val target = input.head.toInt
+class Day20 extends NewDay(2015, 20) {
+  part(1) {
+    execute { in =>
+      val target = in.head.toInt
 
-    val houses = Array.ofDim[Int](1_000_000)
-    (1 until houses.length).foreach { elf =>
-      Range(elf, houses.length-1, elf).foreach { step =>
-        houses(step) = houses(step) + (elf * 10)
+      val houses = Array.ofDim[Int](1_000_000)
+      (1 until houses.length).foreach { elf =>
+        Range(elf, houses.length-1, elf).foreach { step =>
+          houses(step) = houses(step) + (elf * 10)
+        }
       }
+      houses.indexWhere(k => k >= target).toString
     }
-    houses.indexWhere(k => k >= target).toString
   }
 
-  override def part2(input: Array[String]): String = {
-    val target = input.head.toInt
+  part(2) {
+    execute { in =>
+      val target = in.head.toInt
 
-    val houses = Array.ofDim[Int](1_000_000)
-    (1 until houses.length).foreach { elf =>
-      Range(elf, math.min(50 * elf, houses.length-1), elf).foreach { step =>
-        houses(step) = houses(step) + (elf * 11)
+      val houses = Array.ofDim[Int](1_000_000)
+      (1 until houses.length).foreach { elf =>
+        Range(elf, math.min(50 * elf, houses.length-1), elf).foreach { step =>
+          houses(step) = houses(step) + (elf * 11)
+        }
       }
+      houses.indexWhere(k => k >= target).toString
     }
-    houses.indexWhere(k => k >= target).toString
   }
 }
 
-object Day20 {
-  def apply() = new Day20()
-}
+object Day20Main extends Day20

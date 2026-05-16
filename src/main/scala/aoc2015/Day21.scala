@@ -1,11 +1,11 @@
 package aoc2015
 
-import aoc.Day
+import aoc.NewDay
 import aoc2015.Day21._
 
 import scala.annotation.tailrec
 
-class Day21 extends Day(2015, 21) {
+class Day21 extends NewDay(2015, 21) {
 
   val weapons = Set(
     Weapon(8, 4),
@@ -46,29 +46,31 @@ class Day21 extends Day(2015, 21) {
     }
   }
 
-  def boss(input: Array[String]): Boss = Boss(input(0).drop(12).toInt, input(1).drop(8).toInt, input(2).drop(7).toInt)
+  def boss(in: Array[String]): Boss = Boss(in(0).drop(12).toInt, in(1).drop(8).toInt, in(2).drop(7).toInt)
 
-  override def part1(input: Array[String]): String = {
-    val cheapestLoadout = allLoadouts.filter { l =>
-      combat(Player(100, l.damage, l.armor), boss(input), playerTurn = true) == Win
-    }.minBy { _.cost }
-    println(cheapestLoadout)
-    cheapestLoadout.cost.toString
+  part(1) {
+    execute { in =>
+      val cheapestLoadout = allLoadouts.filter { l =>
+        combat(Player(100, l.damage, l.armor), boss(in), playerTurn = true) == Win
+      }.minBy { _.cost }
+      println(cheapestLoadout)
+      cheapestLoadout.cost.toString
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    val mostExpensiveLoadout = allLoadouts.filter { l =>
-      combat(Player(100, l.damage, l.armor), boss(input), playerTurn = true) == Loss
-    }.maxBy { _.cost }
-    println(mostExpensiveLoadout)
-    mostExpensiveLoadout.cost.toString
+  part(2) {
+    execute { in =>
+      val mostExpensiveLoadout = allLoadouts.filter { l =>
+        combat(Player(100, l.damage, l.armor), boss(in), playerTurn = true) == Loss
+      }.maxBy { _.cost }
+      println(mostExpensiveLoadout)
+      mostExpensiveLoadout.cost.toString
+    }
   }
 
 }
 
 object Day21 {
-  def apply() = new Day21()
-
   case class Loadout(w: Weapon, a: Option[Armor], r1: Option[Ring], r2: Option[Ring]) {
     val cost: Int =
       w.cost + a.map(_.cost).getOrElse(0) + r1.map(_.cost).getOrElse(0) + r2.map(_.cost).getOrElse(0)
@@ -108,3 +110,5 @@ object Day21 {
     }
   }
 }
+
+object Day21Main extends Day21

@@ -1,65 +1,67 @@
 package aoc2015
 
-import aoc.Day
+import aoc.NewDay
 import Day16._
 
-class Day16 extends Day(2015, 16) {
-  override def part1(input: Array[String]): String = {
-    input.map {
-      case Parse(s: Sue) => s
-    }.filter { s =>
-      s.children.isEmpty || s.children.get == 3
-    }.filter { s =>
-      s.cats.isEmpty || s.cats.get == 7
-    }.filter { s =>
-      s.samoyeds.isEmpty || s.samoyeds.get == 2
-    }.filter { s =>
-      s.pomeranians.isEmpty || s.pomeranians.get == 3
-    }.filter { s =>
-      s.akitas.isEmpty || s.akitas.get == 0
-    }.filter { s =>
-      s.vizslas.isEmpty || s.vizslas.get == 0
-    }.filter { s =>
-      s.goldfish.isEmpty || s.goldfish.get == 5
-    }.filter { s =>
-      s.trees.isEmpty || s.trees.get == 3
-    }.filter { s =>
-      s.cars.isEmpty || s.cars.get == 2
-    }.filter { s =>
-      s.perfumes.isEmpty || s.perfumes.get == 1
-    }.map(_.num).mkString(",")
+class Day16 extends NewDay(2015, 16) {
+  part(1) {
+    execute { in =>
+      in.map {
+        case Parse(s: Sue) => s
+      }.filter { s =>
+        s.children.isEmpty || s.children.get == 3
+      }.filter { s =>
+        s.cats.isEmpty || s.cats.get == 7
+      }.filter { s =>
+        s.samoyeds.isEmpty || s.samoyeds.get == 2
+      }.filter { s =>
+        s.pomeranians.isEmpty || s.pomeranians.get == 3
+      }.filter { s =>
+        s.akitas.isEmpty || s.akitas.get == 0
+      }.filter { s =>
+        s.vizslas.isEmpty || s.vizslas.get == 0
+      }.filter { s =>
+        s.goldfish.isEmpty || s.goldfish.get == 5
+      }.filter { s =>
+        s.trees.isEmpty || s.trees.get == 3
+      }.filter { s =>
+        s.cars.isEmpty || s.cars.get == 2
+      }.filter { s =>
+        s.perfumes.isEmpty || s.perfumes.get == 1
+      }.map(_.num).mkString(",")
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    input.map {
-      case Parse(s: Sue) => s
-    }.filter { s =>
-      s.children.isEmpty || s.children.get == 3
-    }.filter { s =>
-      s.cats.isEmpty || s.cats.get > 7
-    }.filter { s =>
-      s.samoyeds.isEmpty || s.samoyeds.get == 2
-    }.filter { s =>
-      s.pomeranians.isEmpty || s.pomeranians.get < 3
-    }.filter { s =>
-      s.akitas.isEmpty || s.akitas.get == 0
-    }.filter { s =>
-      s.vizslas.isEmpty || s.vizslas.get == 0
-    }.filter { s =>
-      s.goldfish.isEmpty || s.goldfish.get < 5
-    }.filter { s =>
-      s.trees.isEmpty || s.trees.get > 3
-    }.filter { s =>
-      s.cars.isEmpty || s.cars.get == 2
-    }.filter { s =>
-      s.perfumes.isEmpty || s.perfumes.get == 1
-    }.map(_.num).mkString(",")
+  part(2) {
+    execute { in =>
+      in.map {
+        case Parse(s: Sue) => s
+      }.filter { s =>
+        s.children.isEmpty || s.children.get == 3
+      }.filter { s =>
+        s.cats.isEmpty || s.cats.get > 7
+      }.filter { s =>
+        s.samoyeds.isEmpty || s.samoyeds.get == 2
+      }.filter { s =>
+        s.pomeranians.isEmpty || s.pomeranians.get < 3
+      }.filter { s =>
+        s.akitas.isEmpty || s.akitas.get == 0
+      }.filter { s =>
+        s.vizslas.isEmpty || s.vizslas.get == 0
+      }.filter { s =>
+        s.goldfish.isEmpty || s.goldfish.get < 5
+      }.filter { s =>
+        s.trees.isEmpty || s.trees.get > 3
+      }.filter { s =>
+        s.cars.isEmpty || s.cars.get == 2
+      }.filter { s =>
+        s.perfumes.isEmpty || s.perfumes.get == 1
+      }.map(_.num).mkString(",")
+    }
   }
 }
 
 object Day16 {
-  def apply() = new Day16()
-
   case class Sue(num: Int,
                  children: Option[Int],
                  cats: Option[Int],
@@ -196,3 +198,5 @@ object Day16 {
   }
 
 }
+
+object Day16Main extends Day16

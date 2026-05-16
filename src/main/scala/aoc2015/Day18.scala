@@ -1,66 +1,68 @@
 package aoc2015
 
-import aoc.Day
+import aoc.NewDay
 import aoc2015.Day18._
 
-class Day18 extends Day(2015, 18) {
-  override def part1(input: Array[String]): String = {
-    var grid = input.map(_.toCharArray)
+class Day18 extends NewDay(2015, 18) {
+  part(1) {
+    execute { in =>
+      var grid = in.map(_.toCharArray)
 
-    (1 to 100).foreach { _ =>
-      val next = Array.ofDim[Char](grid.length, grid(0).length)
+      (1 to 100).foreach { _ =>
+        val next = Array.ofDim[Char](grid.length, grid(0).length)
 
-      grid.indices.foreach { y =>
-        grid(y).indices.foreach { x =>
-          val n = neighbours(grid, y, x)
-          if ((grid(y)(x) == '#' && (n == 2 || n == 3)) || (grid(y)(x) == '.' && n == 3)) {
-            next(y)(x) = '#'
-          } else {
-            next(y)(x) = '.'
+        grid.indices.foreach { y =>
+          grid(y).indices.foreach { x =>
+            val n = neighbours(grid, y, x)
+            if ((grid(y)(x) == '#' && (n == 2 || n == 3)) || (grid(y)(x) == '.' && n == 3)) {
+              next(y)(x) = '#'
+            } else {
+              next(y)(x) = '.'
+            }
           }
         }
+
+        grid = next
       }
 
-      grid = next
+      grid.map { r => r.count(c => c == '#') }.sum.toString
     }
-
-    grid.map { r => r.count(c => c == '#') }.sum.toString
   }
 
-  override def part2(input: Array[String]): String = {
-    var grid = input.map(_.toCharArray)
+  part(2) {
+    execute { in =>
+      var grid = in.map(_.toCharArray)
 
-    (1 to 100).foreach { _ =>
-      val next = Array.ofDim[Char](grid.length, grid(0).length)
+      (1 to 100).foreach { _ =>
+        val next = Array.ofDim[Char](grid.length, grid(0).length)
 
-      grid.indices.foreach { y =>
-        grid(y).indices.foreach { x =>
-          val n = neighbours(grid, y, x)
-          if ((grid(y)(x) == '#' && (n == 2 || n == 3)) || (grid(y)(x) == '.' && n == 3)) {
-            next(y)(x) = '#'
-          } else {
-            next(y)(x) = '.'
+        grid.indices.foreach { y =>
+          grid(y).indices.foreach { x =>
+            val n = neighbours(grid, y, x)
+            if ((grid(y)(x) == '#' && (n == 2 || n == 3)) || (grid(y)(x) == '.' && n == 3)) {
+              next(y)(x) = '#'
+            } else {
+              next(y)(x) = '.'
+            }
           }
         }
+
+        next(0)(0) = '#'
+        next(0)(next(0).length - 1) = '#'
+        next(next.length - 1)(0) = '#'
+        next(next.length - 1)(next(next.length - 1).length - 1) = '#'
+
+        grid = next
       }
 
-      next(0)(0) = '#'
-      next(0)(next(0).length - 1) = '#'
-      next(next.length - 1)(0) = '#'
-      next(next.length - 1)(next(next.length - 1).length - 1) = '#'
+      println(grid.map(r => r.mkString("")).mkString("\n"))
 
-      grid = next
+      grid.map { r => r.count(c => c == '#') }.sum.toString
     }
-
-    println(grid.map(r => r.mkString("")).mkString("\n"))
-
-    grid.map { r => r.count(c => c == '#') }.sum.toString
   }
 }
 
 object Day18 {
-  def apply() = new Day18()
-
   def neighbours(grid: Array[Array[Char]], y: Int, x: Int): Int = {
     var neighbours = 0
     (math.max(0, y - 1) to math.min(grid.length - 1, y + 1)).foreach { dy =>
@@ -75,3 +77,5 @@ object Day18 {
     neighbours
   }
 }
+
+object Day18Main extends Day18

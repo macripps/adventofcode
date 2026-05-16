@@ -1,34 +1,43 @@
 package aoc2015
 
-import aoc.Day
+import aoc.NewDay
 import Day7._
 
 import scala.collection.mutable
 
-class Day7 extends Day(2015, 7) {
-  override def part1(input: Array[String]): String = {
-    cache.clear()
-    val wires = input.map(l => {
-      val io = l.split(" -> ")
-      io(1) -> io(0)
-    }).toMap
-    calc(wires, "a").toString
+class Day7 extends NewDay(2015, 7) {
+  part(1) {
+    execute { in =>
+      cache.clear()
+      val wires = in.map(l => {
+        val io = l.split(" -> ")
+        io(1) -> io(0)
+      }).toMap
+      calc(wires, "a").toString
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    val bVal = part1(input)
-    cache.clear()
-    val wires = input.map(l => {
-      val io = l.split(" -> ")
-      io(1) -> io(0)
-    }).toMap
-    calc(wires + ("b" -> bVal), "a").toString
+  part(2) {
+    execute { in =>
+      val bVal = {
+        cache.clear()
+        val wires = in.map(l => {
+          val io = l.split(" -> ")
+          io(1) -> io(0)
+        }).toMap
+        calc(wires, "a").toString
+      }
+      cache.clear()
+      val wires = in.map(l => {
+        val io = l.split(" -> ")
+        io(1) -> io(0)
+      }).toMap
+      calc(wires + ("b" -> bVal), "a").toString
+    }
   }
 }
 
 object Day7 {
-  def apply() = new Day7()
-
   val cache: mutable.Map[String, Short] = mutable.Map[String, Short]()
 
   def calc(wires: Map[String, String], desired: String): Short = {
@@ -100,3 +109,5 @@ object Day7 {
     }
   }
 }
+
+object Day7Main extends Day7

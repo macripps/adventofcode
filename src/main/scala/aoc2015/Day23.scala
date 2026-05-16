@@ -1,28 +1,30 @@
 package aoc2015
 
-import aoc.Day
+import aoc.NewDay
 import Day23._
 
 import scala.util.matching.Regex
 
-class Day23 extends Day(2015, 23) {
-  override def part1(input: Array[String]): String = {
-    val c = new Computer()
-    c.execute(input)
-    c.regB.toString()
+class Day23 extends NewDay(2015, 23) {
+  part(1) {
+    execute { in =>
+      val c = new Computer()
+      c.execute(in)
+      c.regB.toString()
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    val c = new Computer()
-    c.regA = 1
-    c.execute(input)
-    c.regB.toString()
+  part(2) {
+    execute { in =>
+      val c = new Computer()
+      c.regA = 1
+      c.execute(in)
+      c.regB.toString()
+    }
   }
 }
 
 object Day23 {
-  def apply() = new Day23()
-
   class Computer {
     var regA: BigInt = 0
     var regB: BigInt = 0
@@ -94,3 +96,5 @@ object Day23 {
   val JumpIfEven: Regex = raw"jie (\w), \+?(-?\d+)".r
   val JumpIfOne: Regex = raw"jio (\w), \+?(-?\d+)".r
 }
+
+object Day23Main extends Day23

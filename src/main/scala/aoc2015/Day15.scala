@@ -1,53 +1,55 @@
 package aoc2015
 
-import aoc.Day
+import aoc.NewDay
 import Day15._
 
 import scala.util.matching.Regex
 
-class Day15 extends Day(2015, 15) {
-  override def part1(input: Array[String]): String = {
-    val cookies = input.map {
-      case recipe(name, capacity, durability, flavor, texture, calories) => (name, capacity.toLong, durability.toLong, flavor.toLong, texture.toLong, calories.toLong)
-    }
-
-    var proportions = Array.ofDim[Int](cookies.length)
-    proportions(cookies.length - 1) = 100
-    var results = 0L
-    while (proportions(0) < 100) {
-      val product: Long = score(proportions, cookies)
-      if (product > results) {
-        results = product
+class Day15 extends NewDay(2015, 15) {
+  part(1) {
+    execute { in =>
+      val cookies = in.map {
+        case recipe(name, capacity, durability, flavor, texture, calories) => (name, capacity.toLong, durability.toLong, flavor.toLong, texture.toLong, calories.toLong)
       }
-      proportions = nextDown(proportions)
-    }
-    results.toString
-  }
 
-  override def part2(input: Array[String]): String = {
-    val cookies = input.map {
-      case recipe(name, capacity, durability, flavor, texture, calories) => (name, capacity.toLong, durability.toLong, flavor.toLong, texture.toLong, calories.toLong)
-    }
-
-    var proportions = Array.ofDim[Int](cookies.length)
-    proportions(cookies.length - 1) = 100
-    var results = 0L
-    while (proportions(0) < 100) {
-      if (calories(proportions, cookies) == 500) {
+      var proportions = Array.ofDim[Int](cookies.length)
+      proportions(cookies.length - 1) = 100
+      var results = 0L
+      while (proportions(0) < 100) {
         val product: Long = score(proportions, cookies)
         if (product > results) {
           results = product
         }
+        proportions = nextDown(proportions)
       }
-      proportions = nextDown(proportions)
+      results.toString
     }
-    results.toString
+  }
+
+  part(2) {
+    execute { in =>
+      val cookies = in.map {
+        case recipe(name, capacity, durability, flavor, texture, calories) => (name, capacity.toLong, durability.toLong, flavor.toLong, texture.toLong, calories.toLong)
+      }
+
+      var proportions = Array.ofDim[Int](cookies.length)
+      proportions(cookies.length - 1) = 100
+      var results = 0L
+      while (proportions(0) < 100) {
+        if (calories(proportions, cookies) == 500) {
+          val product: Long = score(proportions, cookies)
+          if (product > results) {
+            results = product
+          }
+        }
+        proportions = nextDown(proportions)
+      }
+      results.toString
+    }
   }
 }
 
 object Day15 {
-  def apply() = new Day15()
-
   val recipe: Regex = raw"(\w+): capacity (-?\d+), durability (-?\d+), flavor (-?\d+), texture (-?\d+), calories (-?\d+)".r
 
   def nextDown(props: Array[Int]): Array[Int] = {
@@ -84,3 +86,5 @@ object Day15 {
     proportions.indices.map { i => proportions(i) * cookies(i)._6 }.sum
   }
 }
+
+object Day15Main extends Day15

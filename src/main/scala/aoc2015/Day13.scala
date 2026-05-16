@@ -1,25 +1,45 @@
 package aoc2015
 
-import aoc.Day
+import aoc.NewDay
 import Day13._
 
 import scala.collection.mutable
 import scala.util.matching.Regex
 
-class Day13 extends Day(2015, 13) {
-  override def part1(input: Array[String]): String = {
-    val happiness = toHappinessMap(input)
+class Day13 extends NewDay(2015, 13) {
+  part(1) {
+    execute { in =>
+      val happiness = toHappinessMap(in)
 
-    val availablePeople = happiness.keys.toList
-    val happiestOrder = availablePeople.permutations.maxBy { p: List[String] =>
-      happinessCalc(happiness, p) + happinessCalc(happiness, p.reverse)
+      val availablePeople = happiness.keys.toList
+      val happiestOrder = availablePeople.permutations.maxBy { p: List[String] =>
+        happinessCalc(happiness, p) + happinessCalc(happiness, p.reverse)
+      }
+      happiestOrder.mkString(",") + ": " + (happinessCalc(happiness, happiestOrder) + happinessCalc(happiness, happiestOrder.reverse))
     }
-    happiestOrder.mkString(",") + ": " + (happinessCalc(happiness, happiestOrder) + happinessCalc(happiness, happiestOrder.reverse))
   }
 
-  private def toHappinessMap(input: Array[String]) = {
+  part(2) {
+    execute { in =>
+      val happiness = toHappinessMap(in)
+      happiness("me") = mutable.Map[String, Int]()
+
+      val availablePeople = happiness.keys.toList
+      availablePeople.foreach { p =>
+        happiness("me") += (p -> 0)
+        happiness(p) += ("me" -> 0)
+      }
+
+      val happiestOrder = availablePeople.permutations.maxBy { p: List[String] =>
+        happinessCalc(happiness, p) + happinessCalc(happiness, p.reverse)
+      }
+      happiestOrder.mkString(",") + ": " + (happinessCalc(happiness, happiestOrder) + happinessCalc(happiness, happiestOrder.reverse))
+    }
+  }
+
+  private def toHappinessMap(in: Array[String]) = {
     val happiness = mutable.Map[String, mutable.Map[String, Int]]()
-    input.foreach {
+    in.foreach {
       case gain(name1, change, name2) =>
         if (happiness.contains(name1)) {
           happiness(name1) += (name2 -> change.toInt)
@@ -35,27 +55,9 @@ class Day13 extends Day(2015, 13) {
     }
     happiness
   }
-
-  override def part2(input: Array[String]): String = {
-    val happiness = toHappinessMap(input)
-    happiness("me") = mutable.Map[String, Int]()
-
-    val availablePeople = happiness.keys.toList
-    availablePeople.foreach { p =>
-      happiness("me") += (p -> 0)
-      happiness(p) += ("me" -> 0)
-    }
-
-    val happiestOrder = availablePeople.permutations.maxBy { p: List[String] =>
-      happinessCalc(happiness, p) + happinessCalc(happiness, p.reverse)
-    }
-    happiestOrder.mkString(",") + ": " + (happinessCalc(happiness, happiestOrder) + happinessCalc(happiness, happiestOrder.reverse))
-  }
 }
 
 object Day13 {
-  def apply() = new Day13()
-
   val gain: Regex = raw"(\w+) would gain (\d+) happiness units by sitting next to (\w+).".r
   val loss: Regex = raw"(\w+) would lose (\d+) happiness units by sitting next to (\w+).".r
 
@@ -72,3 +74,5 @@ object Day13 {
     distance
   }
 }
+
+object Day13Main extends Day13

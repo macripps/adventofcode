@@ -1,21 +1,23 @@
 package aoc2015
 
-import aoc.Day
+import aoc.NewDay
 import Day11._
 
-class Day11 extends Day(2015, 11) {
-  override def part1(input: Array[String]): String = {
-    next(input(0))
+class Day11 extends NewDay(2015, 11) {
+  part(1) {
+    execute { in =>
+      next(in(0))
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    next(part1(input))
+  part(2) {
+    execute { in =>
+      next(next(in(0)))
+    }
   }
 }
 
 object Day11 {
-  def apply() = new Day11()
-
   def next(current: String): String = {
     var password = increment(current)
     while (!valid(password)) {
@@ -53,3 +55,5 @@ object Day11 {
     }
   }
 }
+
+object Day11Main extends Day11

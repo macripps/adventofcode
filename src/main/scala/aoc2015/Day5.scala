@@ -1,21 +1,23 @@
 package aoc2015
 
-import aoc.Day
+import aoc.NewDay
 import Day5._
 
-class Day5 extends Day(2015, 5) {
-  override def part1(input: Array[String]): String = {
-    input.count(l => nicePart1(l)).toString
+class Day5 extends NewDay(2015, 5) {
+  part(1) {
+    execute { in =>
+      in.count(l => nicePart1(l)).toString
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    input.count(l => nicePart2(l)).toString
+  part(2) {
+    execute { in =>
+      in.count(l => nicePart2(l)).toString
+    }
   }
 }
 
 object Day5 {
-  def apply() = new Day5()
-
   def nicePart1(l: String): Boolean = {
     val vowelsNice = Seq('a', 'e', 'i', 'o', 'u').map{c => l.count(_ == c)}.sum >= 3
     val duplicatedLetters = Seq("aa", "bb", "cc", "dd", "ee", "ff", "gg", "hh", "ii", "jj", "kk", "ll", "mm", "nn", "oo", "pp", "qq", "rr", "ss", "tt", "uu", "vv", "ww", "xx", "yy", "zz").count(p => l.contains(p)) >= 1
@@ -44,3 +46,5 @@ object Day5 {
     repeatedPair && separatedChar
   }
 }
+
+object Day5Main extends Day5

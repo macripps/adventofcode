@@ -1,42 +1,31 @@
 package aoc2015
 
-import aoc.Day
+import aoc.NewDay
 import Day24._
 
 import scala.collection.mutable
 
-class Day24 extends Day(2015, 24) {
-//  override lazy val input =
-//    """1
-//      |2
-//      |3
-//      |4
-//      |5
-//      |7
-//      |8
-//      |9
-//      |10
-//      |11
-//      |""".stripMargin.split("\n")
-
-  override def part1(input: Array[String]): String = {
-    val weights = input.map(_.toInt).toSeq
-    val totalWeight = weights.sum
-    val options = findThreeOptionsThatSumTo(weights, totalWeight/3)
-    options.product.toString
+class Day24 extends NewDay(2015, 24) {
+  part(1) {
+    execute { in =>
+      val weights = in.map(_.toInt).toSeq
+      val totalWeight = weights.sum
+      val options = findThreeOptionsThatSumTo(weights, totalWeight/3)
+      options.product.toString
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    val weights = input.map(_.toInt).toSeq
-    val totalWeight = weights.sum
-    val options = findThreeOptionsThatSumTo(weights, totalWeight/4)
-    options.product.toString
+  part(2) {
+    execute { in =>
+      val weights = in.map(_.toInt).toSeq
+      val totalWeight = weights.sum
+      val options = findThreeOptionsThatSumTo(weights, totalWeight/4)
+      options.product.toString
+    }
   }
 }
 
 object Day24 {
-  def apply() = new Day24()
-
   def findThreeOptionsThatSumTo(input: Seq[Int], target: Int): Seq[Long] = {
     println("Each compartment must weigh " + target)
 
@@ -60,3 +49,5 @@ object Day24 {
     }
   }
 }
+
+object Day24Main extends Day24

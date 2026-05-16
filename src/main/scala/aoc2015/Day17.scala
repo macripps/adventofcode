@@ -1,23 +1,25 @@
 package aoc2015
 
-import aoc.Day
+import aoc.NewDay
 import aoc2015.Day17.findSublistsThatSumsTo
 
-class Day17 extends Day(2015, 17) {
-  override def part1(input: Array[String]): String = {
-    findSublistsThatSumsTo(input.toList.map(_.toInt).sortBy(-_), 150).get.length.toString
+class Day17 extends NewDay(2015, 17) {
+  part(1) {
+    execute { in =>
+      findSublistsThatSumsTo(in.toList.map(_.toInt).sortBy(-_), 150).get.length.toString
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    val results = findSublistsThatSumsTo(input.toList.map(_.toInt).sortBy(-_), 150).get
-    val shortest = results.map(r => r.length).min
-    results.count { r => r.length == shortest }.toString
+  part(2) {
+    execute { in =>
+      val results = findSublistsThatSumsTo(in.toList.map(_.toInt).sortBy(-_), 150).get
+      val shortest = results.map(r => r.length).min
+      results.count { r => r.length == shortest }.toString
+    }
   }
 }
 
 object Day17 {
-  def apply() = new Day17()
-
   def findSublistsThatSumsTo(input: List[Int], total: Int): Option[List[List[Int]]] = {
     if (total == 0) {
       Some(List[List[Int]](List()))
@@ -45,3 +47,5 @@ object Day17 {
     }
   }
 }
+
+object Day17Main extends Day17

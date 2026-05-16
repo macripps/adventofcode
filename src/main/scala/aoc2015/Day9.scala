@@ -1,61 +1,63 @@
 package aoc2015
 
-import aoc.Day
+import aoc.NewDay
 import Day9._
 
 import scala.collection.mutable
 
-class Day9 extends Day(2015, 9) {
-  override def part1(input: Array[String]): String = {
-    val towns = mutable.Map[String, mutable.Map[String, Int]]()
-    input.foreach {
-      case Line(town1, town2, distance) =>
-        if (towns.contains(town1)) {
-          towns(town1) += (town2 -> distance)
-        } else {
-          towns(town1) = mutable.Map((town2, distance))
-        }
-        if (towns.contains(town2)) {
-          towns(town2) += (town1 -> distance)
-        } else {
-          towns(town2) = mutable.Map((town1, distance))
-        }
-    }
-    val availableTowns = towns.keys.toList
-    val shortestRoute = availableTowns.permutations.minBy { p: List[String] =>
-      routeDistance(towns, p)
-    }
+class Day9 extends NewDay(2015, 9) {
+  part(1) {
+    execute { in =>
+      val towns = mutable.Map[String, mutable.Map[String, Int]]()
+      in.foreach {
+        case Line(town1, town2, distance) =>
+          if (towns.contains(town1)) {
+            towns(town1) += (town2 -> distance)
+          } else {
+            towns(town1) = mutable.Map((town2, distance))
+          }
+          if (towns.contains(town2)) {
+            towns(town2) += (town1 -> distance)
+          } else {
+            towns(town2) = mutable.Map((town1, distance))
+          }
+      }
+      val availableTowns = towns.keys.toList
+      val shortestRoute = availableTowns.permutations.minBy { p: List[String] =>
+        routeDistance(towns, p)
+      }
 
-    shortestRoute.mkString(",") + ": " + routeDistance(towns, shortestRoute)
+      shortestRoute.mkString(",") + ": " + routeDistance(towns, shortestRoute)
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    val towns = mutable.Map[String, mutable.Map[String, Int]]()
-    input.foreach {
-      case Line(town1, town2, distance) =>
-        if (towns.contains(town1)) {
-          towns(town1) += (town2 -> distance)
-        } else {
-          towns(town1) = mutable.Map((town2, distance))
-        }
-        if (towns.contains(town2)) {
-          towns(town2) += (town1 -> distance)
-        } else {
-          towns(town2) = mutable.Map((town1, distance))
-        }
-    }
-    val availableTowns = towns.keys.toList
-    val longestRoute = availableTowns.permutations.maxBy { p: List[String] =>
-      routeDistance(towns, p)
-    }
+  part(2) {
+    execute { in =>
+      val towns = mutable.Map[String, mutable.Map[String, Int]]()
+      in.foreach {
+        case Line(town1, town2, distance) =>
+          if (towns.contains(town1)) {
+            towns(town1) += (town2 -> distance)
+          } else {
+            towns(town1) = mutable.Map((town2, distance))
+          }
+          if (towns.contains(town2)) {
+            towns(town2) += (town1 -> distance)
+          } else {
+            towns(town2) = mutable.Map((town1, distance))
+          }
+      }
+      val availableTowns = towns.keys.toList
+      val longestRoute = availableTowns.permutations.maxBy { p: List[String] =>
+        routeDistance(towns, p)
+      }
 
-    longestRoute.mkString(",") + ": " + routeDistance(towns, longestRoute)
+      longestRoute.mkString(",") + ": " + routeDistance(towns, longestRoute)
+    }
   }
 }
 
 object Day9 {
-  def apply() = new Day9()
-
   object Line {
     def unapply(line: String): Option[(String, String, Int)] = {
       val tds = line.split(" = ")
@@ -77,3 +79,5 @@ object Day9 {
     distance
   }
 }
+
+object Day9Main extends Day9

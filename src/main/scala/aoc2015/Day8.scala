@@ -1,21 +1,23 @@
 package aoc2015
 
-import aoc.Day
+import aoc.NewDay
 import aoc2015.Day8._
 
-class Day8 extends Day(2015, 8) {
-  override def part1(input: Array[String]): String = {
-    (input.map(codeCharacters).sum - input.map(inMemoryCharacters).sum).toString
+class Day8 extends NewDay(2015, 8) {
+  part(1) {
+    execute { in =>
+      (in.map(codeCharacters).sum - in.map(inMemoryCharacters).sum).toString
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    (input.map(escapeCharacters).sum - input.map(codeCharacters).sum).toString
+  part(2) {
+    execute { in =>
+      (in.map(escapeCharacters).sum - in.map(codeCharacters).sum).toString
+    }
   }
 }
 
 object Day8 {
-  def apply() = new Day8()
-
   def codeCharacters(s: String): Int = s.length
 
   def inMemoryCharacters(s: String): Int = {
@@ -41,3 +43,5 @@ object Day8 {
     s.length + 2 + s.count{c => c == '\\'} + s.count(c => c == '"')
   }
 }
+
+object Day8Main extends Day8
