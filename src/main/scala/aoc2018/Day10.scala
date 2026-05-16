@@ -1,35 +1,40 @@
 package aoc2018
 
-import aoc.{Day, Point}
+import aoc.{NewDay, Point}
 
 import scala.util.matching.Regex
 
-class Day10 extends Day(2018, 10) {
+class Day10 extends NewDay(2018, 10) {
   import Day10._
-  override def part1(input: Array[String]): String = {
-    val ptsDlts = input.map {
-      case line(px: String, py: String, vx: String, vy:String) =>
-        (Point(px.toInt, py.toInt), (vx.toInt, vy.toInt))
+
+  part(1) {
+    execute { in =>
+      val ptsDlts = in.map {
+        case line(px: String, py: String, vx: String, vy:String) =>
+          (Point(px.toInt, py.toInt), (vx.toInt, vy.toInt))
+      }
+      val minIdx = 10007
+      val points = ptsDlts.map { pD => Point(pD._1.x + minIdx * pD._2._1, pD._1.y + minIdx * pD._2._2)}
+      println(points.mkString(","))
+      val minX = points.minBy(_.x).x
+      val maxX = points.maxBy(_.x).x
+      val minY = points.minBy(_.y).y
+      val maxY = points.maxBy(_.y).y
+      val grid = Array.ofDim[Boolean](maxY + 1 - minY, maxX + 1 - minX)
+      points.foreach { p => grid(p.y - minY)(p.x - minX) =true }
+      "\n" + grid.map(_.map(c => if (c) '#' else '.').mkString).mkString("\n")
     }
-    val minIdx = 10007
-    val points = ptsDlts.map { pD => Point(pD._1.x + minIdx * pD._2._1, pD._1.y + minIdx * pD._2._2)}
-    println(points.mkString(","))
-    val minX = points.minBy(_.x).x
-    val maxX = points.maxBy(_.x).x
-    val minY = points.minBy(_.y).y
-    val maxY = points.maxBy(_.y).y
-    val grid = Array.ofDim[Boolean](maxY + 1 - minY, maxX + 1 - minX)
-    points.foreach { p => grid(p.y - minY)(p.x - minX) =true }
-    "\n" + grid.map(_.map(c => if (c) '#' else '.').mkString).mkString("\n")
   }
 
-  override def part2(input: Array[String]): String = {
-    "10007"
+  part(2) {
+    execute { _ =>
+      "10007"
+    }
   }
 }
 
 object Day10 {
-  def apply() = new Day10()
-
   val line: Regex = raw"position=< *(-?\d+), *(-?\d+)> velocity=< *(-?\d+), *(-?\d+)>".r
 }
+
+object Day10Main extends Day10

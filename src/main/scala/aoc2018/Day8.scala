@@ -1,15 +1,15 @@
 package aoc2018
 
-import aoc.Day
+import aoc.NewDay
 
-class Day8 extends Day(2018, 8) {
+class Day8 extends NewDay(2018, 8) {
   import Day8._
 
-  val example = Seq("2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2")
-
-  override def part1(input: Array[String]): String = {
-    val (node, _) = readNode(input.head.split(" "), 0)
-    node.sumOfMetadata.toString
+  part(1) {
+    execute { in =>
+      val (node, _) = readNode(in.head.split(" "), 0)
+      node.sumOfMetadata.toString
+    }
   }
 
   def readNode(entries: Array[String], from: Int): (Node, Int) = {
@@ -25,15 +25,15 @@ class Day8 extends Day(2018, 8) {
     (Node(children, metadata), fromN + numMetadata)
   }
 
-  override def part2(input: Array[String]): String = {
-    val (node, _) = readNode(input.head.split(" "), 0)
-    node.value.toString
+  part(2) {
+    execute { in =>
+      val (node, _) = readNode(in.head.split(" "), 0)
+      node.value.toString
+    }
   }
 }
 
 object Day8 {
-  def apply() = new Day8()
-
   case class Node(children: Array[Node], metadata: Array[Int]) {
     def sumOfMetadata: Int = metadata.sum + children.map(_.sumOfMetadata).sum
 
@@ -49,3 +49,5 @@ object Day8 {
     }
   }
 }
+
+object Day8Main extends Day8

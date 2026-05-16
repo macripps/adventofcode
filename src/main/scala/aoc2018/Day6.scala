@@ -1,40 +1,33 @@
 package aoc2018
 
-import aoc.{Day, Point}
+import aoc.{NewDay, Point}
 
-class Day6 extends Day(2018, 6) {
-  val example = Set(
-    Point(1, 1),
-    Point(1, 6),
-    Point(8, 3),
-    Point(3, 4),
-    Point(5, 5),
-    Point(8, 9),
-  )
-
+class Day6 extends NewDay(2018, 6) {
   def points(input: Array[String]): Set[Point] = input.map(l => {
     val kv = l.split(", ")
     Point(kv(0).toInt, kv(1).toInt)
   }).toSet
 
-  override def part1(input: Array[String]): String = {
-    val pts = points(input)
-    val xMin = pts.minBy(_.x).x
-    val xMax = pts.maxBy(_.x).x
-    val yMin = pts.minBy(_.y).y
-    val yMax = pts.maxBy(_.y).y
+  part(1) {
+    execute { in =>
+      val pts = points(in)
+      val xMin = pts.minBy(_.x).x
+      val xMax = pts.maxBy(_.x).x
+      val yMin = pts.minBy(_.y).y
+      val yMax = pts.maxBy(_.y).y
 
-    val border = (yMin to yMax).flatMap { y => Seq(Point(xMin, y), Point(xMax, y)) } ++
-      (xMin to xMax).flatMap { x => Seq(Point(x, yMin), Point(x, yMax)) }
+      val border = (yMin to yMax).flatMap { y => Seq(Point(xMin, y), Point(xMax, y)) } ++
+        (xMin to xMax).flatMap { x => Seq(Point(x, yMin), Point(x, yMax)) }
 
-    val finitePoints = pts.filter { p =>
-      isFinite(p, border, pts)
+      val finitePoints = pts.filter { p =>
+        isFinite(p, border, pts)
+      }
+
+      val as = finitePoints.map(p => {
+        p -> area(p, xMin, xMax, yMin, yMax, pts)
+      }).toMap
+      as.maxBy(_._2)._2.toString
     }
-
-    val as = finitePoints.map(p => {
-      p -> area(p, xMin, xMax, yMin, yMax, pts)
-    }).toMap
-    as.maxBy(_._2)._2.toString
   }
 
   def isFinite(p: Point, border: Seq[Point], points: Set[Point]): Boolean = {
@@ -64,28 +57,28 @@ class Day6 extends Day(2018, 6) {
     }
   }
 
-  override def part2(input: Array[String]): String = {
-    val pts = points(input)
-    val xMin = pts.minBy(_.x).x
-    val xMax = pts.maxBy(_.x).x
-    val yMin = pts.minBy(_.y).y
-    val yMax = pts.maxBy(_.y).y
+  part(2) {
+    execute { in =>
+      val pts = points(in)
+      val xMin = pts.minBy(_.x).x
+      val xMax = pts.maxBy(_.x).x
+      val yMin = pts.minBy(_.y).y
+      val yMax = pts.maxBy(_.y).y
 
-    val distance = 10000
+      val distance = 10000
 
-    var area = 0
-    (xMin to xMax).foreach { x =>
-      (yMin to yMax).foreach { y =>
-        val d = pts.toList.map { p => p.manhattanDistanceTo(Point(x,y)) }.sum
-        if (d < distance) {
-          area = area + 1
+      var area = 0
+      (xMin to xMax).foreach { x =>
+        (yMin to yMax).foreach { y =>
+          val d = pts.toList.map { p => p.manhattanDistanceTo(Point(x,y)) }.sum
+          if (d < distance) {
+            area = area + 1
+          }
         }
       }
+      area.toString
     }
-    area.toString
   }
 }
 
-object Day6 {
-  def apply() = new Day6()
-}
+object Day6Main extends Day6

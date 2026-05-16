@@ -1,28 +1,21 @@
 package aoc2018
 
-import aoc.{Day, ProgressBar}
+import aoc.NewDay
 
 import scala.collection.mutable
-import scala.util.control.Breaks.{break, breakable}
 import scala.util.matching.Regex
 
-class Day9 extends Day(2018, 9) {
+class Day9 extends NewDay(2018, 9) {
   import Day9._
 
-  val examples = Seq(
-    "10 players; last marble is worth 1618 points",
-    "13 players; last marble is worth 7999 points",
-    "17 players; last marble is worth 1104 points",
-    "21 players; last marble is worth 6111 points",
-    "30 players; last marble is worth 5807 points",
-  )
+  part(1) {
+    execute { _ =>
+      val marbles = 70904
+      val players = 473
 
-  override def part1(input: Array[String]): String = {
-    val marbles = 70904
-    val players = 473
-
-    val score = highScore(marbles, players)
-    "high score is " + score
+      val score = highScore(marbles, players)
+      "high score is " + score
+    }
   }
 
   def highScore(marbles: Int, players: Int): Long = {
@@ -75,18 +68,18 @@ class Day9 extends Day(2018, 9) {
     out.result()
   }
 
-  override def part2(input: Array[String]): String = {
-    val marbles = 7090400
-    val players = 473
+  part(2) {
+    execute { _ =>
+      val marbles = 7090400
+      val players = 473
 
-    val score = highScore(marbles, players)
-    "high score is " + score
+      val score = highScore(marbles, players)
+      "high score is " + score
+    }
   }
 }
 
 object Day9 {
-  def apply() = new Day9()
-
   class Marble(val n: Int) {
     var next: Marble = _
     var prev: Marble = _
@@ -94,3 +87,5 @@ object Day9 {
 
   val config: Regex = raw"(\d+) players; last marble is worth (\d+) points".r
 }
+
+object Day9Main extends Day9

@@ -1,11 +1,11 @@
 package aoc2018
 
-import aoc.{Day, Direction, Point}
+import aoc.{NewDay, Direction, Point}
 import aoc.Direction.Direction
 
 import scala.collection.mutable
 
-class Day13 extends Day(2018, 13) {
+class Day13 extends NewDay(2018, 13) {
 
   import Day13._
 
@@ -73,55 +73,49 @@ class Day13 extends Day(2018, 13) {
     Cart(c.idx, nP, nD, nextTurn)
   }
 
-  override def part1(input: Array[String]): String = {
-    var (grid, carts) = parseInput(input)
-    while (!carts.exists(c => carts.exists(c2 => c2.p == c.p && c.idx != c2.idx))) {
-      carts = carts.sortBy(f => (f.p.y, f.p.x)).map { c => moveCart(c, grid) }
+  part(1) {
+    execute { in =>
+      var (grid, carts) = parseInput(in)
+      while (!carts.exists(c => carts.exists(c2 => c2.p == c.p && c.idx != c2.idx))) {
+        carts = carts.sortBy(f => (f.p.y, f.p.x)).map { c => moveCart(c, grid) }
+      }
+      carts.find(c => carts.exists(c2 => c2.p == c.p && c.idx != c2.idx)).get.p.toString
     }
-    carts.find(c => carts.exists(c2 => c2.p == c.p && c.idx != c2.idx)).get.p.toString
   }
 
-  val example: Array[String] =
-    """/>-<\
-      ||   |
-      || /<+-\
-      || | | v
-      |\>+</ |
-      |  |   ^
-      |  \<->/""".stripMargin.split("\n")
-
-  override def part2(input: Array[String]): String = {
-    var (grid, carts) = parseInput(input)
-    while (carts.size > 1) {
-      val crashes = Set.newBuilder[Int]
-      val nCarts = mutable.Buffer[Cart]()
-      carts = carts.sortBy(f => (f.p.y, f.p.x))
-      while (carts.nonEmpty) {
-        val c = carts.head
-        carts = carts.tail
-        val nc = moveCart(c, grid)
-        if (carts.exists(c2 => c2.p == nc.p && nc.idx != c2.idx)) {
-          val c2 = carts.find(c2 => c2.p == nc.p && nc.idx != c2.idx)
-          crashes.addOne(nc.idx)
-          crashes.addOne(c2.get.idx)
+  part(2) {
+    execute { in =>
+      var (grid, carts) = parseInput(in)
+      while (carts.size > 1) {
+        val crashes = Set.newBuilder[Int]
+        val nCarts = mutable.Buffer[Cart]()
+        carts = carts.sortBy(f => (f.p.y, f.p.x))
+        while (carts.nonEmpty) {
+          val c = carts.head
+          carts = carts.tail
+          val nc = moveCart(c, grid)
+          if (carts.exists(c2 => c2.p == nc.p && nc.idx != c2.idx)) {
+            val c2 = carts.find(c2 => c2.p == nc.p && nc.idx != c2.idx)
+            crashes.addOne(nc.idx)
+            crashes.addOne(c2.get.idx)
+          }
+          if (nCarts.exists(c2 => c2.p == nc.p && nc.idx != c2.idx)) {
+            val c2 = nCarts.find(c2 => c2.p == nc.p && nc.idx != c2.idx)
+            crashes.addOne(nc.idx)
+            crashes.addOne(c2.get.idx)
+          }
+          nCarts.addOne(nc)
         }
-        if (nCarts.exists(c2 => c2.p == nc.p && nc.idx != c2.idx)) {
-          val c2 = nCarts.find(c2 => c2.p == nc.p && nc.idx != c2.idx)
-          crashes.addOne(nc.idx)
-          crashes.addOne(c2.get.idx)
-        }
-        nCarts.addOne(nc)
+        val crashedCarts = crashes.result()
+        carts = nCarts.filter{c => !crashedCarts.contains(c.idx)}.toList
       }
-      val crashedCarts = crashes.result()
-      carts = nCarts.filter{c => !crashedCarts.contains(c.idx)}.toList
+      carts.head.p.toString
     }
-    carts.head.p.toString
   }
 }
 
 object Day13 {
-  def apply() = new Day13()
-
   case class Cart(idx: Int, p: Point, d: Direction, turn: Int)
-
 }
+
+object Day13Main extends Day13

@@ -1,30 +1,34 @@
 package aoc2018
 
-import aoc.{Day, Point}
+import aoc.{NewDay, Point}
 
 import scala.util.matching.Regex
 
-class Day3 extends Day(2018, 3) {
+class Day3 extends NewDay(2018, 3) {
 
   import Day3._
 
-  override def part1(input: Array[String]): String = {
-    input.flatMap {
-      case line(id: String, px: String, py: String, dx: String, dy: String) =>
-        (py.toInt until (py.toInt + dy.toInt)).flatMap { y =>
-          (px.toInt until (px.toInt + dx.toInt)).map { x =>
-            Point(x, y)
+  part(1) {
+    execute { in =>
+      in.flatMap {
+        case line(id: String, px: String, py: String, dx: String, dy: String) =>
+          (py.toInt until (py.toInt + dy.toInt)).flatMap { y =>
+            (px.toInt until (px.toInt + dx.toInt)).map { x =>
+              Point(x, y)
+            }
           }
-        }
-    }.groupMapReduce(identity)(_ => 1)(_ + _).count(x => x._2 >= 2).toString
+      }.groupMapReduce(identity)(_ => 1)(_ + _).count(x => x._2 >= 2).toString
+    }
   }
 
-  override def part2(input: Array[String]): String = {
-    val m = input.map {
-      case line(id: String, px: String, py: String, dx: String, dy: String) =>
-        id.toInt -> (py.toInt until (py.toInt + dy.toInt), px.toInt until (px.toInt + dx.toInt))
-    }.toMap
-    m.filter {k => !m.exists(k2 => k._1 != k2._1 && overlap(k._2._1, k._2._2, k2._2._1, k2._2._2))}.keys.mkString(",")
+  part(2) {
+    execute { in =>
+      val m = in.map {
+        case line(id: String, px: String, py: String, dx: String, dy: String) =>
+          id.toInt -> (py.toInt until (py.toInt + dy.toInt), px.toInt until (px.toInt + dx.toInt))
+      }.toMap
+      m.filter {k => !m.exists(k2 => k._1 != k2._1 && overlap(k._2._1, k._2._2, k2._2._1, k2._2._2))}.keys.mkString(",")
+    }
   }
 
   def overlap(rx1: Range, ry1: Range, rx2: Range, ry2: Range): Boolean = {
@@ -34,7 +38,7 @@ class Day3 extends Day(2018, 3) {
 }
 
 object Day3 {
-  def apply() = new Day3()
-
   val line: Regex = raw"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)".r
 }
+
+object Day3Main extends Day3

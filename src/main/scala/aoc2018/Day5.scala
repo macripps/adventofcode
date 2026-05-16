@@ -1,12 +1,12 @@
 package aoc2018
 
-import aoc.Day
+import aoc.NewDay
 
-class Day5 extends Day(2018, 5) {
-  val example = Seq("dabAcCaCBAcCcaDA")
-
-  override def part1(input: Array[String]): String = {
-    collapse(input.head).length.toString
+class Day5 extends NewDay(2018, 5) {
+  part(1) {
+    execute { in =>
+      collapse(in.head).length.toString
+    }
   }
 
   var rx = "aA|bB|cC|dD|eE|fF|gG|hH|iI|jJ|kK|lL|mM|nN|oO|pP|qQ|rR|sS|tT|uU|vV|wW|xX|yY|zZ"
@@ -30,19 +30,19 @@ class Day5 extends Day(2018, 5) {
     }
   }
 
-  override def part2(input: Array[String]): String = {
-    val polymer = input.head
-    // var polymer = "dabAcCaCBAcCcaDA"
-    ('A' to 'Z').map { c =>
-      polymer.filter { x => x != c && x != other(c) }.mkString
-    }.toSet[String].map { r =>
-      val o = collapse(r)
-      println(o.length)
-      o.length
-    }.min.toString
+  part(2) {
+    execute { in =>
+      val polymer = in.head
+      // var polymer = "dabAcCaCBAcCcaDA"
+      ('A' to 'Z').map { c =>
+        polymer.filter { x => x != c && x != other(c) }.mkString
+      }.toSet[String].map { r =>
+        val o = collapse(r)
+        println(o.length)
+        o.length
+      }.min.toString
+    }
   }
 }
 
-object Day5 {
-  def apply() = new Day5()
-}
+object Day5Main extends Day5
