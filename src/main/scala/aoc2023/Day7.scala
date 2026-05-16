@@ -53,8 +53,6 @@ class Day7 extends NewDay(2023, 7) {
 }
 
 object Day7 {
-  def apply() = new Day7
-
   case class Hand(val cards: String) {
     def rank(): Int = {
       val counts = mutable.Map[Char, Int]().withDefaultValue(0)

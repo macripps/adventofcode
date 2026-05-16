@@ -1,138 +1,142 @@
 package aoc2023
 
+import aoc.NewDay
+
 import scala.collection.mutable
 import scala.util.control.Breaks.{break, breakable}
 
-class Day5 extends aoc.Day(2023, 5) {
+class Day5 extends NewDay(2023, 5) {
 
   import Day5._
 
-  withPart1Test(
-    """seeds: 79 14 55 13
-      |
-      |seed-to-soil map:
-      |50 98 2
-      |52 50 48
-      |
-      |soil-to-fertilizer map:
-      |0 15 37
-      |37 52 2
-      |39 0 15
-      |
-      |fertilizer-to-water map:
-      |49 53 8
-      |0 11 42
-      |42 0 7
-      |57 7 4
-      |
-      |water-to-light map:
-      |88 18 7
-      |18 25 70
-      |
-      |light-to-temperature map:
-      |45 77 23
-      |81 45 19
-      |68 64 13
-      |
-      |temperature-to-humidity map:
-      |0 69 1
-      |1 0 69
-      |
-      |humidity-to-location map:
-      |60 56 37
-      |56 93 4""".stripMargin, 35L)
+  part(1) {
+    test(
+      """seeds: 79 14 55 13
+        |
+        |seed-to-soil map:
+        |50 98 2
+        |52 50 48
+        |
+        |soil-to-fertilizer map:
+        |0 15 37
+        |37 52 2
+        |39 0 15
+        |
+        |fertilizer-to-water map:
+        |49 53 8
+        |0 11 42
+        |42 0 7
+        |57 7 4
+        |
+        |water-to-light map:
+        |88 18 7
+        |18 25 70
+        |
+        |light-to-temperature map:
+        |45 77 23
+        |81 45 19
+        |68 64 13
+        |
+        |temperature-to-humidity map:
+        |0 69 1
+        |1 0 69
+        |
+        |humidity-to-location map:
+        |60 56 37
+        |56 93 4""".stripMargin -> 35L)
 
-  override def part1(input: Array[String]): Any = {
-    val groups = inputGroups(input)
-    val seeds = groups.head.head.drop("seeds: ".length).split(' ').map(_.toLong)
-    seeds.map { seed =>
-      var n = seed
-      val maps = groups.tail
-      maps.foreach { mapping =>
-        val ranges = mapping.tail
-        breakable {
-          ranges.foreach { range =>
-            val Array(dest, src, length) = range.split(' ').map(_.toLong)
-            if (n >= src && n <= src + length) {
-              n = dest + (n - src)
-              break()
+    execute { in =>
+      val groups = inputGroups(in)
+      val seeds = groups.head.head.drop("seeds: ".length).split(' ').map(_.toLong)
+      seeds.map { seed =>
+        var n = seed
+        val maps = groups.tail
+        maps.foreach { mapping =>
+          val ranges = mapping.tail
+          breakable {
+            ranges.foreach { range =>
+              val Array(dest, src, length) = range.split(' ').map(_.toLong)
+              if (n >= src && n <= src + length) {
+                n = dest + (n - src)
+                break()
+              }
             }
           }
         }
-      }
-      n
-    }.min
+        n
+      }.min
+    }
   }
 
-  withPart2Test(
-    """seeds: 79 14 55 13
-      |
-      |seed-to-soil map:
-      |50 98 2
-      |52 50 48
-      |
-      |soil-to-fertilizer map:
-      |0 15 37
-      |37 52 2
-      |39 0 15
-      |
-      |fertilizer-to-water map:
-      |49 53 8
-      |0 11 42
-      |42 0 7
-      |57 7 4
-      |
-      |water-to-light map:
-      |88 18 7
-      |18 25 70
-      |
-      |light-to-temperature map:
-      |45 77 23
-      |81 45 19
-      |68 64 13
-      |
-      |temperature-to-humidity map:
-      |0 69 1
-      |1 0 69
-      |
-      |humidity-to-location map:
-      |60 56 37
-      |56 93 4""".stripMargin, 46L)
+  part(2) {
+    test(
+      """seeds: 79 14 55 13
+        |
+        |seed-to-soil map:
+        |50 98 2
+        |52 50 48
+        |
+        |soil-to-fertilizer map:
+        |0 15 37
+        |37 52 2
+        |39 0 15
+        |
+        |fertilizer-to-water map:
+        |49 53 8
+        |0 11 42
+        |42 0 7
+        |57 7 4
+        |
+        |water-to-light map:
+        |88 18 7
+        |18 25 70
+        |
+        |light-to-temperature map:
+        |45 77 23
+        |81 45 19
+        |68 64 13
+        |
+        |temperature-to-humidity map:
+        |0 69 1
+        |1 0 69
+        |
+        |humidity-to-location map:
+        |60 56 37
+        |56 93 4""".stripMargin -> 46L)
 
-  override def part2(input: Array[String]): Any = {
-    val seedRange = input.head.split(": ")(1).split(" ")
-    var seeds = new SeedRangeList()
-    seedRange.grouped(2).foreach { seedRanges =>
-      seeds.add(seedRanges(0).toLong, seedRanges(0).toLong + seedRanges(1).toLong)
-    }
-    val seedMaps = mutable.Buffer[SeedMap]()
-    var currentMap: SeedMap = null
-    input.tail.foreach { line =>
-      if (line != "") {
-        if (line.endsWith("map:")) {
-          val Array(off, to) = line.split(' ').head.split("-to-", 2)
-          currentMap = new SeedMap(off, to)
-          seedMaps.append(currentMap)
-        } else {
-          val l = line.split(' ')
-          currentMap.add(l(0).toLong, l(1).toLong, l(2).toLong)
+    execute { in =>
+      val seedRange = in.head.split(": ")(1).split(" ")
+      var seeds = new SeedRangeList()
+      seedRange.grouped(2).foreach { seedRanges =>
+        seeds.add(seedRanges(0).toLong, seedRanges(0).toLong + seedRanges(1).toLong)
+      }
+      val seedMaps = mutable.Buffer[SeedMap]()
+      var currentMap: SeedMap = null
+      in.tail.foreach { line =>
+        if (line != "") {
+          if (line.endsWith("map:")) {
+            val Array(off, to) = line.split(' ').head.split("-to-", 2)
+            currentMap = new SeedMap(off, to)
+            seedMaps.append(currentMap)
+          } else {
+            val l = line.split(' ')
+            currentMap.add(l(0).toLong, l(1).toLong, l(2).toLong)
+          }
         }
       }
-    }
-    seedMaps.foreach { seedMap =>
-      seedMap.sort()
-    }
-    seedMaps.foreach { seedMap =>
-      seeds = seedMap.getDestination(seeds)
-    }
+      seedMaps.foreach { seedMap =>
+        seedMap.sort()
+      }
+      seedMaps.foreach { seedMap =>
+        seeds = seedMap.getDestination(seeds)
+      }
 
-    seeds.ranges.map { case (start, _) => start }.min
+      seeds.ranges.map { case (start, _) => start }.min
+    }
   }
 }
 
 object Day5 {
-  def apply() = new Day5
-
   // Thanks to https://github.com/scorixear/AdventOfCode/blob/main/2023/5/2.py for the implementation
   class SeedMap(off: String, to: String) {
     var mapValues = mutable.Buffer[(Long, Long, Long)]()
@@ -218,3 +222,5 @@ object Day5 {
     }
   }
 }
+
+object Day5Main extends Day5

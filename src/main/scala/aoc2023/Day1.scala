@@ -1,41 +1,49 @@
 package aoc2023
 
+import aoc.NewDay
+
 import scala.annotation.tailrec
 
-class Day1 extends aoc.Day(2023, 1) {
+class Day1 extends NewDay(2023, 1) {
 
   import Day1._
 
-  withPart1Test(
-    """1abc2
-      |pqr3stu8vwx
-      |a1b2c3d4e5f
-      |treb7uchet""".stripMargin, 142)
+  part(1) {
+    test(
+      """1abc2
+        |pqr3stu8vwx
+        |a1b2c3d4e5f
+        |treb7uchet""".stripMargin -> 142)
 
-  override def part1(input: Array[String]): Any = input.map { line =>
-    val left = line.dropWhile(c => !c.isDigit).head
-    val right = line.reverse.dropWhile(c => !c.isDigit).head
-    (left - '0') * 10 + (right - '0')
-  }.sum
+    execute { in =>
+      in.map { line =>
+        val left = line.dropWhile(c => !c.isDigit).head
+        val right = line.reverse.dropWhile(c => !c.isDigit).head
+        (left - '0') * 10 + (right - '0')
+      }.sum
+    }
+  }
 
-  withPart2Test("""two1nine
-                  |eightwothree
-                  |abcone2threexyz
-                  |xtwone3four
-                  |4nineeightseven2
-                  |zoneight234
-                  |7pqrstsixteen""".stripMargin, 281)
+  part(2) {
+    test("""two1nine
+            |eightwothree
+            |abcone2threexyz
+            |xtwone3four
+            |4nineeightseven2
+            |zoneight234
+            |7pqrstsixteen""".stripMargin -> 281)
 
-  override def part2(input: Array[String]): Any = input.map { line =>
-    val left = firstNumberOrName(line)
-    val right = lastNumberOrName(line)
-    left * 10 + right
-  }.sum
+    execute { in =>
+      in.map { line =>
+        val left = firstNumberOrName(line)
+        val right = lastNumberOrName(line)
+        left * 10 + right
+      }.sum
+    }
+  }
 }
 
 object Day1 {
-  def apply() = new Day1
-
   @tailrec
   def firstNumberOrName(line: String): Int = {
     if (line.head.isDigit) {
@@ -90,3 +98,5 @@ object Day1 {
     } else lastNumberOrName(line.dropRight(1))
   }
 }
+
+object Day1Main extends Day1

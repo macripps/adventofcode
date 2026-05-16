@@ -1,19 +1,16 @@
 package aoc2023
 
-import aoc.Maths
+import aoc.{Maths, NewDay}
 
-class Day6 extends aoc.NewDay(2023, 6) {
-
-  val test1 =
-    """Time:      7  15   30
-      |Distance:  9  40  200""".stripMargin
+class Day6 extends NewDay(2023, 6) {
 
   part(1) {
-    test { test1 -> 288L}
+    test("""Time:      7  15   30
+           |Distance:  9  40  200""".stripMargin -> 288L)
 
-    execute { input =>
-      val times = input.head.split(" +").tail.map(_.toInt)
-      val distances = input(1).split(" +").tail.map(_.toInt)
+    execute { in =>
+      val times = in.head.split(" +").tail.map(_.toInt)
+      val distances = in(1).split(" +").tail.map(_.toInt)
       times.zip(distances).map { case (t, d) =>
         (0 to t).count {
           n =>
@@ -24,11 +21,12 @@ class Day6 extends aoc.NewDay(2023, 6) {
   }
 
   part(2) {
-    test { test1 -> 71503L}
+    test("""Time:      7  15   30
+           |Distance:  9  40  200""".stripMargin -> 71503L)
 
-    execute { input =>
-      val time = input.head.split(" +").tail.mkString.toLong
-      val distance = input(1).split(" +").tail.mkString.toLong
+    execute { in =>
+      val time = in.head.split(" +").tail.mkString.toLong
+      val distance = in(1).split(" +").tail.mkString.toLong
       val result = Maths.quadraticSolve(1, -time, distance)
       result.max.toInt - result.min.toInt
     }
