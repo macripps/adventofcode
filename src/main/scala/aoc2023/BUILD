@@ -1,9 +1,12 @@
-load("//tools/build_rules:aoc.bzl", "advent_of_code_binary")
 load("@rules_scala//scala:scala.bzl", "scala_library")
+load("//tools/build_rules:aoc.bzl", "advent_of_code_binary")
 
 scala_library(
     name = "aoc2023",
-    srcs = glob(["*.scala"], exclude=["Day6.scala", "Day9.scala", "Day10.scala", "Day11.scala", "Day12.scala", "Day13.scala"]),
+    srcs = glob(["*.scala"]),
+    visibility = [
+        "//visibility:public",
+    ],
     deps = [
         "//src/main/scala/aoc",
         "@maven//:com_github_ben_manes_caffeine_caffeine",
@@ -15,21 +18,14 @@ scala_library(
         "@maven//:com_twitter_util_core_2_13",
         "@maven//:com_twitter_util_slf4j_api_2_13",
         "@maven//:com_twitter_util_slf4j_jul_bridge_2_13",
+        "@maven//:io_opentelemetry_opentelemetry_api",
+        "@maven//:io_opentelemetry_opentelemetry_context",
+        "@maven//:org_scala_lang_modules_scala_parallel_collections_2_13",
         "@maven//:org_slf4j_slf4j_api",
     ],
-    visibility = [
-        "//visibility:public",
-    ],
-    resources = [
-        "//src/main/resources/aoc2023:day1.input",
-        "//src/main/resources/aoc2023:day2.input",
-        "//src/main/resources/aoc2023:day3.input",
-        "//src/main/resources/aoc2023:day4.input",
-        "//src/main/resources/aoc2023:day5.input",
-        "//src/main/resources/aoc2023:day8.input",
-    ]
 )
 
 [
-    advent_of_code_binary(2023, day) for day in [6,7,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
+    advent_of_code_binary(2023, day)
+    for day in range(1, 26)
 ]

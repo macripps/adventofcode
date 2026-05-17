@@ -82,3 +82,30 @@ maven.install(
 )
 
 use_repo(maven, "maven", "unpinned_maven")
+
+aoc_inputs = use_extension("//tools/build_rules:aoc_inputs.bzl", "aoc_inputs_ext")
+aoc_inputs.year(year = 2015, days = list(range(1, 26)))
+aoc_inputs.year(year = 2016, days = list(range(1, 26)))
+aoc_inputs.year(year = 2017, days = list(range(1, 26)))
+aoc_inputs.year(year = 2018, days = list(range(1, 18)))
+aoc_inputs.year(year = 2019, days = list(range(1, 9)))
+aoc_inputs.year(year = 2020, days = list(range(1, 26)))
+aoc_inputs.year(year = 2021, days = list(range(1, 26)))
+aoc_inputs.year(year = 2022, days = list(range(1, 26)))
+aoc_inputs.year(year = 2023, days = list(range(1, 26)))
+aoc_inputs.year(year = 2024, days = list(range(1, 26)))
+aoc_inputs.year(year = 2025, days = list(range(1, 13)))
+use_repo(
+    aoc_inputs,
+    "aoc_inputs_2015",
+    "aoc_inputs_2016",
+    "aoc_inputs_2017",
+    "aoc_inputs_2018",
+    "aoc_inputs_2019",
+    "aoc_inputs_2020",
+    "aoc_inputs_2021",
+    "aoc_inputs_2022",
+    "aoc_inputs_2023",
+    "aoc_inputs_2024",
+    "aoc_inputs_2025",
+)

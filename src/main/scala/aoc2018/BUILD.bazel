@@ -25,6 +25,6 @@ scala_library(
 )
 
 [
-    advent_of_code_binary(2018, day, resources = [])
+    advent_of_code_binary(2018, day)
     for day in range(1, 18)
 ]

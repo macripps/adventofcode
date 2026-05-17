@@ -36,7 +36,7 @@ abstract class NewDay(year: Int, day: Int) extends App with AdventDSL {
   override def run(): Unit = {
     trace(s"${year}.${day}") {
       val input = trace("parse_input") {
-        readFileToIterable("aoc" + year + "/day" + day + ".input").toArray
+        readFileToIterable("day" + day + ".input").toArray
       }
 
       trace("part_1") {

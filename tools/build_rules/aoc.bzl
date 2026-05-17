@@ -13,6 +13,6 @@ def advent_of_code_binary(year, day, resources = None):
         },
 #        data = ["@z3//:dylib"],
         resources = resources if resources != None else [
-            "//src/main/resources/aoc%s:day%s.input" % (year, day),
+            "@aoc_inputs_%s//:day%s.input" % (year, day),
         ],
     )
