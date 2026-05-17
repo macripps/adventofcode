@@ -33,6 +33,11 @@ abstract class NewDay(year: Int, day: Int) extends App with AdventDSL {
       .buildAndRegisterGlobal()
   }
 
+  override private[aoc] def runTestCase(part: Int, inputs: Array[String]): Any = {
+    parseArgs(Array.empty)
+    debug.let(true) { executes(part)(inputs) }
+  }
+
   override def run(): Unit = {
     trace(s"${year}.${day}") {
       val input = trace("parse_input") {

@@ -65,6 +65,8 @@ private[aoc] trait AdventDSL extends AdventState {
     addExecute(t)
   }
 
+  private[aoc] def runTestCase(part: Int, inputs: Array[String]): Any = executes(part)(inputs)
+
 
   private[aoc] def contextWrapper[T](f: => T): T = {
     f

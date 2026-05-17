@@ -16,6 +16,7 @@ scala_deps = use_extension(
     "scala_deps",
 )
 scala_deps.scala()
+scala_deps.scalatest()
 
 scala_protoc = use_extension(
     "@rules_scala//scala/extensions:protoc.bzl",
@@ -28,6 +29,8 @@ register_toolchains(
     "@rules_scala_protoc_toolchains//...:all",
     dev_dependency = True,
 )
+
+register_toolchains("@rules_scala//testing:scalatest_toolchain")
 
 bazel_dep(
     name = "protobuf",
@@ -69,6 +72,7 @@ maven.install(
         "io.zipkin.finagle2:zipkin-finagle_2.13:22.4.0",
         "io.zipkin.finagle2:zipkin-finagle-http_2.13:22.4.0",
         "org.scala-lang.modules:scala-parallel-collections_2.13:1.1.0",
+        "org.scalatest:scalatest_2.13:3.2.15",
         "org.slf4j:slf4j-api:2.0.9",
         "org.typelevel:spire_2.13:0.18.0",
         "tools.aqua:z3-turnkey:4.14.1"

@@ -1,5 +1,5 @@
 {
-  "lockFileVersion": 24,
+  "lockFileVersion": 18,
   "registryFileHashes": {
     "https://bcr.bazel.build/bazel_registry.json": "8a28e4aff06ee60aed2a8c281907fb8bcbf3b753c91fb5a5c57da3215d5b3497",
     "https://bcr.bazel.build/modules/abseil-cpp/20230125.1/MODULE.bazel": "89047429cb0207707b2dface14ba7f8df85273d484c2572755be4bab7ce9c3a0",
@@ -217,9 +217,348 @@
   },
   "selectedYankedVersions": {},
   "moduleExtensions": {
+    "//tools/build_rules:aoc_inputs.bzl%aoc_inputs_ext": {
+      "general": {
+        "bzlTransitiveDigest": "D9RdLrIHGOtCixRn61CZ3KGblmG8bZak4Qz8bda3vOQ=",
+        "usagesDigest": "u7phh5Vgdai7bw4fxEX6MfR6QH7ukgOMct58jmf4ZWw=",
+        "recordedFileInputs": {},
+        "recordedDirentsInputs": {},
+        "envVariables": {
+          "AOC_SESSION": null
+        },
+        "generatedRepoSpecs": {
+          "aoc_inputs_2015": {
+            "repoRuleId": "@@//tools/build_rules:aoc_inputs.bzl%_aoc_year_inputs",
+            "attributes": {
+              "year": 2015,
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25
+              ]
+            }
+          },
+          "aoc_inputs_2016": {
+            "repoRuleId": "@@//tools/build_rules:aoc_inputs.bzl%_aoc_year_inputs",
+            "attributes": {
+              "year": 2016,
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25
+              ]
+            }
+          },
+          "aoc_inputs_2017": {
+            "repoRuleId": "@@//tools/build_rules:aoc_inputs.bzl%_aoc_year_inputs",
+            "attributes": {
+              "year": 2017,
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25
+              ]
+            }
+          },
+          "aoc_inputs_2018": {
+            "repoRuleId": "@@//tools/build_rules:aoc_inputs.bzl%_aoc_year_inputs",
+            "attributes": {
+              "year": 2018,
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17
+              ]
+            }
+          },
+          "aoc_inputs_2019": {
+            "repoRuleId": "@@//tools/build_rules:aoc_inputs.bzl%_aoc_year_inputs",
+            "attributes": {
+              "year": 2019,
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ]
+            }
+          },
+          "aoc_inputs_2020": {
+            "repoRuleId": "@@//tools/build_rules:aoc_inputs.bzl%_aoc_year_inputs",
+            "attributes": {
+              "year": 2020,
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25
+              ]
+            }
+          },
+          "aoc_inputs_2021": {
+            "repoRuleId": "@@//tools/build_rules:aoc_inputs.bzl%_aoc_year_inputs",
+            "attributes": {
+              "year": 2021,
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25
+              ]
+            }
+          },
+          "aoc_inputs_2022": {
+            "repoRuleId": "@@//tools/build_rules:aoc_inputs.bzl%_aoc_year_inputs",
+            "attributes": {
+              "year": 2022,
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25
+              ]
+            }
+          },
+          "aoc_inputs_2023": {
+            "repoRuleId": "@@//tools/build_rules:aoc_inputs.bzl%_aoc_year_inputs",
+            "attributes": {
+              "year": 2023,
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25
+              ]
+            }
+          },
+          "aoc_inputs_2024": {
+            "repoRuleId": "@@//tools/build_rules:aoc_inputs.bzl%_aoc_year_inputs",
+            "attributes": {
+              "year": 2024,
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25
+              ]
+            }
+          },
+          "aoc_inputs_2025": {
+            "repoRuleId": "@@//tools/build_rules:aoc_inputs.bzl%_aoc_year_inputs",
+            "attributes": {
+              "year": 2025,
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ]
+            }
+          }
+        },
+        "recordedRepoMappingEntries": []
+      }
+    },
     "@@rules_buf+//buf:extensions.bzl%ext": {
       "general": {
-        "bzlTransitiveDigest": "m6JhnDQjtv1Gv36qXoZpNqTHIQN6fD/+MYRZa5Mtr48=",
+        "bzlTransitiveDigest": "SDu9W4CQUvGE9A6LTAEbu5g75w34Inmz0/AX9wecDv4=",
         "usagesDigest": "RTc2BMQ2b0wGU8CRvN3EoPz34m3LMe+K/oSkFkN83+M=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -243,7 +582,7 @@
     },
     "@@rules_go+//go:extensions.bzl%go_sdk": {
       "general": {
-        "bzlTransitiveDigest": "5iLGJKfQrhMPb+JRHk84G3ZlVrQbobuCFGqyaybSwQ0=",
+        "bzlTransitiveDigest": "SLgja/3zgS0SnRcsdHfQ8YfmP/nmv1nIPCqVEXPNrzw=",
         "usagesDigest": "G0DymwAVABR+Olml5OAfLhVRqUVCU372GHdSQxQ1PJw=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -296,7 +635,7 @@
     },
     "@@rules_kotlin+//src/main/starlark/core/repositories:bzlmod_setup.bzl%rules_kotlin_extensions": {
       "general": {
-        "bzlTransitiveDigest": "rL/34P1aFDq2GqVC2zCFgQ8nTuOC6ziogocpvG50Qz8=",
+        "bzlTransitiveDigest": "OlvsB0HsvxbR8ZN+J9Vf00X/+WVz/Y/5Xrq2LgcVfdo=",
         "usagesDigest": "QI2z8ZUR+mqtbwsf2fLqYdJAkPOHdOV+tF2yVAUgRzw=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -360,7 +699,7 @@
     },
     "@@rules_nodejs+//nodejs:extensions.bzl%node": {
       "general": {
-        "bzlTransitiveDigest": "2bC8rE0AEVAUF4rZX0LhBmh7c8h5fM95m0QYL46dLew=",
+        "bzlTransitiveDigest": "PlbDlTkTjipL4rJTSM7NFGKQWgR5KMJGAfophD4adeo=",
         "usagesDigest": "CtwJeycIo1YVyKAUrO/7bkpB6yqctQd8XUnRtqUbwRI=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -450,7 +789,7 @@
     },
     "@@rules_rust+//rust:extensions.bzl%rust": {
       "general": {
-        "bzlTransitiveDigest": "5nLL8WxUS0KnqViY6RUdfiA6kG7DZFNnrK+S4yMYShU=",
+        "bzlTransitiveDigest": "UtZ+y6ATuT87s0MwKEyLbXevCeg7kDlKCczsw0npWFw=",
         "usagesDigest": "ozx08ZbgRXTJw0zCaO/xtMUzgGLvwaQkZGnUo6tlyHM=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -3492,6 +3831,5 @@
         "recordedRepoMappingEntries": []
       }
     }
-  },
-  "facts": {}
+  }
 }
